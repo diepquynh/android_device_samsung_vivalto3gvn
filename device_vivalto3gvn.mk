@@ -121,10 +121,14 @@ PRODUCT_PACKAGES += \
 #	libwebviewchromium_loader.so \
 #	libwebviewchromium_plat_support.so
 
-# Commom libraries
+# Common libraries
 # XXX Need to clone android_external_stlport into external/stlport
 PRODUCT_PACKAGES += \
 	libstlport
+
+# Shim libraries
+PRODUCT_PACKAGES += \
+	libril_shim
 
 # Wifi
 PRODUCT_PACKAGES += \

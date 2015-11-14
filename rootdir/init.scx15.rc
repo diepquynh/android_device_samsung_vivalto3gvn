@@ -16,7 +16,7 @@ on early-init
 
 on init
     mkdir /productinfo 0771 system system
-    #export LD_SHIM_LIBS /system/lib/libc++.so|libstlport.so
+    export LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so
 
 on fs
     mount_all /fstab.scx15
