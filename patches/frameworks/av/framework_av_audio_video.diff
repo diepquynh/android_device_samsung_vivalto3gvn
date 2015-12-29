@@ -1,0 +1,102 @@
+From b57e8dacd3ad7ca9d8ab67446dc3f9a247174725 Mon Sep 17 00:00:00 2001
+From: Pawit Pornkitprasan <p.pawit@gmail.com>
+Date: Fri, 13 Dec 2013 21:37:01 +0700
+Subject: [PATCH 1/3] AudioMixer: fix artifact on 2 short sounds
+
+On the I9082, when 2 short sounds are played simultaneously, there will be artifact
+on the speaker due to the buffer not being cleared.
+
+Change-Id: I8a325175e8e326a638c7f29987ae272ae8af6b66
+---
+ services/audioflinger/AudioMixer.cpp | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/services/audioflinger/AudioMixer.cpp b/services/audioflinger/AudioMixer.cpp
+index 95f7381..5f80165 100644
+--- a/services/audioflinger/AudioMixer.cpp
++++ b/services/audioflinger/AudioMixer.cpp
+@@ -1128,8 +1128,13 @@ void AudioMixer::process__genericNoResampling(state_t* state, int64_t pts)
+         t.in = t.buffer.raw;
+         // t.in == NULL can happen if the track was flushed just after having
+         // been enabled for mixing.
+-        if (t.in == NULL)
++        if (t.in == NULL) {
+             enabledTracks &= ~(1<<i);
++
++            // We need to clear buffer here or there will be strange artifact
++            // on I9082's speaker
++            memset(t.mainBuffer, 0, sizeof(int16_t) * MAX_NUM_CHANNELS * state->frameCount);
++        }
+     }
+ 
+     e0 = enabledTracks;
+-- 
+1.8.3.4 (Apple Git-47)
+
+
+From 0adf8dfc02fc982ae89e794ee9216f2149e9634e Mon Sep 17 00:00:00 2001
+From: Pawit Pornkitprasan <p.pawit@gmail.com>
+Date: Tue, 17 Dec 2013 13:15:52 +0700
+Subject: [PATCH 2/3] OMXCodec: set default input buffer size
+
+Broadcom OMX only set the buffer size to 65536 by default which
+is not enough for higher bitrate video
+
+Change-Id: I74372f3d821e41feb38b9bc0cca4ef56aa019493
+---
+ media/libstagefright/OMXCodec.cpp | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/media/libstagefright/OMXCodec.cpp b/media/libstagefright/OMXCodec.cpp
+index fa4643f..02c45b5 100644
+--- a/media/libstagefright/OMXCodec.cpp
++++ b/media/libstagefright/OMXCodec.cpp
+@@ -801,6 +801,18 @@ status_t OMXCodec::configureCodec(const sp<MetaData> &meta) {
+     if (meta->findInt32(kKeyMaxInputSize, &maxInputSize)) {
+         setMinBufferSize(kPortIndexInput, (OMX_U32)maxInputSize);
+     }
++// SCX15's OMX fail to set a reasonable default size from width and height
++#ifdef SCX15_HWC
++    else {
++        int32_t width;
++        int32_t height;
++        if (meta->findInt32(kKeyWidth, &width) && meta->findInt32(kKeyHeight, &height)) {
++            setMinBufferSize(kPortIndexInput, (width * height * 3) / 2);
++        } else {
++            ALOGE("Failed to set min buffer size");
++        }
++    }
++#endif
+ 
+     initOutputFormat(meta);
+ 
+-- 
+1.8.3.4 (Apple Git-47)
+
+
+From 3a374db88238ae39b0a38498f49f8327870edc90 Mon Sep 17 00:00:00 2001
+From: Pawit Pornkitprasan <p.pawit@gmail.com>
+Date: Mon, 23 Dec 2013 18:41:44 +0700
+Subject: [PATCH 3/3] OMXCodec: set default input buffer size only for BCM
+ decoder
+
+Change-Id: Ic554343069b47a4b66ea9e8daee684d4923ecd98
+---
+ media/libstagefright/OMXCodec.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/media/libstagefright/OMXCodec.cpp b/media/libstagefright/OMXCodec.cpp
+index 02c45b5..5d48f39 100644
+--- a/media/libstagefright/OMXCodec.cpp
++++ b/media/libstagefright/OMXCodec.cpp
+@@ -803,7 +803,7 @@ status_t OMXCodec::configureCodec(const sp<MetaData> &meta) {
+     }
+ // SCX15's OMX fail to set a reasonable default size from width and height
+ #ifdef SCX15_HWC
+-    else {
++    else if (!strncmp(mComponentName, "OMX.BRCM.vc4.decoder.", 21)) {
+         int32_t width;
+         int32_t height;
+         if (meta->findInt32(kKeyWidth, &width) && meta->findInt32(kKeyHeight, &height)) {
+-- 
+1.8.3.4 (Apple Git-47)
