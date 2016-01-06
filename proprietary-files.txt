@@ -20,6 +20,7 @@ lib/hw/sprd_gsp.scx15.so
 lib/hw/gralloc.scx15.so
 lib/hw/hwcomposer.scx15.so
 lib/libaudiosa.so
+lib/libomafldrm.so
 lib/libsamsungearcare.so
 lib/libsamsungeffect.so
 lib/libSamsungPkcs11Wrapper.so
