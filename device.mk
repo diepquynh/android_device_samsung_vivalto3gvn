@@ -61,6 +61,10 @@ PRODUCT_PACKAGES += \
 	Dialer \
 	Mms
 
+# mali
+PRODUCT_PACKAGES += \
+	mali.ko
+
 # sprd HAL modules
 PRODUCT_PACKAGES += \
 	lights.scx15 \
