@@ -19,7 +19,7 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/vivalto3gvn/vivalto3gvn-vendor.mk)
 
-#DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # This device is hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -64,6 +64,10 @@ PRODUCT_PACKAGES += \
 # mali
 PRODUCT_PACKAGES += \
 	mali.ko
+
+# Torch
+PRODUCT_PACKAGES += \
+    Torch
 
 # sprd HAL modules
 PRODUCT_PACKAGES += \
