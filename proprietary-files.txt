@@ -43,7 +43,6 @@ lib/lib_soundaliveresampler.so
 lib/lib_SoundAlive_SRC192_ver205.so
 lib/lib_SoundAlive_ver118t.so
 lib/libusbhost.so
-lib/libMali.so
 lib/libomx_aacdec_sprd.so
 lib/libomx_avcdec_hw_sprd.so
 lib/libomx_avcdec_sw_sprd.so
@@ -54,8 +53,6 @@ lib/libomx_m4vh263enc_hw_sprd.so
 lib/libomx_mp3dec_sprd.so
 lib/libomx_vpxdec_hw_sprd.so
 lib/libreference-ril_sp.so
-lib/egl/libGLES_android.so
-#lib/modules/mali.ko
 lib/libomx_avcenc_hw_sprd.so
 lib/libisp.so
 lib/libmorpho_facesolid.so
