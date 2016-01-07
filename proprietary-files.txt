@@ -37,6 +37,7 @@ lib/libcutils.so
 lib/libatparser.so
 lib/libseccameracore.so
 lib/libseccamera_jni.so
+lib/libomafldrm.so
 lib/libtinyalsa.so
 lib/libvbeffect.so
 lib/libnvexchange.so
