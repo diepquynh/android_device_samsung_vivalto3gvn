@@ -108,8 +108,7 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_CONFIG := vivalto3g-native_hw04_defconfig
-TARGET_KERNEL_SOURCE := ../kernel/samsung/vivalto3gvn
-TARGET_PREBUILT_KERNEL := device/samsung/vivalto3gvn/prebuilt/kernel
+TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 
 # Recovery
 BOARD_HAS_NO_REAL_SDCARD := true
