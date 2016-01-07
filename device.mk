@@ -71,6 +71,10 @@ PRODUCT_PACKAGES += \
 	audio_policy.scx15 \
 	hwcomposer.scx15
 
+# Mali GPU driver
+PRODUCT_PACKAGES += \
+	 mali.ko
+
 # General config
 PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl \
