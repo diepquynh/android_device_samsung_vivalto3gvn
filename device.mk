@@ -19,7 +19,7 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/vivalto3gvn/vivalto3gvn-vendor.mk)
 
-#DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # This device is hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -71,9 +71,16 @@ PRODUCT_PACKAGES += \
 	audio_policy.scx15 \
 	hwcomposer.scx15
 
+# Mali GPU driver
+PRODUCT_PACKAGES += \
+	 mali.ko
+
+# Torch
+PRODUCT_PACKAGES += \
+	Torch
+
 # General config
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl \
 	device/samsung/vivalto3gvn/media_codecs.xml:system/etc/media_codecs.xml \
 	device/samsung/vivalto3gvn/media_profiles.xml:system/etc/media_profiles.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -100,7 +107,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
     ro.adb.secure=0 \
     ro.debuggable=1 \
-    persist.service.adb.enable=1 \
+    persist.service.adb.enable=1
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_vivalto3gvn
