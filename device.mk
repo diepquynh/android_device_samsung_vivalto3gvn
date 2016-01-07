@@ -83,6 +83,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/media_codecs.xml:system/etc/media_codecs.xml \
 	device/samsung/vivalto3gvn/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/vivalto3gvn/permissions/platform.xml:system/etc/permissions/platform.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
 	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \

@@ -18,7 +18,8 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/keylayouts/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl
+	device/samsung/vivalto3gvn/keylayouts/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl \
+	device/samsung/vivalto3gvn/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl
 
 # board-specific files
 PRODUCT_COPY_FILES += \
