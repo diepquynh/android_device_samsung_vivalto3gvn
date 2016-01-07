@@ -37,6 +37,13 @@ lib/libcutils.so
 lib/libatparser.so
 lib/libseccameracore.so
 lib/libseccamera_jni.so
+lib/libomafldrm.so
+lib/libtinyalsa.so
+lib/libvbeffect.so
+lib/libnvexchange.so
+lib/libvbpga.so
+lib/libdumpdata.so
+lib/libatchannel.so
 lib/libsonivox.so
 lib/libsoundalive.so
 lib/lib_soundaliveresampler.so
@@ -70,7 +77,7 @@ lib/libstagefright_soft_mjpgdec.so
 lib/libstagefright_soft_imaadpcmdec.so
 lib/libstagefright_sprd_aacdec.so
 lib/libstagefright_sprd_mp3dec.so
-lib/libstagefright_sprd_apedec.so
+#lib/libstagefright_sprd_apedec.so
 lib/libomx_vpxdec_hw_sprd.so
 lib/libMali.so
 lib/libion.so
@@ -79,6 +86,7 @@ lib/egl/libEGL_mali.so
 lib/egl/libGLESv1_CM_mali.so
 lib/egl/libGLESv2_mali.so
 lib/libsecril-client.so
+vendor/lib/hw/lights.scx15.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/mediadrm/libwvdrmengine.so
