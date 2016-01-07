@@ -37,6 +37,12 @@ lib/libcutils.so
 lib/libatparser.so
 lib/libseccameracore.so
 lib/libseccamera_jni.so
+lib/libtinyalsa.so
+lib/libvbeffect.so
+lib/libnvexchange.so
+lib/libvbpga.so
+lib/libdumpdata.so
+lib/libatchannel.so
 lib/libsonivox.so
 lib/libsoundalive.so
 lib/lib_soundaliveresampler.so
