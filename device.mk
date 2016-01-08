@@ -61,16 +61,6 @@ PRODUCT_PACKAGES += \
 	Dialer \
 	Mms
 
-# sprd HAL modules
-PRODUCT_PACKAGES += \
-	lights.scx15 \
-	gralloc.scx15 \
-	camera.scx15 \
-	camera2.scx15 \
-	audio.primary.scx15 \
-	audio_policy.scx15 \
-	hwcomposer.scx15
-
 # Mali GPU driver
 PRODUCT_PACKAGES += \
 	 mali.ko
@@ -78,6 +68,12 @@ PRODUCT_PACKAGES += \
 # Torch
 PRODUCT_PACKAGES += \
 	Torch
+
+# Dual-sim
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.telephony.ril_class=SamsungSPRDRIL \
+	ro.zygote.disable_gl_preload=true \
+	persist.radio.multisim.config=dsds
 
 # General config
 PRODUCT_COPY_FILES += \

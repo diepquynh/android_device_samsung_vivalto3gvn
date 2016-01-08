@@ -142,6 +142,14 @@ BOARD_SEPOLICY_UNION := \
        untrusted_app.te \
        vold.te \
        zygote.te
+       
+# Enable dex-preoptimization to speed up the first boot sequence
+# of an SDK AVD. Note that this operation only works on Linux for now
+ifeq ($(HOST_OS),linux)
+  ifeq ($(WITH_DEXPREOPT),)
+    WITH_DEXPREOPT := true
+  endif
+endif
 
 # TWRP
 #RECOVERY_SDCARD_ON_DATA := true

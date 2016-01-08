@@ -4,13 +4,17 @@ bin/bmgr
 bin/macloader
 bin/npsmobex
 bin/rild
+bin/modemd
+bin/nvitemd
 bin/phoneserver
 etc/audio_policy.conf
 etc/gps.conf
 etc/media_profiles.xml
 etc/wifi/bcmdhd_apsta.bin
 etc/wifi/bcmdhd_sta.bin
+etc/wifi/bcmdhd_mfg.bin
 etc/wifi/nvram_net.txt
+etc/wifi/nvram_mfg.txt
 etc/wifi/wpa_supplicant.conf
 lib/hw/audio.primary.scx15.so
 lib/hw/camera.scx15.so
@@ -77,7 +81,6 @@ lib/libstagefright_soft_mjpgdec.so
 lib/libstagefright_soft_imaadpcmdec.so
 lib/libstagefright_sprd_aacdec.so
 lib/libstagefright_sprd_mp3dec.so
-#lib/libstagefright_sprd_apedec.so
 lib/libomx_vpxdec_hw_sprd.so
 lib/libMali.so
 lib/libion.so
@@ -90,3 +93,4 @@ vendor/lib/hw/lights.scx15.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/mediadrm/libwvdrmengine.so
+vendor/firmware/BCM4343A0_001.001.034.0038.0090_ORC_Vivalto-3G_3MC.hcd
