@@ -80,10 +80,10 @@ PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 # Dual-sim
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.ril_class=SamsungSPRDRIL \
-	ro.zygote.disable_gl_preload=true \
-	persist.radio.multisim.config=dsds
+#PRODUCT_PROPERTY_OVERRIDES += \
+#	ro.telephony.ril_class=SamsungSPRDRIL \
+#	ro.zygote.disable_gl_preload=true \
+#	persist.radio.multisim.config=dsds
 
 # General config
 PRODUCT_COPY_FILES += \

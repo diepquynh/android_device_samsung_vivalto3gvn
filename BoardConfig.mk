@@ -40,6 +40,9 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
+# RIL
+#BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
+
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/vivalto3gvn/bluetooth
 BOARD_HAVE_BLUETOOTH := true

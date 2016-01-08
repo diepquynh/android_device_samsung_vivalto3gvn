@@ -50,17 +50,17 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL, result);
 
-        rr.mp.writeString(address);
-        rr.mp.writeInt(clirMode);
-        rr.mp.writeInt(0); // UUS information is absent: Samsung SPRD compat
+        rr.mParcel.writeString(address);
+        rr.mParcel.writeInt(clirMode);
+        rr.mParcel.writeInt(0); // UUS information is absent: Samsung SPRD compat
 
         if (uusInfo == null) {
-            rr.mp.writeInt(0); // UUS information is absent
+            rr.mParcel.writeInt(0); // UUS information is absent
         } else {
-            rr.mp.writeInt(1); // UUS information is present
-            rr.mp.writeInt(uusInfo.getType());
-            rr.mp.writeInt(uusInfo.getDcs());
-            rr.mp.writeByteArray(uusInfo.getUserData());
+            rr.mParcel.writeInt(1); // UUS information is present
+            rr.mParcel.writeInt(uusInfo.getType());
+            rr.mParcel.writeInt(uusInfo.getDcs());
+            rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
@@ -90,7 +90,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 	
     }
 
-    protected void
+    protected RILRequest
     processSolicited (Parcel p) {
         int serial, error;
         boolean found = false;
@@ -105,7 +105,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         if (rr == null) {
             Log.w(LOG_TAG, "Unexpected solicited response! sn: "
                             + serial + " error: " + error);
-            return;
+            return null;
         }
 
         Object ret = null;
@@ -125,7 +125,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_ENTER_SIM_PUK2: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN2: ret =  responseInts(p); break;
-            case RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION: ret =  responseInts(p); break;
+            case RIL_REQUEST_ENTER_DEPERSONALIZATION_CODE: ret =  responseInts(p); break;
             case RIL_REQUEST_GET_CURRENT_CALLS: ret =  responseCallList(p); break;
             case RIL_REQUEST_DIAL: ret =  responseVoid(p); break;
             case RIL_REQUEST_GET_IMSI: ret =  responseString(p); break;
@@ -249,8 +249,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
                     AsyncResult.forMessage(rr.mResult, null, tr);
                     rr.mResult.sendToTarget();
                 }
-                rr.release();
-                return;
+                return rr;
             }
         }
 
@@ -278,8 +277,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
         if (error != 0) {
             rr.onError(error, ret);
-            rr.release();
-            return;
+            return rr;
         }
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
@@ -290,7 +288,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             rr.mResult.sendToTarget();
         }
 
-        rr.release();
+        return rr;
     }
 
     @Override
