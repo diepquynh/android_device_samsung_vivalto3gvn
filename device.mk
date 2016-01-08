@@ -36,6 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Init files
 PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/ramdisk/init.board.rc:root/init.board.rc \
 	$(LOCAL_PATH)/ramdisk/init.scx15_ss.rc:root/init.scx15_ss.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc:root/init.vivalto3gvn.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn_base.rc:root/init.vivalto3gvn_base.rc \
@@ -54,7 +55,7 @@ PRODUCT_COPY_FILES += \
 # - helps pass CTS com.squareup.okhttp.internal.spdy.Spdy3Test#tooLargeDataFrame)
 # (property override must come before included property)
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=56m \
+    dalvik.vm.heapgrowthlimit=56m
 
 # sprd telephony
 PRODUCT_PACKAGES += \
