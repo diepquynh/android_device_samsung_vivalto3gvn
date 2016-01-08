@@ -61,16 +61,6 @@ PRODUCT_PACKAGES += \
 	Dialer \
 	Mms
 
-# sprd HAL modules
-PRODUCT_PACKAGES += \
-	lights.scx15 \
-	gralloc.scx15 \
-	camera.scx15 \
-	camera2.scx15 \
-	audio.primary.scx15 \
-	audio_policy.scx15 \
-	hwcomposer.scx15
-
 # Mali GPU driver
 PRODUCT_PACKAGES += \
 	 mali.ko
