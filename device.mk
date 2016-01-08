@@ -73,6 +73,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	bt_vendor.conf
 
+# WiFi
+PRODUCT_COPY_FILES += \
+	device/samsung/vivalto3gvn/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
 # Dual-sim
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.ril_class=SamsungSPRDRIL \
