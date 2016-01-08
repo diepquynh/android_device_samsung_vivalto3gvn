@@ -69,6 +69,9 @@ PRODUCT_PACKAGES += \
 # Torch
 PRODUCT_PACKAGES += \
 	Torch
+# Bluetooth
+PRODUCT_PACKAGES += \
+	bt_vendor.conf
 
 # Dual-sim
 PRODUCT_PROPERTY_OVERRIDES += \
