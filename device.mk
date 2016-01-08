@@ -75,6 +75,11 @@ PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	bt_vendor.conf
 
+# Audio
+PRODUCT_PACKAGES += \
+	audio.r_submix.default \
+	audio.usb.default
+
 # WiFi
 PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
