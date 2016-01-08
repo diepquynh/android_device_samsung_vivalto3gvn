@@ -4,6 +4,8 @@ bin/bmgr
 bin/macloader
 bin/npsmobex
 bin/rild
+bin/modemd
+bin/nvitemd
 bin/phoneserver
 etc/audio_policy.conf
 etc/gps.conf
