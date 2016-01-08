@@ -69,6 +69,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	Torch
 
+# Dual-sim
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.telephony.ril_class=SamsungBCMRIL \
+	ro.zygote.disable_gl_preload=true \
+	persist.radio.multisim.config=dsds
+
 # General config
 PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/media_codecs.xml:system/etc/media_codecs.xml \
