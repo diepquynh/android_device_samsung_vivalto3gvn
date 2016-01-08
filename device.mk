@@ -71,6 +71,8 @@ PRODUCT_PACKAGES += \
 	Torch
 # Bluetooth
 PRODUCT_PACKAGES += \
+	bluetooth.default \
+	audio.a2dp.default \
 	bt_vendor.conf
 
 # WiFi
