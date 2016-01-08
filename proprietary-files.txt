@@ -10,7 +10,9 @@ etc/gps.conf
 etc/media_profiles.xml
 etc/wifi/bcmdhd_apsta.bin
 etc/wifi/bcmdhd_sta.bin
+etc/wifi/bcmdhd_mfg.bin
 etc/wifi/nvram_net.txt
+etc/wifi/nvram_mfg.txt
 etc/wifi/wpa_supplicant.conf
 lib/hw/audio.primary.scx15.so
 lib/hw/camera.scx15.so
