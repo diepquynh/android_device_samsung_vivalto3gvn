@@ -77,7 +77,6 @@ lib/libstagefright_soft_mjpgdec.so
 lib/libstagefright_soft_imaadpcmdec.so
 lib/libstagefright_sprd_aacdec.so
 lib/libstagefright_sprd_mp3dec.so
-#lib/libstagefright_sprd_apedec.so
 lib/libomx_vpxdec_hw_sprd.so
 lib/libMali.so
 lib/libion.so
