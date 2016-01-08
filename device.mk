@@ -71,7 +71,7 @@ PRODUCT_PACKAGES += \
 
 # Dual-sim
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.ril_class=SamsungBCMRIL \
+	ro.telephony.ril_class=SamsungSPRDRIL \
 	ro.zygote.disable_gl_preload=true \
 	persist.radio.multisim.config=dsds
 
