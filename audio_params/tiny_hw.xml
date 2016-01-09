@@ -71,6 +71,10 @@
   <func name="HeadPhone Mute" val="0" />
 </private>
 
+<private name="fm mute">
+<func name="Headphone Internal Mute" val="0" />
+</private>
+
 <private name="Aud Loop in VBC Switch">
   <func name="Aud Loop in VBC Switch" val="0" />
 </private>
@@ -111,6 +115,7 @@
      <ctl name="ADCL Mixer HPMICADCL Switch" val="1" />
      <ctl name="ADCR Mixer HPMICADCR Switch" val="1" />
      <ctl name="HP Mic Function" val="1" />
+     <ctl name="Headmic Bypass" val="1" />     
   </path>
   <path name="off">
      <ctl name="HP Mic Function" val="0" />
@@ -143,25 +148,21 @@
 
 <device name="line">
   <path name="on">
-     <ctl name="ADCL Mixer AILADCL Switch" val="1" />
-     <ctl name="ADCR Mixer AIRADCR Switch" val="1" />
-     <ctl name="Line Function" val="1" />
+	<ctl name="ADCL Mixer AILADCL Switch" val="1" />
+	<ctl name="ADCR Mixer AIRADCR Switch" val="1" />
+	<ctl name="Line Function" val="1" />
   </path>
   <path name="off">
-     <ctl name="Line Function" val="0" />
-     <ctl name="ADCL Mixer AILADCL Switch" val="0" />
-     <ctl name="ADCR Mixer AIRADCR Switch" val="0" />
+	<ctl name="Line Function" val="0" />
+	<ctl name="ADCL Mixer AILADCL Switch" val="0" />
+	<ctl name="ADCR Mixer AIRADCR Switch" val="0" />
   </path>
 </device>
 
-<device name="digital-fm">
+<device name="linein-capture">
   <path name="on">
-     <ctl name="Digital FM Function" val="1" />
-     <ctl name="AD IISMUX" val="1" />
   </path>
   <path name="off">
-     <ctl name="Digital FM Function" val="0" />
-     <ctl name="AD IISMUX" val="0" />
   </path>
 </device>
 

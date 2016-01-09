@@ -137,7 +137,6 @@
 	<pga name="MIC Boost" bit="6" />
 	<pga name="AUXMIC Boost" bit="6" />
 	<pga name="HEADMIC Boost" bit="6" />
-	<pga name="Linein Boost" bit="6" />
 	<pga name="VBC ADCL DG Set" bit="8" />
 	<pga name="VBC ADCL DG Switch" bit="15" />
 </profile>
@@ -147,7 +146,6 @@
 	<pga name="MIC Boost" bit="6" />
 	<pga name="AUXMIC Boost" bit="6" />
 	<pga name="HEADMIC Boost" bit="6" />
-	<pga name="Linein Boost" bit="6" />
 	<pga name="VBC ADCR DG Set" bit="8" />
 	<pga name="VBC ADCR DG Switch" bit="15" />
 </profile>
@@ -157,7 +155,6 @@
 	<pga name="MIC Boost" bit="6" />
 	<pga name="AUXMIC Boost" bit="6" />
 	<pga name="HEADMIC Boost" bit="6" />
-	<pga name="Linein Boost" bit="6" />
 	<pga name="VBC ADCL DG Set" bit="8" />
 	<pga name="VBC ADCL DG Switch" bit="15" />
 </profile>
@@ -167,7 +164,6 @@
 	<pga name="MIC Boost" bit="6" />
 	<pga name="AUXMIC Boost" bit="6" />
 	<pga name="HEADMIC Boost" bit="6" />
-	<pga name="Linein Boost" bit="6" />
 	<pga name="VBC ADCR DG Set" bit="8" />
 	<pga name="VBC ADCR DG Switch" bit="15" />
 </profile>

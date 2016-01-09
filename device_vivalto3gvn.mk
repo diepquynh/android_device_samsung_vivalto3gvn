@@ -23,12 +23,11 @@ PRODUCT_COPY_FILES += \
 
 # board-specific files
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/ramdisk/init.board.rc:root/init.board.rc \
 	device/samsung/vivalto3gvn/audio_params/tiny_hw.xml:system/etc/tiny_hw.xml \
 	device/samsung/vivalto3gvn/audio_params/codec_pga.xml:system/etc/codec_pga.xml \
 	device/samsung/vivalto3gvn/audio_params/audio_hw.xml:system/etc/audio_hw.xml \
 	device/samsung/vivalto3gvn/audio_params/audio_para:system/etc/audio_para \
-	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf \
+	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \

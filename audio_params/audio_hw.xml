@@ -22,7 +22,7 @@
 		ap_bt_ctl_file="/proc/pin_switch/bt_iis_sys_sel/ap_iis0"
 />
 
-<i2s_for_extspeaker index="1" switch="0" dst="external" cp0_ctl_file="/d/pin_switch/iis-1" cp1_ctl_file="/d/pin_switch/iis-1"  cp2_ctl_file="/d/pin_switch/iis-1" ap_ctl_file="/d/pin_switch/iis-1" />
+<i2s_for_extspeaker index="1" switch="0" dst="external" cp0_ctl_file="/proc/pin_switch/iis-1" cp1_ctl_file="/proc/pin_switch/iis-1"  cp2_ctl_file="/proc/pin_switch/iis-1" ap_ctl_file="/proc/pin_switch/iis-1" />
 
 <audiomode num="4">
 	<item name="Headset" index="0" />
