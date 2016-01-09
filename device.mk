@@ -66,6 +66,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	 mali.ko
 
+# HWC
+PRODUCT_PACKAGES += \
+	libion \
+	iontest
+
+# Lights
+PRODUCT_PACKAGES += \
+	lights.$(TARGET_BOARD_PLATFORM)
+
 # Torch
 PRODUCT_PACKAGES += \
 	Torch

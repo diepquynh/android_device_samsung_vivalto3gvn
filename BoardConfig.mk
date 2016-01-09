@@ -26,6 +26,7 @@ TARGET_CPU_VARIANT := cortex-a7
 TARGET_CPU_SMP := false
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOOTLOADER_BOARD_NAME := SC7715T
+SPRD_HARDWARE := true
 
 # config u-boot
 TARGET_NO_BOOTLOADER := true
@@ -41,7 +42,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # RIL
-#BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
+#BOARD_RIL_CLASS := $(TOP)/device/samsung/vivalto3gvn/ril
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/vivalto3gvn/bluetooth
