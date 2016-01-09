@@ -12,6 +12,8 @@ bin/phoneserver
 etc/audio_policy.conf
 etc/gps.conf
 etc/gps.xml
+etc/nvitem_td.cfg
+etc/nvitem_w.cfg
 etc/media_profiles.xml
 etc/wifi/bcmdhd_apsta.bin
 etc/wifi/bcmdhd_sta.bin
