@@ -73,7 +73,7 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-	lights.$(TARGET_BOARD_PLATFORM)
+	lights.scx15
 
 # Torch
 PRODUCT_PACKAGES += \
