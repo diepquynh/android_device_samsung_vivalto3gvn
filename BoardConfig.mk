@@ -26,7 +26,6 @@ TARGET_CPU_VARIANT := cortex-a7
 TARGET_CPU_SMP := false
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOOTLOADER_BOARD_NAME := SC7715T
-SPRD_HARDWARE := true
 
 # config u-boot
 TARGET_NO_BOOTLOADER := true
@@ -45,9 +44,9 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 #BOARD_RIL_CLASS := $(TOP)/device/samsung/vivalto3gvn/ril
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/vivalto3gvn/bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/vivalto3gvn/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/vivalto3gvn/bluetooth/libbt_vndcfg.txt
 
 # Wifi
@@ -69,11 +68,15 @@ BOARD_HAVE_SAMSUNG_WIFI          := true
 # Hardware rendering
 USE_OPENGL_RENDERER := true
 BOARD_USE_MHEAP_SCREENSHOT := true
-BOARD_EGL_WORKAROUND_BUG_10194508 := true
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-BOARD_EGL_NEEDS_FNW := true
+#BOARD_EGL_WORKAROUND_BUG_10194508 := true
+#TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+#BOARD_EGL_NEEDS_FNW := true
+#TARGET_GPU_PP_CORE := 2
+#USE_SPRD_HWCOMPOSER := true
+#USE_OVERLAY_COMPOSER_GPU := true
+#DEVICE_FORCE_VIDEO_GO_OVERLAYCOMPOSER := true
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-COMMON_GLOBAL_CFLAGS += -DMR0_CAMERA_BLOB -DEGL_NEEDS_FNW -DMR0_AUDIO_BLOB -DSAMSUNG_BCM_AUDIO_BLOB -DSCX15_HWC
+COMMON_GLOBAL_CFLAGS += -DMR0_CAMERA_BLOB -DMR0_AUDIO_BLOB -DSAMSUNG_BCM_AUDIO_BLOB -DSCX15_HWC
 
 # Resolution
 TARGET_SCREEN_HEIGHT := 800
@@ -85,6 +88,8 @@ BOARD_USES_GENERIC_AUDIO := true
 BOARD_USES_TINYALSA_AUDIO := true
 BOARD_USES_ALSA_AUDIO := false
 BUILD_WITH_ALSA_UTILS := false
+SPRD_HARDWARE := true
+COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 
 # Board specific features
 BOARD_USE_VETH := true
@@ -122,37 +127,29 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 # assert
 TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,SM-G313HZ,vivalto3gvndx
 
-# graphics
-## TARGET_GPU_PP_CORE := 2
-USE_SPRD_HWCOMPOSER := true
-USE_OPENGL_RENDERER := true
-USE_OVERLAY_COMPOSER_GPU := true
-DEVICE_FORCE_VIDEO_GO_OVERLAYCOMPOSER := true
-
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
-BOARD_SEPOLICY_UNION := \
-       file.te \
-       file_contexts \
-       seapp_contexts \
-       theme.te \
-       healthd.te \
-       init.te \
-       init_shell.te \
-       installd.te \
-       netd.te \
-       shell.te \
-       system.te \
-       untrusted_app.te \
-       vold.te \
-       zygote.te
-       
+BOARD_SEPOLICY_UNION :=		\
+	file.te			\
+	file_contexts		\
+	seapp_contexts		\
+	theme.te		\
+	healthd.te		\
+	init.te			\
+	init_shell.te		\
+	installd.te		\
+	netd.te			\
+	shell.te		\
+	system.te		\
+	untrusted_app.te	\
+	vold.te			\
+	zygote.te
+
 # Enable dex-preoptimization to speed up the first boot sequence
-# of an SDK AVD. Note that this operation only works on Linux for now
 ifeq ($(HOST_OS),linux)
-  ifeq ($(WITH_DEXPREOPT),)
-    WITH_DEXPREOPT := true
-  endif
+ifeq ($(WITH_DEXPREOPT),)
+WITH_DEXPREOPT := true
+endif
 endif
 
 # TWRP
@@ -175,3 +172,4 @@ TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/ramdisk/recovery.fstab
 TW_HAS_DOWNLOAD_MODE := true
 DEVICE_RESOLUTION := 480x800
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
+
