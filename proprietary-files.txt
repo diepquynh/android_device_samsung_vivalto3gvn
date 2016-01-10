@@ -12,6 +12,8 @@ bin/phoneserver
 etc/audio_policy.conf
 etc/gps.conf
 etc/gps.xml
+etc/nvitem_td.cfg
+etc/nvitem_w.cfg
 etc/media_profiles.xml
 etc/wifi/bcmdhd_apsta.bin
 etc/wifi/bcmdhd_sta.bin
@@ -88,13 +90,13 @@ lib/libstagefright_sprd_aacdec.so
 lib/libstagefright_sprd_mp3dec.so
 lib/libomx_vpxdec_hw_sprd.so
 lib/libMali.so
-lib/libion.so
+#lib/libion.so
 lib/libboost.so
 lib/egl/libEGL_mali.so
 lib/egl/libGLESv1_CM_mali.so
 lib/egl/libGLESv2_mali.so
 lib/libsecril-client.so
-vendor/lib/hw/lights.scx15.so
+#vendor/lib/hw/lights.scx15.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/mediadrm/libwvdrmengine.so

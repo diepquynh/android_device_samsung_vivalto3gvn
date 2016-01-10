@@ -66,6 +66,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	 mali.ko
 
+# HWC
+PRODUCT_PACKAGES += \
+	libion \
+	iontest
+
+# Lights
+PRODUCT_PACKAGES += \
+	lights.scx15
+
 # Torch
 PRODUCT_PACKAGES += \
 	Torch
@@ -77,6 +86,7 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+	audio_policy.scx15 \
 	audio.r_submix.default \
 	audio.usb.default
 
