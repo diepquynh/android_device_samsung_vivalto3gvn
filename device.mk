@@ -30,12 +30,13 @@ TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
 # languages
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=en \
-    ro.product.locale.region=GB
+PRODUCT_PROPERTY_OVERRIDES +=		\
+	ro.product.locale.language=en	\
+	ro.product.locale.region=GB
 
 # Init files
 PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
 	$(LOCAL_PATH)/ramdisk/init.board.rc:root/init.board.rc \
 	$(LOCAL_PATH)/ramdisk/init.scx15_ss.rc:root/init.scx15_ss.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc:root/init.vivalto3gvn.rc \
@@ -46,64 +47,74 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/ramdisk/init.scx15.rc:root/init.scx15.rc \
 	$(LOCAL_PATH)/ramdisk/init.scx15.usb.rc:root/init.scx15.usb.rc \
 	$(LOCAL_PATH)/ramdisk/ueventd.scx15.rc:root/ueventd.scx15.rc \
-        $(LOCAL_PATH)/ramdisk/init.recovery.scx15.rc:root/init.recovery.scx15.rc
+	$(LOCAL_PATH)/ramdisk/init.recovery.scx15.rc:root/init.recovery.scx15.rc
 
 PRODUCT_COPY_FILES += \
-    	$(LOCAL_PATH)/ramdisk/etc/extra.fstab:recovery/root/etc/extra.fstab
+	$(LOCAL_PATH)/ramdisk/etc/extra.fstab:recovery/root/etc/extra.fstab
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 # - helps pass CTS com.squareup.okhttp.internal.spdy.Spdy3Test#tooLargeDataFrame)
 # (property override must come before included property)
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=56m
+	dalvik.vm.heapgrowthlimit=56m
 
 # sprd telephony
-PRODUCT_PACKAGES += \
-	Dialer \
+PRODUCT_PACKAGES +=	\
+	Dialer		\
 	Mms
 
 # Mali GPU driver
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES +=	\
 	 mali.ko
 
 # HWC
-PRODUCT_PACKAGES += \
-	libion \
+PRODUCT_PACKAGES +=	\
+	libion		\
 	iontest
 
 # Lights
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES +=	\
 	lights.scx15
 
 # Torch
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES +=	\
 	Torch
 # Bluetooth
-PRODUCT_PACKAGES += \
-	bluetooth.default \
-	audio.a2dp.default \
+PRODUCT_PACKAGES +=		\
+	bluetooth.default	\
+	audio.a2dp.default	\
 	bt_vendor.conf
 
 # Audio
-PRODUCT_PACKAGES += \
-	audio_policy.scx15 \
-	audio.r_submix.default \
+PRODUCT_PACKAGES +=		\
+	audio_policy.scx15	\
+	audio.r_submix.default	\
 	audio.usb.default
 
 # WiFi
-PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES +=		\
 	device/samsung/vivalto3gvn/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 # Dual-sim
-#PRODUCT_PROPERTY_OVERRIDES += \
-#	ro.telephony.ril_class=SamsungSPRDRIL \
-#	ro.zygote.disable_gl_preload=true \
+#PRODUCT_PROPERTY_OVERRIDES +=			\
+#	ro.telephony.ril_class=SamsungSPRDRIL	\
+#	ro.zygote.disable_gl_preload=true	\
 #	persist.radio.multisim.config=dsds
+#PRODUCT_PROPERTY_OVERRIDES +=			\
+#	ro.com.android.dataroaming=false	\
+#	ro.msms.phone_count=2			\
+#	persist.msms.phone_count=2		\
+#	persist.msmslt=0			\
+#	ro.modem.w.count=2			\
+#	persist.sys.modem.diag=,gser		\
+#	sys.usb.gser.count=2			\
+#	ro.ril.hsxpa=1				\
+#	ro.ril.gprsclass=10
 
 # General config
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/media_codecs.xml:system/etc/media_codecs.xml \
-	device/samsung/vivalto3gvn/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/vivalto3gvn/media/media_codecs.xml:system/etc/media_codecs.xml \
+	device/samsung/vivalto3gvn/media/media_profiles.xml:system/etc/media_profiles.xml \
 	device/samsung/vivalto3gvn/permissions/platform.xml:system/etc/permissions/platform.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
@@ -117,7 +128,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml
 
-
 # Dalvik heap config
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
@@ -125,11 +135,11 @@ include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # For userdebug builds
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1 \
-    persist.service.adb.enable=1
+ADDITIONAL_DEFAULT_PROPERTIES +=	\
+	ro.secure=0			\
+	ro.adb.secure=0			\
+	ro.debuggable=1			\
+	persist.service.adb.enable=1
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_vivalto3gvn
