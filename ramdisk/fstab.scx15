@@ -10,4 +10,4 @@
 /devices/platform/sprd-sdhci.0/mmc_host/mmc1          auto            vfat    defaults                                                                          voldmanaged=extSdCard:auto,noemulatedsd
 
 # zRAM
-/dev/block/zram0                                      none            swap    defaults                                                                          defaults
+/dev/block/zram0                                      none            swap    defaults                                                                          zramsize=134217728
