@@ -36,6 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Init files
 PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
 	$(LOCAL_PATH)/ramdisk/init.board.rc:root/init.board.rc \
 	$(LOCAL_PATH)/ramdisk/init.scx15_ss.rc:root/init.scx15_ss.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc:root/init.vivalto3gvn.rc \
