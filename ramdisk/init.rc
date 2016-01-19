@@ -9,6 +9,8 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.trace.rc
 import /init.carrier.rc
+# Include extra init file
+import /init.cm.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -227,7 +229,7 @@ on post-fs-data
     mkdir /data/misc/bluetooth 0770 system system
     mkdir /data/misc/keystore 0700 keystore keystore
     mkdir /data/misc/keychain 0771 system system
-    mkdir /data/misc/radio 0770 system radio
+    mkdir /data/misc/radio 0771 system radio
     mkdir /data/misc/sms 0770 system radio
     mkdir /data/misc/zoneinfo 0775 system system
     mkdir /data/misc/vpn 0770 system vpn
@@ -292,9 +294,6 @@ on post-fs-data
     # won't work.
     # Set indication (checked by vold) that we have finished this action
     #setprop vold.post_fs_data_done 1
-
-# Include extra init file
-    import /init.cm.rc
 
 on boot
 # basic network init
@@ -418,6 +417,9 @@ on nonencrypted
     class_start late_start
 
 on charger
+    mount ext4 /dev/block/mmcblk0p18 /system ro,barrier=1 wait
+    exec sfsck /dev/block/mmcblk0p20 ext4
+    mount ext4 /dev/block/mmcblk0p20 /data noatime,nosuid,nodev,nomblk_io_submit wait,encryptable=footer,check
     class_start charger
 
 on property:vold.decrypt=trigger_reset_main
@@ -464,6 +466,10 @@ service healthd /sbin/healthd
     class core
     critical
     seclabel u:r:healthd:s0
+
+service lpm /system/bin/lpm
+    class charger
+    critical
 
 service healthd-charger /sbin/healthd -n
     class charger
@@ -520,6 +526,12 @@ service netd /system/bin/netd
 service debuggerd /system/bin/debuggerd
     class main
 
+service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
+	class main
+	user root
+	group root
+	oneshot
+
 #service ril-daemon /system/bin/rild
 #    class main
 #    socket rild stream 660 root radio
@@ -549,8 +561,15 @@ service drm /system/bin/drmserver
 service media /system/bin/mediaserver
     class main
     user media
-    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag mediadrm nvram ccci radio
+    group system audio camera inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag mediadrm nvram ccci radio sdcard_rw sdcard_r media_rw shell
     ioprio rt 4
+
+#service powersnd /system/bin/samsungpowersoundplay
+#    class main
+#    user media
+#    group system
+#    disabled
+#    oneshot
 
 service bootanim /system/bin/bootanimation
     class main
