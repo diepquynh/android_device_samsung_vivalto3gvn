@@ -87,5 +87,18 @@ persist.eons.enabled=true
 
 persist.sys.sprd.modemreset=0
 
+# RIL
+ro.com.android.dataroaming=false
+ro.msms.phone_count=2
+persist.msms.phone_count=2
+persist.msmslt=0
+ro.modem.w.count=2
+persist.sys.modem.diag=,gser
+sys.usb.gser.count=2
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10
+persist.radio.multisim.config=dsds
+ro.telephony.ril_class=SamsungBCMRIL
+
 # Low memory device
 ro.config.low_ram=true

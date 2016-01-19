@@ -23,27 +23,27 @@ import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.SystemProperties;
-import android.util.Log;
+import android.telephony.Rlog;
 import com.android.internal.telephony.RILConstants;
 import java.util.Collections;
 import android.telephony.PhoneNumberUtils;
 
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * Custom RIL to handle unique behavior of D2 radio
  *
  * {@hide}
  */
-public class SamsungSPRDRIL extends RIL implements CommandsInterface {
-    public SamsungSPRDRIL(Context context, int networkMode, int cdmaSubscription) {
-        super(context, networkMode, cdmaSubscription);
-        mQANElements = 5;
+public class SamsungBCMRIL extends RIL implements CommandsInterface {
+    public SamsungBCMRIL(Context context, int networkMode, int cdmaSubscription) {
+        this(context, networkMode, cdmaSubscription, null);
+    }
+
+    public SamsungBCMRIL(Context context, int networkMode,
+            int cdmaSubscription, Integer instanceId) {
+        super(context, networkMode, cdmaSubscription, instanceId);
+        mQANElements = 6;
     }
 
     public void
@@ -52,7 +52,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
-        rr.mParcel.writeInt(0); // UUS information is absent: Samsung SPRD compat
+        rr.mParcel.writeInt(0); // UUS information is absent: Samsung BCM compat
 
         if (uusInfo == null) {
             rr.mParcel.writeInt(0); // UUS information is absent
@@ -68,32 +68,64 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         send(rr);
     }
 
-    public Object GetIMEI (Parcel p) {
-    	Object ret;
-	ret =  responseString(p);
-	if(ret.toString() != null)
-		riljLog("IMEI : Read from Parcel " + ret.toString());
-	else
-		riljLog("IMEI : Read from Parcel returns null");
-	//Now we will go dirty :3
-	//String str;
-	File file = new File("efs/imei/imeino1");
-	try {
-		BufferedReader br = new BufferedReader(new FileReader(file));
-            	String str = br.readLine();
-		riljLog("IMEI : Dirty Read " + str);
-		return str;
-	} catch (IOException e)	{
-	}
-	riljLog("IMEI : Dirty Read returns null o.O");
-	return null;
-	
+    public void setUiccSubscription(int slotId, int appIndex, int subId,
+            int subStatus, Message result) {
+        if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus);
+
+        // Fake response (note: should be sent before mSubscriptionStatusRegistrants or
+        // SubscriptionManager might not set the readiness correctly)
+        AsyncResult.forMessage(result, 0, null);
+        result.sendToTarget();
+
+        // TODO: Actually turn off/on the radio (and don't fight with the ServiceStateTracker)
+        if (subStatus == 1 /* ACTIVATE */) {
+            // Subscription changed: enabled
+            if (mSubscriptionStatusRegistrants != null) {
+                mSubscriptionStatusRegistrants.notifyRegistrants(
+                        new AsyncResult (null, new int[] {1}, null));
+            }
+        } else if (subStatus == 0 /* DEACTIVATE */) {
+            // Subscription changed: disabled
+            if (mSubscriptionStatusRegistrants != null) {
+                mSubscriptionStatusRegistrants.notifyRegistrants(
+                        new AsyncResult (null, new int[] {0}, null));
+            }
+        }
+    }
+
+    public void setDataSubscription(Message result) {
+        int simId = mInstanceId == null ? 0 : mInstanceId;
+        if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
+        invokeOemRilRequestBrcm((byte) 0, (byte)(0x30 + simId), result);
+    }
+
+    public void setDefaultVoiceSub(int subIndex, Message response) {
+        // No need to inform the RIL on Broadcom
+        AsyncResult.forMessage(response, 0, null);
+        response.sendToTarget();
+    }
+
+    @Override
+    protected void notifyRegistrantsRilConnectionChanged(int rilVer) {
+        super.notifyRegistrantsRilConnectionChanged(rilVer);
+        if (rilVer != -1) {
+            if (mInstanceId != null) {
+                // Enable simultaneous data/voice on Multi-SIM
+                invokeOemRilRequestBrcm((byte) 3, (byte) 1, null);
+            } else {
+                // Set data subscription to allow data in either SIM slot when using single SIM mode
+                setDataSubscription(null);
+            }
+        }
+    }
+
+    private void invokeOemRilRequestBrcm(byte key, byte value, Message response) {
+        invokeOemRilRequestRaw(new byte[] { 'B', 'R', 'C', 'M', key, value }, response);
     }
 
     protected RILRequest
     processSolicited (Parcel p) {
         int serial, error;
-        boolean found = false;
 
         serial = p.readInt();
         error = p.readInt();
@@ -103,7 +135,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         rr = findAndRemoveRequestFromList(serial);
 
         if (rr == null) {
-            Log.w(LOG_TAG, "Unexpected solicited response! sn: "
+            Rlog.w(RILJ_LOG_TAG, "Unexpected solicited response! sn: "
                             + serial + " error: " + error);
             return null;
         }
@@ -164,7 +196,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_QUERY_CALL_WAITING: ret =  responseInts(p); break;
             case RIL_REQUEST_SET_CALL_WAITING: ret =  responseVoid(p); break;
             case RIL_REQUEST_SMS_ACKNOWLEDGE: ret =  responseVoid(p); break;
-            case RIL_REQUEST_GET_IMEI: ret =  GetIMEI(p); break;
+            case RIL_REQUEST_GET_IMEI: ret =  responseString(p); break;
             case RIL_REQUEST_GET_IMEISV: ret =  responseString(p); break;
             case RIL_REQUEST_ANSWER: ret =  responseVoid(p); break;
             case RIL_REQUEST_DEACTIVATE_DATA_CALL: ret =  responseVoid(p); break;
@@ -241,7 +273,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             }} catch (Throwable tr) {
                 // Exceptions here usually mean invalid RIL responses
 
-                Log.w(LOG_TAG, rr.serialString() + "< "
+                Rlog.w(RILJ_LOG_TAG, rr.serialString() + "< "
                         + requestToString(rr.mRequest)
                         + " exception, possible invalid RIL response", tr);
 
@@ -317,7 +349,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             // hack taken from smdk4210ril class
             voiceSettings = p.readInt();
             //printing it to cosole for later investigation
-            Log.d(LOG_TAG, "Samsung magic = " + voiceSettings);
+            Rlog.d(LOG_TAG, "Samsung magic = " + voiceSettings);
             dc.isVoicePrivacy = (0 != p.readInt());
             dc.number = p.readString();
             int np = p.readInt();
