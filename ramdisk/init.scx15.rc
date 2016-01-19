@@ -189,7 +189,17 @@ on boot
     chmod 777 radio /sys/class/sensors/accelerometer_sensor/reactive_alert
     chmod 777 radio /sys/class/sensors/accelerometer_sensor/vendor
     chmod 777 radio /sys/class/sensors/accelerometer_sensor/name
-    
+
+#audio pin mux
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp0_iis0
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp1_iis0
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp2_iis0
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/ap_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp0_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp1_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp2_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/ap_iis0
+
 # on charger
 #    class_start core
 
@@ -387,16 +397,6 @@ service  recoveryfreq  /system/bin/recoveryfreq.sh
     user root
     disabled
     oneshot
-
-#audio pin mux
-    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp0_iis0
-    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp1_iis0
-    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp2_iis0
-    chmod 0666 /proc/pin_switch/iis0_sys_sel/ap_iis0
-    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp0_iis0
-    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp1_iis0
-    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp2_iis0
-    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/ap_iis0
 
 # SRT server
 service srtd /system/xbin/srtd
