@@ -28,7 +28,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/audio_params/codec_pga.xml:system/etc/codec_pga.xml \
 	device/samsung/vivalto3gvn/audio_params/audio_hw.xml:system/etc/audio_hw.xml \
 	device/samsung/vivalto3gvn/audio_params/audio_para:system/etc/audio_para \
-	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf \
+	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -47,11 +47,6 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	libbluetooth_jni
-
-# sprd telephony
-PRODUCT_PACKAGES += \
-	Dialer \
-	Mms
 
 # HWC
 PRODUCT_PACKAGES += \
@@ -74,8 +69,7 @@ PRODUCT_PACKAGES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	bluetooth.default \
-	audio.a2dp.default \
-	bt_vendor.conf
+	audio.a2dp.default
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -85,12 +79,17 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
+	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+# Media
+PRODUCT_COPY_FILES += \
+	device/samsung/vivalto3gvn/media/media_codecs.xml:system/etc/media_codecs.xml \
+	device/samsung/vivalto3gvn/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # General config
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/media/media_codecs.xml:system/etc/media_codecs.xml \
-	device/samsung/vivalto3gvn/media/media_profiles.xml:system/etc/media_profiles.xml \
 	device/samsung/vivalto3gvn/permissions/platform.xml:system/etc/permissions/platform.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
