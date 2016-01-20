@@ -2,11 +2,12 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    SprdOMXPlugin.cpp
-
-LOCAL_CFLAGS += $(PV_CFLAGS_MINUS_VISIBILITY)
+	SprdOMXPlugin.cpp \
+	SprdOMXComponent.cpp \
+	SprdSimpleOMXComponent.cpp
 
 LOCAL_C_INCLUDES:= \
+	$(TOP)/frameworks/native/include/media/hardware \
 	$(TOP)/frameworks/native/include/media/openmax
 
 LOCAL_SHARED_LIBRARIES :=    \
