@@ -75,13 +75,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	audio_policy.scx15 \
 	audio.r_submix.default \
-	audio.usb.default
+	audio.usb.default \
+	libtinyalsa
 
 # Wifi
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+	device/samsung/vivalto3gvn/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -109,18 +109,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Device props
 PRODUCT_PROPERTY_OVERRIDES := \
-	keyguard.no_require_sim=true \
-	ro.com.android.dataroaming=false \
-	ro.msms.phone_count=2 \
-	persist.msms.phone_count=2 \
-	persist.msmslt=0 \
-	ro.modem.w.count=2 \
-	persist.sys.modem.diag=,gser \
-	sys.usb.gser.count=2 \
-	ro.ril.hsxpa=1 \
-	ro.ril.gprsclass=10 \
-	persist.radio.multisim.config=dsds \
-	ro.telephony.ril_class=SamsungBCMRIL
+	keyguard.no_require_sim=true
 
 # Support for Browser's saved page feature. This allows
 # for pages saved on previous versions of the OS to be
