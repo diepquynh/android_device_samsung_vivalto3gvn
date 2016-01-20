@@ -53,10 +53,8 @@ PRODUCT_COPY_FILES += \
     	$(LOCAL_PATH)/ramdisk/etc/extra.fstab:recovery/root/etc/extra.fstab
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
-# - helps pass CTS com.squareup.okhttp.internal.spdy.Spdy3Test#tooLargeDataFrame)
-# (property override must come before included property)
 PRODUCT_PROPERTY_OVERRIDES += \
-	dalvik.vm.heapgrowthlimit=56m \
+	dalvik.vm.heapgrowthlimit=64m
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -65,7 +63,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.com.google.networklocation=1
 
 # Dalvik heap config
-include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
