@@ -130,20 +130,20 @@ TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,SM-G313HZ,vivalto3gvndx
 
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
-BOARD_SEPOLICY_UNION :=		\
-	file.te			\
-	file_contexts		\
-	seapp_contexts		\
-	theme.te		\
-	healthd.te		\
-	init.te			\
-	init_shell.te		\
-	installd.te		\
-	netd.te			\
-	shell.te		\
-	system.te		\
-	untrusted_app.te	\
-	vold.te			\
+BOARD_SEPOLICY_UNION := \
+	file.te \
+	file_contexts \
+	seapp_contexts \
+	theme.te \
+	healthd.te \
+	init.te \
+	init_shell.te \
+	installd.te \
+	netd.te \
+	shell.te \
+	system.te \
+	untrusted_app.te \
+	vold.te \
 	zygote.te
 
 # Enable dex-preoptimization to speed up the first boot sequence
