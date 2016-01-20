@@ -1,0 +1,46 @@
+From 348e9f121f86363b6d99e8cdf84cdbcf2ae9c627 Mon Sep 17 00:00:00 2001
+From: Pawit Pornkitprasan <p.pawit@gmail.com>
+Date: Wed, 9 Jul 2014 10:54:05 +0900
+Subject: [PATCH] HACK: fix crash when pressing back on top left of FDN setting
+ on MSim
+
+Change-Id: Id809495b847792e73104eea3fc015ac2b86699a0
+---
+ src/com/android/phone/CallFeaturesSetting.java | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/src/com/android/phone/CallFeaturesSetting.java b/src/com/android/phone/CallFeaturesSetting.java
+index 8f7d451..4518e66 100644
+--- a/src/com/android/phone/CallFeaturesSetting.java
++++ b/src/com/android/phone/CallFeaturesSetting.java
+@@ -56,6 +56,7 @@ import android.preference.PreferenceScreen;
+ import android.provider.ContactsContract.CommonDataKinds;
+ import android.provider.MediaStore;
+ import android.provider.Settings;
++import android.telephony.MSimTelephonyManager;
+ import android.telephony.PhoneNumberUtils;
+ import android.text.TextUtils;
+ import android.util.Log;
+@@ -2646,10 +2647,15 @@ public class CallFeaturesSetting extends PreferenceActivity
+      * This is useful for implementing "HomeAsUp" capability for second-level Settings.
+      */
+     public static void goUpToTopLevelSetting(Activity activity) {
+-        Intent intent = new Intent(activity, CallFeaturesSetting.class);
+-        intent.setAction(Intent.ACTION_MAIN);
+-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+-        activity.startActivity(intent);
++        if (!MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
++            // HACK: This doesn't work on multi-SIM (and we have multiple)
++            //       hierachy (MSimCallFeaturesSetting and MSimCallFeatureSubSetting)
++            //       so let just allow this to act like "back" button
++            Intent intent = new Intent(activity, CallFeaturesSetting.class);
++            intent.setAction(Intent.ACTION_MAIN);
++            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
++            activity.startActivity(intent);
++        }
+         activity.finish();
+     }
+ 
+-- 
+1.9.3 (Apple Git-50)
+
