@@ -52,7 +52,7 @@ PRODUCT_PACKAGES += \
 	iontest
 
 # libstagefrighthw
-PRODCUT_PACKAGES += \
+PRODUCT_PACKAGES += \
 	libstagefrighthw
 
 # Lights
