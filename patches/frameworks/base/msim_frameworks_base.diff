@@ -1,0 +1,77 @@
+From d81e9ae26dc5d3417d1f6d7be4e01f8c32950dd9 Mon Sep 17 00:00:00 2001
+From: Pawit Pornkitprasan <p.pawit@gmail.com>
+Date: Sat, 8 Mar 2014 19:45:44 +0700
+Subject: [PATCH] MSimTelephonyManager: set properties in Broadcom-style as
+ expected by RIL
+
+Change-Id: I64b37ac34fdec096ea77ccb7afc4b3cfccadcd3d
+---
+ .../android/telephony/MSimTelephonyManager.java    | 43 +++-------------------
+ 1 file changed, 6 insertions(+), 37 deletions(-)
+
+diff --git a/telephony/java/android/telephony/MSimTelephonyManager.java b/telephony/java/android/telephony/MSimTelephonyManager.java
+index 3f4c067..3081af8 100644
+--- a/telephony/java/android/telephony/MSimTelephonyManager.java
++++ b/telephony/java/android/telephony/MSimTelephonyManager.java
+@@ -953,35 +953,10 @@ public class MSimTelephonyManager {
+      * @hide
+      */
+     public static void setTelephonyProperty(String property, int index, String value) {
+-        String propVal = "";
+-        String p[] = null;
+-        String prop = SystemProperties.get(property);
+-
+-        if (value == null) {
+-            value = "";
+-        }
+-
+-        if (prop != null) {
+-            p = prop.split(",");
+-        }
+-
+-        if (index < 0) return;
+-
+-        for (int i = 0; i < index; i++) {
+-            String str = "";
+-            if ((p != null) && (i < p.length)) {
+-                str = p[i];
+-            }
+-            propVal = propVal + str + ",";
++        if (index != 0) {
++            property += "_" + index;
+         }
+-
+-        propVal = propVal + value;
+-        if (p != null) {
+-            for (int i = index+1; i < p.length; i++) {
+-                propVal = propVal + "," + p[i];
+-            }
+-        }
+-        SystemProperties.set(property, propVal);
++        SystemProperties.set(property, value);
+     }
+ 
+     /**
+@@ -990,16 +965,10 @@ public class MSimTelephonyManager {
+      * @hide
+      */
+     public static String getTelephonyProperty(String property, int index, String defaultVal) {
+-        String propVal = null;
+-        String prop = SystemProperties.get(property);
+-
+-        if ((prop != null) && (prop.length() > 0)) {
+-            String values[] = prop.split(",");
+-            if ((index >= 0) && (index < values.length) && (values[index] != null)) {
+-                propVal = values[index];
+-            }
++        if (index != 0) {
++            property += "_" + index;
+         }
+-        return propVal == null ? defaultVal : propVal;
++        return SystemProperties.get(property, defaultVal);
+     }
+ 
+     /**
+-- 
+1.9.3 (Apple Git-50)
+

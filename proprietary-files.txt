@@ -62,11 +62,13 @@ lib/libseccamera_jni.so
 lib/libomafldrm.so
 lib/drm/libdrmwvmplugin.so
 lib/drm/libomaplugin.so
+lib/libtinyalsa.so
 lib/libvbeffect.so
 lib/libnvexchange.so
 lib/libvbpga.so
 lib/libdumpdata.so
 lib/libatchannel.so
+lib/libsonivox.so
 lib/libsoundalive.so
 lib/lib_soundaliveresampler.so
 lib/lib_SoundAlive_SRC192_ver205.so
@@ -87,7 +89,7 @@ lib/libisp.so
 lib/libmorpho_facesolid.so
 lib/libmorpho_easy_hdr.so
 lib/libsecnativefeature.so
-lib/libstagefrighthw.so
+#lib/libstagefrighthw.so
 lib/libstagefright_sprd_soft_mpeg4dec.so
 lib/libstagefright_sprd_soft_h264dec.so
 lib/libstagefright_sprd_mpeg4dec.so

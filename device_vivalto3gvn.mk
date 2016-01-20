@@ -13,7 +13,6 @@
 # limitations under the License.
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-# Inherit from fortuna3g device
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Keylayouts
@@ -23,12 +22,11 @@ PRODUCT_COPY_FILES += \
 
 # board-specific files
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/ramdisk/init.board.rc:root/init.board.rc \
 	device/samsung/vivalto3gvn/audio_params/tiny_hw.xml:system/etc/tiny_hw.xml \
 	device/samsung/vivalto3gvn/audio_params/codec_pga.xml:system/etc/codec_pga.xml \
 	device/samsung/vivalto3gvn/audio_params/audio_hw.xml:system/etc/audio_hw.xml \
 	device/samsung/vivalto3gvn/audio_params/audio_para:system/etc/audio_para \
-	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf \
+	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -69,8 +67,7 @@ PRODUCT_PACKAGES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	bluetooth.default \
-	audio.a2dp.default \
-	bt_vendor.conf
+	audio.a2dp.default
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -81,15 +78,19 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
+	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	device/samsung/vivalto3gvn/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
-# General config
+# Media
 PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/media/media_codecs.xml:system/etc/media_codecs.xml \
-	device/samsung/vivalto3gvn/media/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/vivalto3gvn/media/media_profiles.xml:system/etc/media_profiles.xml
+
+# General config
+PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/permissions/platform.xml:system/etc/permissions/platform.xml \
-	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+	device/samsung/vivalto3gvn/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
 	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
 	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -113,9 +114,8 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # for pages saved on previous versions of the OS to be
 # viewed on the current OS.
 PRODUCT_PACKAGES += \
-    libskia_legacy
+	libskia_legacy
 
-$(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Set those variables here to overwrite the inherited values.

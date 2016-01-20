@@ -37,6 +37,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Init files
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
+	$(LOCAL_PATH)/ramdisk/init.board.rc:root/init.board.rc \
 	$(LOCAL_PATH)/ramdisk/init.scx15_ss.rc:root/init.scx15_ss.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc:root/init.vivalto3gvn.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn_base.rc:root/init.vivalto3gvn_base.rc \
@@ -55,13 +56,13 @@ PRODUCT_COPY_FILES += \
 # - helps pass CTS com.squareup.okhttp.internal.spdy.Spdy3Test#tooLargeDataFrame)
 # (property override must come before included property)
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=56m \
+	dalvik.vm.heapgrowthlimit=56m \
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.locationfeatures=1 \
-    ro.com.google.networklocation=1
+	ro.com.google.locationfeatures=1 \
+	ro.com.google.networklocation=1
 
 # Dalvik heap config
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
@@ -71,10 +72,10 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1 \
-    persist.service.adb.enable=1
+	ro.secure=0 \
+	ro.adb.secure=0 \
+	ro.debuggable=1 \
+	persist.service.adb.enable=1
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_vivalto3gvn

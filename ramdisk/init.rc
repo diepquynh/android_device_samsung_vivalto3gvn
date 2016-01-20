@@ -527,10 +527,10 @@ service debuggerd /system/bin/debuggerd
     class main
 
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
-	class main
-	user root
-	group root
-	oneshot
+    class main
+    user root
+    group root
+    oneshot
 
 #service ril-daemon /system/bin/rild
 #    class main
