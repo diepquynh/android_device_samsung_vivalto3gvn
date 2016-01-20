@@ -140,7 +140,7 @@ BOARD_SEPOLICY_UNION :=	\
 	init.te \
 	init_shell.te \
 	installd.te \
-	netd.te	 \
+	netd.te \
 	shell.te \
 	system.te \
 	untrusted_app.te \

@@ -80,6 +80,7 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
+	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	device/samsung/vivalto3gvn/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
