@@ -12,21 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+LOCAL_PATH := device/samsung/vivalto3gvn
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/keylayouts/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl \
-	device/samsung/vivalto3gvn/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl
+	$(LOCAL_PATH)/keylayouts/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl \
+	$(LOCAL_PATH)/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl
 
 # board-specific files
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/audio_params/tiny_hw.xml:system/etc/tiny_hw.xml \
-	device/samsung/vivalto3gvn/audio_params/codec_pga.xml:system/etc/codec_pga.xml \
-	device/samsung/vivalto3gvn/audio_params/audio_hw.xml:system/etc/audio_hw.xml \
-	device/samsung/vivalto3gvn/audio_params/audio_para:system/etc/audio_para \
-	device/samsung/vivalto3gvn/audio_params/audio_policy.conf:system/etc/audio_policy.conf
+	$(LOCAL_PATH)/audio_params/tiny_hw.xml:system/etc/tiny_hw.xml \
+	$(LOCAL_PATH)/audio_params/codec_pga.xml:system/etc/codec_pga.xml \
+	$(LOCAL_PATH)/audio_params/audio_hw.xml:system/etc/audio_hw.xml \
+	$(LOCAL_PATH)/audio_params/audio_para:system/etc/audio_para \
+	$(LOCAL_PATH)/audio_params/audio_policy.conf:system/etc/audio_policy.conf
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -39,8 +41,8 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth config
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/configs/bluetooth/bt_did.conf:system/etc/bluetooth/bt_did.conf \
-	device/samsung/vivalto3gvn/configs/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
+	$(LOCAL_PATH)/configs/bluetooth/bt_did.conf:system/etc/bluetooth/bt_did.conf \
+	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -78,19 +80,19 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-	device/samsung/vivalto3gvn/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
-# Media
+# Media profile
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/media/media_codecs.xml:system/etc/media_codecs.xml \
-	device/samsung/vivalto3gvn/media/media_profiles.xml:system/etc/media_profiles.xml
+	$(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
+	$(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # General config
 PRODUCT_COPY_FILES += \
-	device/samsung/vivalto3gvn/permissions/platform.xml:system/etc/permissions/platform.xml \
-	device/samsung/vivalto3gvn/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+	$(LOCAL_PATH)/permissions/platform.xml:system/etc/permissions/platform.xml \
+	$(LOCAL_PATH)/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
 	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
 	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -107,7 +109,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
 # Device props
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
 	keyguard.no_require_sim=true
 
 # Support for Browser's saved page feature. This allows
