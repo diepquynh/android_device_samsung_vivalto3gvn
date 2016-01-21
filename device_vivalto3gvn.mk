@@ -109,7 +109,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
 # Device props
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
 	keyguard.no_require_sim=true
 
 # Support for Browser's saved page feature. This allows
