@@ -154,6 +154,9 @@ WITH_DEXPREOPT := true
 endif
 endif
 
+# CMHW
+BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ device/samsung/vivalto3gvn/cmhw/
+
 # TWRP
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 SP1_NAME := "internal_sd"
