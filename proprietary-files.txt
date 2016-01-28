@@ -34,6 +34,7 @@ etc/wifi/nvram_mfg.txt
 lib/hw/gps.default.so
 lib/libsprd_agps_agent.so
 lib/hw/audio.primary.scx15.so
+lib/hw/audio_policy.scx15.so
 lib/hw/camera.scx15.so
 lib/hw/camera2.scx15.so
 lib/hw/sensors.scx15.so
