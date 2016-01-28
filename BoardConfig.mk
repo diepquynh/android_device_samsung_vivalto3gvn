@@ -42,7 +42,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
+#BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -72,7 +72,7 @@ BOARD_EGL_CFG := device/samsung/vivalto3gvn/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USE_MHEAP_SCREENSHOT := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
-#TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 #BOARD_EGL_NEEDS_FNW := true
 #TARGET_GPU_PP_CORE := 2
 #USE_SPRD_HWCOMPOSER := true
@@ -149,11 +149,7 @@ BOARD_SEPOLICY_UNION :=	\
 	zygote.te
 
 # Enable dex-preoptimization to speed up the first boot sequence
-ifeq ($(HOST_OS),linux)
-ifeq ($(WITH_DEXPREOPT),)
 WITH_DEXPREOPT := true
-endif
-endif
 
 # CMHW
 BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ device/samsung/vivalto3gvn/cmhw/

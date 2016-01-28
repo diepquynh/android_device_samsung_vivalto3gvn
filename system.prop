@@ -98,7 +98,7 @@ sys.usb.gser.count=2
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
 persist.radio.multisim.config=dsds
-ro.telephony.ril_class=SamsungBCMRIL
+#ro.telephony.ril_class=SamsungSPRDRIL
 
 # Low memory device
 ro.config.low_ram=true

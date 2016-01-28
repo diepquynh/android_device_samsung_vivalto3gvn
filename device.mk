@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := device/samsung/vivalto3gvn
-
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
@@ -31,8 +29,8 @@ TARGET_SCREEN_WIDTH := 480
 
 # languages
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=en \
-    ro.product.locale.region=GB
+    ro.product.locale.language=vi \
+    ro.product.locale.region=VN
 
 # Init files
 PRODUCT_COPY_FILES += \

@@ -8,7 +8,8 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES:= \
 	$(TOP)/frameworks/native/include/media/hardware \
-	$(TOP)/frameworks/native/include/media/openmax
+	$(TOP)/frameworks/native/include/media/openmax \
+	$(TOP)/frameworks/native/include/binder
 
 LOCAL_SHARED_LIBRARIES :=    \
         libbinder            \
