@@ -20,6 +20,8 @@ bin/ext_data.sh
 bin/ext_kill.sh
 bin/ext_symlink.sh
 bin/prepare_param.sh
+etc/slog.conf
+etc/slog.conf.user
 etc/gps.conf
 etc/gps.xml
 etc/nvitem_td.cfg
