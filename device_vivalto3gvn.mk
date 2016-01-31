@@ -22,14 +22,6 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/keylayouts/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl \
 	$(LOCAL_PATH)/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl
 
-# board-specific files
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/audio_params/tiny_hw.xml:system/etc/tiny_hw.xml \
-	$(LOCAL_PATH)/audio_params/codec_pga.xml:system/etc/codec_pga.xml \
-	$(LOCAL_PATH)/audio_params/audio_hw.xml:system/etc/audio_hw.xml \
-	$(LOCAL_PATH)/audio_params/audio_para:system/etc/audio_para \
-	$(LOCAL_PATH)/audio_params/audio_policy.conf:system/etc/audio_policy.conf
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	setup_fs \
@@ -53,10 +45,6 @@ PRODUCT_PACKAGES += \
 	libion \
 	iontest
 
-# libstagefrighthw
-PRODUCT_PACKAGES += \
-	libstagefrighthw
-
 # Lights
 PRODUCT_PACKAGES += \
 	lights.scx15
@@ -75,19 +63,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	audio.r_submix.default \
 	audio.usb.default \
-	libaudio-resampler \
-	libtinyalsa
+	libaudio-resampler
 
 # Wifi
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
-# Media profile
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
-	$(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # General config
 PRODUCT_COPY_FILES += \
@@ -105,10 +87,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
 	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
-
-# Other
-PRODUCT_PACKAGES += \
-	libnetcmdiface
 
 # Other
 PRODUCT_PACKAGES += \
