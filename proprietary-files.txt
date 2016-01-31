@@ -8,8 +8,11 @@ bin/slog
 bin/engpc
 bin/smd
 bin/smdexe
+bin/ddexe
+bin/connfwexe
+bin/createsystemfile
+bin/wlandutservice
 etc/slog.conf
-etc/slog.conf.user
 lib/libatparser.so
 lib/libsamsungearcare.so
 lib/libsamsungeffect.so

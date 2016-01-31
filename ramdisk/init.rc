@@ -630,6 +630,36 @@ service mdnsd /system/bin/mdnsd
     disabled
     oneshot
 
+# WTL_EDM
+service createsystemfile /system/bin/createsystemfile
+    class main
+    group system
+    disabled
+    oneshot
+
+# for RIL MFG (TestMode)
+service DR-daemon /system/bin/ddexe
+    class main
+    user root
+    group system radio inet net_raw
+ 
+service BCS-daemon /system/bin/connfwexe
+    class main
+    user root
+    group system radio inet net_raw
+
+service SMD-daemon /system/bin/smdexe
+    class main
+    user root
+    group system radio inet net_raw
+
+# end of RIL
+
+service mobex-daemon /system/bin/npsmobex
+    class main
+    user system
+    group system radio inet sdcard_r sdcard_rw media_rw shell
+
 service pre-recovery /system/bin/uncrypt
     class main
     disabled

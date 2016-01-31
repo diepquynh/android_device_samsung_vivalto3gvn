@@ -69,9 +69,6 @@ persist.sys.font_clarity=0
 # System property for Strict Mode
 persist.sys.strictmode.disable=1
 
-# Google Approval Test
-ro.kernel.qemu=0
-
 # KDHA
 #ro.config.dha_cached_max=4
 #ro.config.dha_empty_max=24
