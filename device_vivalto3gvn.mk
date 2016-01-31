@@ -110,6 +110,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	libnetcmdiface
 
+# Other
+PRODUCT_PACKAGES += \
+	libnetcmdiface
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
