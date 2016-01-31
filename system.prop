@@ -4,6 +4,7 @@
 ro.sf.lcd_density=240
 ro.sf.lcd_width=52
 ro.sf.lcd_height=87
+ro.opengles.version=131072
 ro.product.hardware=CORSICA_VE_V1.0.0
 
 debug.hwui.render_dirty_regions=false
