@@ -95,10 +95,10 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
     }
 
-    public void setDataSubscription(Message response) {
-	    // Fake the message
-	    AsyncResult.forMessage(response, 0, null);
-	    response.sendToTarget();
+    public void setDataSubscription(Message result) {
+        int simId = mInstanceId == null ? 0 : mInstanceId;
+        if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
+        invokeOemRilRequestBrcm((byte) 0, (byte)(0x30 + simId), result);
     }
 
     public void setDefaultVoiceSub(int subIndex, Message response) {
@@ -107,9 +107,19 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         response.sendToTarget();
     }
 
-    private void notifyRegistrantsRilConnectionChanged(int rilVer) {
-    	new AsyncResult (null, new Integer(rilVer), null));
-	  }
+    @Override
+    protected void notifyRegistrantsRilConnectionChanged(int rilVer) {
+        super.notifyRegistrantsRilConnectionChanged(rilVer);
+        if (rilVer != -1) {
+            if (mInstanceId != null) {
+                // Enable simultaneous data/voice on Multi-SIM
+                invokeOemRilRequestBrcm((byte) 3, (byte) 1, null);
+            } else {
+                // Set data subscription to allow data in either SIM slot when using single SIM mode
+                setDataSubscription(null);
+            }
+        }
+    }
 
     private void invokeOemRilRequestBrcm(byte key, byte value, Message response) {
         invokeOemRilRequestRaw(new byte[] { 'B', 'R', 'C', 'M', key, value }, response);
