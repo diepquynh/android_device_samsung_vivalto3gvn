@@ -48,9 +48,9 @@
     <array name="cpu.active">
         <value>577</value>
         <value>408</value>
-        <value>249</value>
-        <value>148</value>
-        <value>55</value>
+        <value>240</value>
+        <value>178</value>
+        <value>106</value>
     </array>
     <item name="battery.capacity">1500</item>
     <array name="wifi.batchedscan">
