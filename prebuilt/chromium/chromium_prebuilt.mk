@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 
-ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
-
-LOCAL_PATH := $(call mydir)
+LOCAL_PATH := device/samsung/vivalto3gvn/prebuilt/chromium
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/framework/webview/paks/am.pak:system/framework/webview/paks/am.pak \
@@ -74,5 +72,3 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/framework/webview/paks/zh-CN.pak:system/framework/webview/paks/zh-CN.pak \
     $(LOCAL_PATH)/framework/webview/paks/zh-TW.pak:system/framework/webview/paks/zh-TW.pak \
     $(LOCAL_PATH)/lib/libwebviewchromium.so:system/lib/libwebviewchromium.so
-
-endif
