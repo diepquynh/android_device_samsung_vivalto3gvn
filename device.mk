@@ -63,6 +63,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
+# Use prebuilt webviewchromium
+$(call inherit-product, $(LOCAL_PATH)/prebuilt/chromium/chromium_prebuilt.mk)
+
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
