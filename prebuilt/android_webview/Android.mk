@@ -14,12 +14,9 @@
 # limitations under the License.
 #
 
-ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
-
 LOCAL_PATH := $(my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := android_webview_java:android_webview_java.jar
 include $(BUILD_MULTI_PREBUILT)
 
-endif
