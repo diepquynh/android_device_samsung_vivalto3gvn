@@ -77,8 +77,6 @@ etc/wifi/nvram_mfg.txt
 bin/macloader
 
 # Bluetooth
-lib/libbt-hci.so
-vendor/lib/libbt-vendor.so
 vendor/firmware/BCM4343A0_001.001.034.0038.0090_ORC_Vivalto-3G_3MC.hcd
 
 # RIL
