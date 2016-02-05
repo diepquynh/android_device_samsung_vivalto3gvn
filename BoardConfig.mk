@@ -116,7 +116,7 @@ TARGET_KERNEL_CONFIG := cyanogen_vivalto3gvn_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 
 # Init
-TARGET_NR_SVC_SUPP_GIDS := 24
+TARGET_NR_SVC_SUPP_GIDS := 48
 
 # Recovery
 BOARD_HAS_NO_REAL_SDCARD := true
