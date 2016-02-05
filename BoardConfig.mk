@@ -87,8 +87,6 @@ TARGET_SCREEN_WIDTH := 480
 
 # Audio
 #BOARD_USES_TINYALSA_AUDIO := true
-#SPRD_HARDWARE := true
-COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 
 # Board specific features
 #BOARD_USE_VETH := true
