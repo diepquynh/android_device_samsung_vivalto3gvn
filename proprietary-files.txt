@@ -113,7 +113,6 @@ etc/media_profiles.xml
 etc/media_codecs.xml
 
 # Codecs
-lib/libstagefrighthw.so
 lib/libstagefright_sprd_soft_mpeg4dec.so
 lib/libstagefright_sprd_soft_h264dec.so
 lib/libstagefright_sprd_mpeg4dec.so

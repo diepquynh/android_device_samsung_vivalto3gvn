@@ -49,6 +49,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	lights.scx15
 
+# Media
+PRODUCT_PACKAGES += \
+	libstagefrighthw
+
 # Device-specific packages
 PRODUCT_PACKAGES += \
 	Torch \
