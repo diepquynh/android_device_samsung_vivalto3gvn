@@ -12,10 +12,9 @@ LOCAL_C_INCLUDES := \
 	frameworks/native/include/ui \
 	frameworks/native/include/utils \
 	frameworks/native/include/media/hardware \
-	$(TOP)/vendor/sprd/open-source/libs/gralloc \
-	$(TOP)/vendor/sprd/open-source/libs/mali/src/ump/include \
-	$(TOP)/vendor/sprd/open-source/libs/libstagefrighthw/include \
-	$(TARGET_OUT_INTERMEDIATES)/KERNEL/usr/include/video 
+	$(LOCAL_PATH)/../../../../../gralloc \
+	$(LOCAL_PATH)/../../../../../libstagefrighthw/include \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/video
 
 LOCAL_CFLAGS := -DOSCL_EXPORT_REF= -DOSCL_IMPORT_REF=
 

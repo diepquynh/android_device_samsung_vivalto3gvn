@@ -17,5 +17,5 @@ ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
 include $(LOCAL_PATH)/sc8830/Android.mk
 endif
 
-include $(TOP)/vendor/sprd/open-source/libs/omx_components/video/m4v_h263_sprd/thumbnail/Android.mk
+include $(call all-makefiles-under,$(LOCAL_PATH))
 
