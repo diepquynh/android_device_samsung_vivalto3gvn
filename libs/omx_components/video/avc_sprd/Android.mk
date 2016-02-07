@@ -1,4 +1,5 @@
-LOCAL_PATH:= $(call my-dir)
+LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM)),sc8825)
@@ -17,5 +18,4 @@ ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
 include $(LOCAL_PATH)/sc8830/Android.mk
 endif
 
-include $(LOCAL_PATH)/thumbnail/Android.mk
 
