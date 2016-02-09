@@ -1,6 +1,5 @@
 ifneq ($(TARGET_SIMULATOR),true)
 
-
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)

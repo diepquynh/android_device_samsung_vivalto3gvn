@@ -1349,6 +1349,8 @@ IDENTIFY_SEARCH:
 	for (sensor_index=0x00; sensor_index<valid_tab_index_max;sensor_index++) {
 		sensor_info_ptr = sensor_info_tab_ptr[sensor_index];
 
+CMR_LOGW("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX %d", sensor_index);
+
 		if (NULL==sensor_info_ptr) {
 			CMR_LOGW("SENSOR: %d info of Sensor table %d is null", sensor_index, (uint)sensor_id);
 			continue ;

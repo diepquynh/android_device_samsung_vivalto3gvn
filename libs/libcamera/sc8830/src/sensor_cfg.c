@@ -67,6 +67,7 @@ extern SENSOR_INFO_T g_autotest_ov5640_mipi_yuv_info;
 extern SENSOR_INFO_T g_at_ov5640_ccir_yuv_info;
 extern SENSOR_INFO_T g_autotest_yuv_info;
 extern SENSOR_INFO_T g_sr352_yuv_info;
+extern SENSOR_INFO_T g_sr030pc50_yuv_info;
 
 #define AUTO_TEST_CAMERA 1
 /**---------------------------------------------------------------------------*
@@ -114,6 +115,7 @@ const SENSOR_INFO_T* sub_sensor_infor_tab[]=
 	#if defined(CONFIG_CAMERA_X3542)
 	&g_GC0311_yuv_info,
 	#endif
+	&g_sr030pc50_yuv_info,
 #endif
 	PNULL
 };

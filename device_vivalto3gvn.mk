@@ -42,8 +42,31 @@ PRODUCT_PACKAGES += \
 
 # HWC
 PRODUCT_PACKAGES += \
+	gralloc.scx15 \
+	hwcomposer.scx15 \
+	sprd_gsp.scx15 \
 	libion \
 	iontest
+
+# Camera
+PRODUCT_PACKAGES += \
+	camera.scx15 \
+	camera2.scx15
+
+# Codecs
+PRODUCT_PACKAGES += \
+	libstagefrighthw \
+	libstagefright_sprd_soft_mpeg4dec \
+	libstagefright_sprd_soft_h264dec \
+	libstagefright_sprd_mpeg4dec \
+	libstagefright_sprd_mpeg4enc \
+	libstagefright_sprd_h264dec \
+	libstagefright_sprd_h264enc \
+	libstagefright_sprd_vpxdec \
+	libstagefright_soft_mjpgdec \
+	libstagefright_soft_imaadpcmdec \
+	libstagefright_sprd_aacdec \
+	libstagefright_sprd_mp3dec
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -61,6 +84,8 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+	audio.primary.scx15 \
+	audio_policy.scx15 \
 	audio.r_submix.default \
 	audio.usb.default \
 	libaudio-resampler

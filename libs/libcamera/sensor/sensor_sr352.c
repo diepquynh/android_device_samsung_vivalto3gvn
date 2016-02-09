@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+#define LOG_TAG __FILE__
+
 #include <utils/Log.h>
 #include "sensor.h"
 #include "jpeg_exif_header.h"
@@ -29,6 +32,9 @@
 #define FOCUS_ZONE_H 60
 #define EXPOSURE_ZONE_W 1280
 #define EXPOSURE_ZONE_H 960
+
+#undef SENSOR_PRINT
+#define SENSOR_PRINT SENSOR_PRINT_ERR
 
 static uint32_t  g_flash_mode_en = 0;
 static uint32_t is_cap = 0;
