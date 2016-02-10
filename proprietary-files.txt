@@ -97,11 +97,11 @@ lib/libsecnativefeature.so
 # Camera
 #lib/libseccameracore.so
 #lib/libseccamera_jni.so
-#lib/libisp.so
-#lib/libmorpho_facesolid.so
-#lib/libmorpho_easy_hdr.so
-#lib/hw/camera.scx15.so
-#lib/hw/camera2.scx15.so
+lib/libisp.so
+lib/libmorpho_facesolid.so
+lib/libmorpho_easy_hdr.so
+lib/hw/camera.scx15.so
+lib/hw/camera2.scx15.so
 #lib/hw/sprd_gsp.scx15.so
 
 # Sensors

@@ -37,8 +37,8 @@ LOCAL_SRC_FILES := SprdHWComposer.cpp \
 		   SprdExternalDisplayDevice/SprdExternalDisplayDevice.cpp \
 		   SprdUtil.cpp \
                    dump.cpp
-LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
-LOCAL_C_INCLUDES := \
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../gralloc \
 	$(LOCAL_PATH)/../mali/src/ump/include \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/video/ \
