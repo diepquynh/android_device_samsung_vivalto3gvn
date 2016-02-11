@@ -82,7 +82,13 @@ endif
 LOCAL_SHARED_LIBRARIES := \
 	liblog libcutils libtinyalsa libaudioutils \
 	libexpat libdl \
-	libvbeffect libvbpga libnvexchange libdumpdata\
+	libvbeffect libvbpga libnvexchange libdumpdata \
+	libatchannel
+
+LOCAL_REQUIRED_MODULES := \
+	liblog libcutils libtinyalsa libaudioutils \
+	libexpat libdl \
+	libvbeffect libvbpga libnvexchange libdumpdata \
 	libatchannel
 
 LOCAL_MODULE_TAGS := optional

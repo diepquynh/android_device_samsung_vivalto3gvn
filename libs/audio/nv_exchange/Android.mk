@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -20,11 +19,11 @@ include $(CLEAR_VARS)
 LOCAL_CFLAGS := -D_POSIX_SOURCE -Wno-multichar -g
 
 LOCAL_C_INCLUDES += \
-		$(LOCAL_PATH)/../../engmode \
-		$(LOCAL_PATH)/../../audio \
-		external/expat/lib
+	$(LOCAL_PATH)/../../engmode \
+	$(LOCAL_PATH)/../ \
+	external/expat/lib
 
-LOCAL_SRC_FILES :=  string_exchange_bin.c
+LOCAL_SRC_FILES := string_exchange_bin.c
 
 LOCAL_SHARED_LIBRARIES := liblog libc libcutils liblog libtinyalsa libaudioutils \
 	libexpat libdl libhardware_legacy
@@ -34,7 +33,3 @@ LOCAL_MODULE := libnvexchange
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
-
-
-
-

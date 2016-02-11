@@ -29,12 +29,12 @@ lib/hw/gps.default.so
 
 # HWC
 lib/libMali.so
-lib/libion.so
+#lib/libion.so
 lib/libboost.so
 lib/egl/libEGL_mali.so
 lib/egl/libGLESv1_CM_mali.so
 lib/egl/libGLESv2_mali.so
-lib/hw/hwcomposer.scx15.so
+#lib/hw/hwcomposer.scx15.so
 
 # Audio
 etc/audio_hw.xml
@@ -42,30 +42,30 @@ etc/audio_para
 etc/audio_policy.conf
 etc/codec_pga.xml
 etc/tiny_hw.xml
-bin/tinymix
-lib/hw/audio.primary.scx15.so
-lib/hw/audio_policy.scx15.so
-lib/libfactoryutil.so
-lib/libomission_avoidance.so
-lib/libcontrolcsc.so
-lib/libaudiopolicy_sec.so
-lib/libaudiosa.so
-lib/libtinyalsa.so
-lib/libvbeffect.so
-lib/libnvexchange.so
-lib/libvbpga.so
-lib/libdumpdata.so
-lib/libatchannel.so
-lib/libsonivox.so
-lib/libsoundalive.so
-lib/lib_soundaliveresampler.so
-lib/lib_SoundAlive_SRC192_ver205.so
-lib/lib_SoundAlive_ver118t.so
-lib/libsamsungRecord.so
-lib/lib_SamsungRec_V03011b.so
-lib/lib_Samsung_Resampler.so
-lib/lib_Samsung_SB_AM_for_ICS_v03008.so
-lib/libsamsungSoundbooster.so
+#bin/tinymix
+#lib/hw/audio.primary.scx15.so
+#lib/hw/audio_policy.scx15.so
+#lib/libfactoryutil.so
+#lib/libomission_avoidance.so
+#lib/libcontrolcsc.so
+#lib/libaudiopolicy_sec.so
+#lib/libaudiosa.so
+#lib/libtinyalsa.so
+#lib/libvbeffect.so
+#lib/libnvexchange.so
+#lib/libvbpga.so
+#lib/libdumpdata.so
+#lib/libatchannel.so
+#lib/libsonivox.so
+#lib/libsoundalive.so
+#lib/lib_soundaliveresampler.so
+#lib/lib_SoundAlive_SRC192_ver205.so
+#lib/lib_SoundAlive_ver118t.so
+#lib/libsamsungRecord.so
+#lib/lib_SamsungRec_V03011b.so
+#lib/lib_Samsung_Resampler.so
+#lib/lib_Samsung_SB_AM_for_ICS_v03008.so
+#lib/libsamsungSoundbooster.so
 
 # WiFi
 etc/wifi/bcmdhd_apsta.bin
@@ -92,6 +92,7 @@ bin/prepare_param.sh
 lib/libril.so
 lib/libreference-ril_sp.so
 lib/libsecril-client.so
+lib/libsecnativefeature.so
 
 # Camera
 #lib/libseccameracore.so
@@ -99,10 +100,9 @@ lib/libsecril-client.so
 lib/libisp.so
 lib/libmorpho_facesolid.so
 lib/libmorpho_easy_hdr.so
-lib/libsecnativefeature.so
 lib/hw/camera.scx15.so
 lib/hw/camera2.scx15.so
-lib/hw/sprd_gsp.scx15.so
+#lib/hw/sprd_gsp.scx15.so
 
 # Sensors
 lib/hw/sensors.scx15.so

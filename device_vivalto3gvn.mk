@@ -42,6 +42,9 @@ PRODUCT_PACKAGES += \
 
 # HWC
 PRODUCT_PACKAGES += \
+	gralloc.scx15 \
+	hwcomposer.scx15 \
+	sprd_gsp.scx15 \
 	libion \
 	iontest
 
@@ -92,6 +95,8 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+	audio.primary.scx15 \
+	audio_policy.scx15 \
 	audio.r_submix.default \
 	audio.usb.default \
 	libaudio-resampler

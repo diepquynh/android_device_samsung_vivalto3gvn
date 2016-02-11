@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 #define LOG_TAG "audio_hw_primary"
-/*#define LOG_NDEBUG 0*/
+#define LOG_NDEBUG 0
 #include <errno.h>
 #include <pthread.h>
 #include <stdint.h>
@@ -525,7 +525,7 @@ typedef struct {
 
 static const dev_names_para_t dev_names_linein[] = {
     { AUDIO_DEVICE_OUT_SPEAKER | AUDIO_DEVICE_OUT_FM_SPEAKER, "speaker" },
-    { AUDIO_DEVICE_OUT_WIRED_HEADSET | AUDIO_DEVICE_OUT_WIRED_HEADPHONE |AUDIO_DEVICE_OUT_FM_HEADSET,
+    { AUDIO_DEVICE_OUT_WIRED_HEADSET | AUDIO_DEVICE_OUT_WIRED_HEADPHONE | AUDIO_DEVICE_OUT_FM_HEADSET,
         "headphone" },
     { AUDIO_DEVICE_OUT_EARPIECE, "earpiece" },
     /* ANLG for voice call via linein*/
@@ -544,7 +544,7 @@ static const dev_names_para_t dev_names_linein[] = {
 };
 static const dev_names_para_t dev_names_digitalfm[] = {
     { AUDIO_DEVICE_OUT_SPEAKER | AUDIO_DEVICE_OUT_FM_SPEAKER, "speaker" },
-    { AUDIO_DEVICE_OUT_WIRED_HEADSET | AUDIO_DEVICE_OUT_WIRED_HEADPHONE |AUDIO_DEVICE_OUT_FM_HEADSET,
+    { AUDIO_DEVICE_OUT_WIRED_HEADSET | AUDIO_DEVICE_OUT_WIRED_HEADPHONE | AUDIO_DEVICE_OUT_FM_HEADSET,
         "headphone" },
     { AUDIO_DEVICE_OUT_EARPIECE, "earpiece" },
     /* ANLG for voice call via linein*/

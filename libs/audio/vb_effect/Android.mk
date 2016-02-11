@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -20,29 +19,30 @@ include $(CLEAR_VARS)
 LOCAL_CFLAGS := -D_POSIX_SOURCE -Wno-multichar -g
 
 LOCAL_C_INCLUDES += \
-		$(LOCAL_PATH)/../../engmode \
-		$(LOCAL_PATH)/../audio \
-		$(LOCAL_PATH)/../nv_exchange \
-		external/tinyalsa/include
+	$(LOCAL_PATH)/../../engmode \
+	$(LOCAL_PATH)/../ \
+	$(LOCAL_PATH)/../nv_exchange \
+	external/tinyalsa/include
 
-	BOARD_EQ_DIR := v1
+BOARD_EQ_DIR := v1
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM)),sc8830)
-	BOARD_EQ_DIR := v2
+BOARD_EQ_DIR := v2
 endif
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
-	BOARD_EQ_DIR := v2
+BOARD_EQ_DIR := v2
 endif
 
-LOCAL_SRC_FILES := $(BOARD_EQ_DIR)/vb_effect_if.c \
-		$(BOARD_EQ_DIR)/vbc_codec_eq.c \
-		$(BOARD_EQ_DIR)/filter_calc.c \
-		$(BOARD_EQ_DIR)/vb_hal_if.c \
-		$(BOARD_EQ_DIR)/vb_hal_adp.c \
-		$(BOARD_EQ_DIR)/tinyalsa_util.c
+LOCAL_SRC_FILES := \
+	$(BOARD_EQ_DIR)/vb_effect_if.c \
+	$(BOARD_EQ_DIR)/vbc_codec_eq.c \
+	$(BOARD_EQ_DIR)/filter_calc.c \
+	$(BOARD_EQ_DIR)/vb_hal_if.c \
+	$(BOARD_EQ_DIR)/vb_hal_adp.c \
+	$(BOARD_EQ_DIR)/tinyalsa_util.c
 
-LOCAL_SHARED_LIBRARIES := liblog libc libcutils libtinyalsa  libnvexchange
+LOCAL_SHARED_LIBRARIES := liblog libc libcutils libtinyalsa libnvexchange
 
 LOCAL_MODULE := libvbeffect
 
