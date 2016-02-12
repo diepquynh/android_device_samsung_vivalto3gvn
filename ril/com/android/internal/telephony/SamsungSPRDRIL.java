@@ -52,7 +52,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
-        rr.mParcel.writeInt(0); // UUS information is absent: Samsung BCM compat
+        rr.mParcel.writeInt(0); // UUS information is absent: Samsung SPRD compat
         rr.mParcel.writeInt(1); // Samsung magic
         rr.mParcel.writeString(""); // Samsung magic
 
@@ -113,7 +113,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         if (rilVer != -1) {
             if (mInstanceId != null) {
                 // Enable simultaneous data/voice on Multi-SIM
-                invokeOemRilRequestBrcm((byte) 3, (byte) 1, null);
+                invokeOemRilRequestSprd((byte) 3, (byte) 1, null);
             } else {
                 // Set data subscription to allow data in either SIM slot when using single SIM mode
                 setDataSubscription(null);
@@ -121,8 +121,8 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
     }
 
-    private void invokeOemRilRequestBrcm(byte key, byte value, Message response) {
-        invokeOemRilRequestRaw(new byte[] { 'B', 'R', 'C', 'M', key, value }, response);
+    private void invokeOemRilRequestSprd(byte key, byte value, Message response) {
+        invokeOemRilRequestRaw(new byte[] { 'S', 'P', 'R', 'D', key, value }, response);
     }
 
     protected RILRequest
