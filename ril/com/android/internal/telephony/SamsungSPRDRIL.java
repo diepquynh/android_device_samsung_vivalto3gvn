@@ -95,11 +95,11 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
     }
 
-/*    public void setDataSubscription(Message result) {
+    public void setDataSubscription(Message result) {
         int simId = mInstanceId == null ? 0 : mInstanceId;
         if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
-        invokeOemRilRequestRaw(new byte[] {(byte) 9, (byte) 4}, result);
-    }*/
+        invokeOemRilRequestSprd((byte) 0, (byte)(0x30 + simId), result);
+    }
 
     public void setDefaultVoiceSub(int subIndex, Message response) {
         // Fake the message
