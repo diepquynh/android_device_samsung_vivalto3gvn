@@ -162,6 +162,9 @@ BOARD_SEPOLICY_UNION :=	\
 	vold.te	\
 	zygote.te
 
+# Use prebuilt webviewchromium to cut down build time
+PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
+
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
 
