@@ -21,7 +21,7 @@ const int MAX_SERVICE_NAME = 100;
 #define  MODEM_WCDMA_ID_PROP               "ro.modem.w.id"
 #define  MODEM_WCDMA_COUNT_PROP            "ro.modem.w.count"
 
-#define SOCKET_NAME_RIL	 "rild-oem"
+#define SOCKET_NAME_RIL	 "rild"
 #define ALOGI(x...)  fprintf(stderr, "AtChannel: " x)
 
 
@@ -238,10 +238,9 @@ size_t sendAt(void *buf, size_t bufLen, int simId, const char* atCmd)
 
 	ALOGI("sendAt: simId is %d\n", simId);
 	if (simId == 0) {
-		snprintf(name_ril_oem, sizeof(name_ril_oem), "%s%s", modem,
-				SOCKET_NAME_RIL);
+		snprintf(name_ril_oem, sizeof(name_ril_oem), "%s", SOCKET_NAME_RIL);
 	} else {
-		snprintf(name_ril_oem, sizeof(name_ril_oem), "%s%s%d", modem,
+		snprintf(name_ril_oem, sizeof(name_ril_oem), "%s%d",
 				SOCKET_NAME_RIL, simId);
 	}
 	ALOGI("sendAt: SOCKET_NAME_RIL is %s\n", name_ril_oem);
