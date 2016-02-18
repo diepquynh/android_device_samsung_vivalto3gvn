@@ -12,6 +12,7 @@
 #include <cutils/sockets.h>
 #include <secril-client.h>
 #include <telephony/ril.h>
+#include <pthread.h>
 
 using namespace android;
 
@@ -34,6 +35,14 @@ typedef struct _req_status {
 } req_status_t;
 
 req_status_t *req_status_pool[REQ_POOL_SIZE];
+pthread_mutex_t alloc_lock;
+
+static void init() __attribute__((constructor));
+
+void init()
+{
+	pthread_mutex_init(&alloc_lock, NULL);
+}
 
 /*
  * Find free slot
@@ -43,6 +52,7 @@ static req_status_t *req_status_alloc(int sim_id)
 {
 	int (*connect_ril)(HRilClient) = sim_id == 0 ? Connect_RILD : Connect_RILD_Second;
 	req_status_t *result = NULL;
+	pthread_mutex_lock(&alloc_lock);
 	for (int i = 0; i < REQ_POOL_SIZE; ++i) {
 		if (req_status_pool[i] == NULL &&
 				(result = (req_status_t *) malloc(sizeof(req_status_t)))) {
@@ -61,17 +71,20 @@ static req_status_t *req_status_alloc(int sim_id)
 			break;
 		}
 	}
+	pthread_mutex_unlock(&alloc_lock);
 	return result;
 }
 
 static int req_status_free(req_status_t *req_status)
 {
+	pthread_mutex_lock(&alloc_lock);
 	for (int i = 0; i < REQ_POOL_SIZE; ++i) {
 		if (req_status_pool[i] == req_status) {
 			req_status_pool[i] = NULL;
 			break;
 		}
 	}
+	pthread_mutex_unlock(&alloc_lock);
 	free(req_status->data);
 	CloseClient_RILD(req_status->client);
 	free(req_status);
