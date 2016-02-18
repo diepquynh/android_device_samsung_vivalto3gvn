@@ -162,8 +162,9 @@ size_t sendAt(void *out, size_t outLen, int simId, const char* atCmd)
 				break;
 			}
 		} while (!completed);
+		size_t result = req_status->data_len;
+		req_status_free(req_status);
+		return result;
 	}
-	size_t result = req_status->data_len;
-	req_status_free(req_status);
-	return result;
+	return -1;
 }
