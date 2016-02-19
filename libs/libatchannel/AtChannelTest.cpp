@@ -23,7 +23,7 @@ void *sendAT(void *arg)
     int atrsp;
     char rec_buf[1024] = { };
     ALOGE("sendAT %s   Current thread id is %u\n", atTestCmd, (unsigned)pthread_self());
-    atrsp = sendAt(rec_buf, sizeof(char)*1024, 1, atTestCmd);
+    atrsp = sendAt(rec_buf, sizeof(char)*1024, 0, atTestCmd);
     if (atrsp == -1) {
          ALOGE("Send %s, but no response\n", atTestCmd);
      } else {
