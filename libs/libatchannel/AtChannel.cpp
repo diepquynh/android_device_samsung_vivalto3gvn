@@ -186,10 +186,11 @@ void init()
 		num_rild = 2;
 	}
 	for (int i = 0; i < num_rild; ++i) {
+		int (*connect_rild)(HRilClient client) = i == 0 ? Connect_RILD : Connect_RILD_Second;
 		ALOGD("pthread_mutex_init: [%d] [%d]", i, pthread_mutex_init(&mutex[i], NULL));
 		ALOGD("pthread_cond_init: [%d] [%d]", i, pthread_cond_init(&cond[i], NULL));
 		ALOGD("OpenClient_RILD: [%d] [%p]", i, (ril_client[i] = OpenClient_RILD()));
-		ALOGD("Connect_RILD: [%d] [%d]", i, Connect_RILD(ril_client[i]));
+		ALOGD("Connect_RILD: [%d] [%d]", i, connect_rild(ril_client[i]));
 		ALOGI("RegisterUnsolicitedHandler: %d\n",
 				RegisterUnsolicitedHandler(
 						ril_client[i],
