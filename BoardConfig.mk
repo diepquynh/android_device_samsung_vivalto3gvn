@@ -85,11 +85,13 @@ TARGET_SCREEN_WIDTH := 480
 
 # Audio
 BOARD_USES_TINYALSA_AUDIO := true
+BOARD_USES_SS_VOIP := true
 
 # Board specific features
 #BOARD_USE_VETH := true
 #BOARD_SPRD_RIL := true
 #BOARD_SAMSUNG_RIL := true
+BOARD_NEEDS_MEMORYHEAPION_SPRD := true
 COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 
 # healthd
@@ -135,7 +137,8 @@ TARGET_KERNEL_CONFIG := cyanogen_vivalto3gvn_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 
 # Init
-TARGET_NR_SVC_SUPP_GIDS := 48
+TARGET_NR_SVC_SUPP_GIDS := 24
+TARGET_PROVIDES_INIT_RC := true
 
 # Recovery
 BOARD_HAS_NO_REAL_SDCARD := true
@@ -146,22 +149,22 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,SM-G313HZ,vivalto3gvndx
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
-BOARD_SEPOLICY_UNION :=	\
-	file.te	\
-	file_contexts \
-	seapp_contexts \
-	theme.te \
-	healthd.te \
-	init.te \
-	init_shell.te \
-	installd.te \
-	netd.te \
-	shell.te \
-	system.te \
-	untrusted_app.te \
-	vold.te	\
-	zygote.te
+#BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
+#BOARD_SEPOLICY_UNION :=	\
+#	file.te	\
+#	file_contexts \
+#	seapp_contexts \
+#	theme.te \
+#	healthd.te \
+#	init.te \
+#	init_shell.te \
+#	installd.te \
+#	netd.te \
+#	shell.te \
+#	system.te \
+#	untrusted_app.te \
+#	vold.te	\
+#	zygote.te
 
 # Use prebuilt webviewchromium to cut down build time
 PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
@@ -170,7 +173,7 @@ PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 WITH_DEXPREOPT := true
 
 # CMHW
-BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ device/samsung/vivalto3gvn/cmhw/
+BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
 
 # TWRP
 RECOVERY_GRAPHICS_USE_LINELENGTH := true

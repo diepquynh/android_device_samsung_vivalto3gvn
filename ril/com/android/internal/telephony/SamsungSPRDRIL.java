@@ -351,7 +351,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             // hack taken from smdk4210ril class
             p.readInt();
             //printing it to cosole for later investigation
-            Rlog.d(LOG_TAG, "Samsung magic = " + voiceSettings);
+            Rlog.d(RILJ_LOG_TAG, "Samsung magic = " + voiceSettings);
             dc.isVoicePrivacy = (0 != p.readInt());
             p.readInt();
             p.readInt();

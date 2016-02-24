@@ -29,8 +29,8 @@ TARGET_SCREEN_WIDTH := 480
 
 # languages
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=vi \
-    ro.product.locale.region=VN
+    ro.product.locale.language=en \
+    ro.product.locale.region=GB
 
 # Init files
 PRODUCT_COPY_FILES += \
@@ -62,9 +62,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-
-# Use prebuilt webviewchromium
-$(call inherit-product, $(LOCAL_PATH)/prebuilt/chromium/chromium_prebuilt.mk)
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise

@@ -22,6 +22,7 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../../engmode \
 	$(LOCAL_PATH)/../ \
 	$(LOCAL_PATH)/../nv_exchange \
+	$(LOCAL_PATH)/../../kernel-headers/arch-arm \
 	external/tinyalsa/include
 
 BOARD_EQ_DIR := v1

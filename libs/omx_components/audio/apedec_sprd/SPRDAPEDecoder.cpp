@@ -31,6 +31,8 @@
 #include <media/stagefright/MediaDefs.h>
 #include <media/stagefright/MediaErrors.h>
 
+#include <OMX_FFMPEG_Extn.h>
+
 namespace android {
 
 template<class T>
@@ -105,7 +107,7 @@ void SPRDAPEDecoder::initPorts() {
     def.format.audio.cMIMEType = const_cast<char *>(MEDIA_MIMETYPE_AUDIO_APE);
     def.format.audio.pNativeRender = NULL;
     def.format.audio.bFlagErrorConcealment = OMX_FALSE;
-    def.format.audio.eEncoding = OMX_AUDIO_CodingAPE;
+    def.format.audio.eEncoding = (OMX_AUDIO_CODINGTYPE)OMX_AUDIO_CodingAPE;
 
     addPort(def);
 

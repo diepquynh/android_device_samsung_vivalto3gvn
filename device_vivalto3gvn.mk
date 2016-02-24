@@ -85,7 +85,6 @@ PRODUCT_PACKAGES += \
 
 # Device-specific packages
 PRODUCT_PACKAGES += \
-	Torch \
 	SamsungServiceMode
 
 # Bluetooth
@@ -100,14 +99,25 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default \
 	audio.usb.default \
 	libaudio-resampler \
-	libatchannel
+	libatchannel \
+	libtinyalsa
+
+# Use prebuilt webviewchromium
+PRODUCT_PACKAGES += \
+	webview \
+	libwebviewchromium_loader.so \
+	libwebviewchromium_plat_support.so
 
 # Wifi
+PRODUCT_PACKAGES += \
+	wpa_supplicant \
+	hostapd
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
+# TODO foreach loop
 # General config
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/permissions/platform.xml:system/etc/permissions/platform.xml \
@@ -140,11 +150,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.checkjni=false
 
 # Something required for dex2oat (ART)
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	dalvik.vm.dex2oat-Xms=64m \
-	dalvik.vm.dex2oat-Xmx=384m \
-	dalvik.vm.image-dex2oat-Xms=64m \
-	dalvik.vm.image-dex2oat-Xmx=64m
+#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+#	dalvik.vm.dex2oat-Xms=64m \
+#	dalvik.vm.dex2oat-Xmx=384m \
+#	dalvik.vm.image-dex2oat-Xms=64m \
+#	dalvik.vm.image-dex2oat-Xmx=64m
 
 # Support for Browser's saved page feature. This allows
 # for pages saved on previous versions of the OS to be

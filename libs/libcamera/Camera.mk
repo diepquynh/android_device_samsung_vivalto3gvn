@@ -27,7 +27,8 @@ LOCAL_C_INCLUDES := \
         external/sqlite/dist \
 	system/media/camera/include \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/source/include/video \
-	$(LOCAL_PATH)/../gralloc
+	$(LOCAL_PATH)/../gralloc \
+	$(LOCAL_PATH)/../kernel-headers/arch-arm
 
 LOCAL_SRC_FILES:= \
 	sc8830/src/SprdOEMCamera.c \

@@ -1,18 +1,18 @@
 # Un-categorized
 bin/at_distributor
-bin/atrace
-bin/bmgr
+#bin/atrace
+#bin/bmgr
 bin/npsmobex
 bin/refnotify
 bin/slog
 bin/engpc
-bin/smd
-bin/smdexe
-bin/ddexe
-bin/connfwexe
-bin/createsystemfile
-bin/wlandutservice
-etc/slog.conf
+#bin/smd
+#bin/smdexe
+#bin/ddexe
+#bin/connfwexe
+#bin/createsystemfile
+#bin/wlandutservice
+#etc/slog.conf
 lib/libatparser.so
 lib/libsamsungearcare.so
 lib/libsamsungeffect.so
