@@ -100,3 +100,6 @@ ro.telephony.ril_class=SamsungSPRDRIL
 
 # Low memory device
 ro.config.low_ram=false
+
+# Media
+persist.sys.media.use-awesome=true
