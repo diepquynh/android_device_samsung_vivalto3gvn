@@ -185,8 +185,6 @@ static char ConvertAudioPath(AudioPath path);
  */
 extern "C"
 int RegisterUnsolicitedHandler(HRilClient client, uint32_t id, RilOnUnsolicited handler) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
     int match_slot = -1;
     int first_empty_slot = -1;
@@ -245,8 +243,6 @@ int RegisterUnsolicitedHandler(HRilClient client, uint32_t id, RilOnUnsolicited 
  */
 extern "C"
 int RegisterRequestCompleteHandler(HRilClient client, uint32_t id, RilOnComplete handler) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
     int match_slot = -1;
     int first_empty_slot = -1;
@@ -305,8 +301,6 @@ int RegisterRequestCompleteHandler(HRilClient client, uint32_t id, RilOnComplete
  */
 extern "C"
 int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
 
     if (client == NULL || client->prv == NULL)
@@ -330,8 +324,6 @@ int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data) {
  */
 extern "C"
 HRilClient OpenClient_RILD(void) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     HRilClient client = (HRilClient)malloc(sizeof(struct RilClient));
     if (client == NULL)
         return NULL;
@@ -360,8 +352,6 @@ HRilClient OpenClient_RILD(void) {
  */
 extern "C"
 int Connect_RILD(HRilClient client) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
 
     if (client == NULL || client->prv == NULL) {
@@ -426,8 +416,6 @@ int Connect_RILD(HRilClient client) {
  */
 extern "C"
 int Connect_QRILD(HRilClient client) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
 
     if (client == NULL || client->prv == NULL) {
@@ -493,8 +481,6 @@ int Connect_QRILD(HRilClient client) {
  */
 extern "C"
 int Connect_RILD_Second(HRilClient client)    {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
 
     if (client == NULL || client->prv == NULL) {
@@ -560,8 +546,6 @@ int Connect_RILD_Second(HRilClient client)    {
  */
 extern "C"
 int isConnected_RILD(HRilClient client) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
 
     if (client == NULL || client->prv == NULL) {
@@ -583,8 +567,6 @@ int isConnected_RILD(HRilClient client) {
  */
 extern "C"
 int Disconnect_RILD(HRilClient client) {
-    // XXX
-    ALOGD("########################## %s()", __FUNCTION__); 
     RilClientPrv *client_prv;
     int ret = 0;
 
