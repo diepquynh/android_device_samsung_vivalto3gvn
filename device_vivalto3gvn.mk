@@ -99,6 +99,7 @@ PRODUCT_PACKAGES += \
 	audio_policy.scx15 \
 	audio.r_submix.default \
 	audio.usb.default \
+	audio_vbc_eq \
 	libaudio-resampler \
 	libatchannel
 
