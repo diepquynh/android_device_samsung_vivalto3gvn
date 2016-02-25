@@ -52,7 +52,7 @@ PRODUCT_COPY_FILES += \
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 PRODUCT_PROPERTY_OVERRIDES += \
-	dalvik.vm.heapgrowthlimit=64m
+	dalvik.vm.heapgrowthlimit=48m
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -62,9 +62,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
