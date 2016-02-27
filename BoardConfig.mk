@@ -170,6 +170,9 @@ PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
 
+# External apps on SD
+TARGET_EXTERNAL_APPS = extSdCard
+
 # CMHW
 BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
 
