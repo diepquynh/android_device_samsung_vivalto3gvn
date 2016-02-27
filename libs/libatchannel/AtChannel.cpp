@@ -47,6 +47,7 @@ static void print_hex(const void *data, size_t len);
 static int ril_on_unsolicited_handler(HRilClient handle, const void *data, size_t datalen);
 static int ril_on_complete_handler(HRilClient handle, const void *data, size_t datalen);
 static int ril_get_simId(HRilClient hrc);
+static int rild_timedwait(int sim_id, unsigned long sec);
 
 size_t sendAt(void *buf, size_t bufLen, int simId, const char* atCmd)
 {
@@ -175,6 +176,21 @@ int ril_get_simId(HRilClient hrc)
 	return -1;
 }
 
+int rild_timedwait(int sim_id, unsigned long sec)
+{
+	const char names[][32] = { "ril-daemon", "ril-daemon2" };
+	for (unsigned long i = 0; i < sec; ++i) {
+		char prop_name[PROPERTY_VALUE_MAX];
+		char prop_value[PROPERTY_VALUE_MAX];
+		snprintf(prop_name, sizeof(prop_name), "init.svc.%s", names[sim_id]);
+		if (property_get(prop_name, prop_value, NULL) > 0 && strcmp("running", prop_value) == 0);
+			return 0;
+		ALOGD("%s: waiting for: [%s]", __FILE__, names[sim_id]);
+		sleep(1);
+	}
+	return -1;
+}
+
 void init()
 {
 	char prop[PROPERTY_VALUE_MAX];
@@ -185,21 +201,26 @@ void init()
 		ALOGW("num_rild: set to 2");
 		num_rild = 2;
 	}
+	unsigned long max_waittime = 10;
 	for (int i = 0; i < num_rild; ++i) {
-		int (*connect_rild)(HRilClient client) = i == 0 ? Connect_RILD : Connect_RILD_Second;
-		ALOGD("pthread_mutex_init: [%d] [%d]", i, pthread_mutex_init(&mutex[i], NULL));
-		ALOGD("pthread_cond_init: [%d] [%d]", i, pthread_cond_init(&cond[i], NULL));
-		ALOGD("OpenClient_RILD: [%d] [%p]", i, (ril_client[i] = OpenClient_RILD()));
-		ALOGD("Connect_RILD: [%d] [%d]", i, connect_rild(ril_client[i]));
-		ALOGI("RegisterUnsolicitedHandler: %d\n",
-				RegisterUnsolicitedHandler(
-						ril_client[i],
-						RIL_REQUEST_OEM_HOOK_RAW,
-						ril_on_unsolicited_handler));
-		ALOGI("RegisterRequestCompleteHandler: %d\n",
-				RegisterRequestCompleteHandler(
-						ril_client[i],
-						RIL_REQUEST_OEM_HOOK_RAW,
-						ril_on_complete_handler));
+		if (rild_timedwait(i, max_waittime) == 0) {
+			int (*connect_rild)(HRilClient client) = i == 0 ? Connect_RILD : Connect_RILD_Second;
+			ALOGD("pthread_mutex_init: [%d] [%d]", i, pthread_mutex_init(&mutex[i], NULL));
+			ALOGD("pthread_cond_init: [%d] [%d]", i, pthread_cond_init(&cond[i], NULL));
+			ALOGD("OpenClient_RILD: [%d] [%p]", i, (ril_client[i] = OpenClient_RILD()));
+			ALOGD("Connect_RILD: [%d] [%d]", i, connect_rild(ril_client[i]));
+			ALOGI("RegisterUnsolicitedHandler: %d\n",
+					RegisterUnsolicitedHandler(
+							ril_client[i],
+							RIL_REQUEST_OEM_HOOK_RAW,
+							ril_on_unsolicited_handler));
+			ALOGI("RegisterRequestCompleteHandler: %d\n",
+					RegisterRequestCompleteHandler(
+							ril_client[i],
+							RIL_REQUEST_OEM_HOOK_RAW,
+							ril_on_complete_handler));
+		} else {
+			ALOGE("init(): rild does not start: [%d]", i);
+		}
 	}
 }
