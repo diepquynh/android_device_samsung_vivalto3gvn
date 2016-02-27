@@ -135,7 +135,8 @@ TARGET_KERNEL_CONFIG := cyanogen_vivalto3gvn_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 
 # Init
-TARGET_NR_SVC_SUPP_GIDS := 48
+TARGET_NR_SVC_SUPP_GIDS := 24
+TARGET_PROVIDES_INIT_RC := true
 
 # Recovery
 BOARD_HAS_NO_REAL_SDCARD := true
@@ -170,7 +171,7 @@ PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 WITH_DEXPREOPT := true
 
 # CMHW
-BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ device/samsung/vivalto3gvn/cmhw/
+BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
 
 # TWRP
 RECOVERY_GRAPHICS_USE_LINELENGTH := true

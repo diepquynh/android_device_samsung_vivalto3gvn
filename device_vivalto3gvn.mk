@@ -101,7 +101,8 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio_vbc_eq \
 	libaudio-resampler \
-	libatchannel
+	libatchannel \
+	libtinyalsa
 
 # Wifi
 PRODUCT_COPY_FILES += \
@@ -140,12 +141,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	dalvik.vm.checkjni=false
 
-# Something required for dex2oat (ART)
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	dalvik.vm.dex2oat-Xms=64m \
-	dalvik.vm.dex2oat-Xmx=384m \
-	dalvik.vm.image-dex2oat-Xms=64m \
-	dalvik.vm.image-dex2oat-Xmx=64m
+# ART device props
+PRODUCT_PROPERTY_OVERRIDES += \
+	dalvik.vm.dex2oat-Xms=8m \
+	dalvik.vm.dex2oat-Xmx=96m \
+	dalvik.vm.image-dex2oat-Xms=48m \
+	dalvik.vm.image-dex2oat-Xmx=48m
 
 # Support for Browser's saved page feature. This allows
 # for pages saved on previous versions of the OS to be

@@ -6,7 +6,7 @@ on early-init
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
 on init
-	#thermistor
+    #thermistor
     chown radio system /sys/devices/platform/sec-thermistor/temp_adc
     chown radio system /sys/devices/platform/sec-thermistor/temperature
 

@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    SprdOMXPlugin.cpp \
+	SprdOMXPlugin.cpp \
 	SprdOMXComponent.cpp \
 	SprdSimpleOMXComponent.cpp
 
@@ -21,6 +21,7 @@ LOCAL_SHARED_LIBRARIES :=       \
         libui                   \
         libdl			\
 	libstagefright_foundation
+
 LOCAL_MODULE := libstagefrighthw
 
 LOCAL_CFLAGS:= -DLOG_TAG=\"$(TARGET_BOARD_PLATFORM).libstagefright\"
