@@ -29,8 +29,8 @@ TARGET_SCREEN_WIDTH := 480
 
 # languages
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=vi \
-    ro.product.locale.region=VN
+    ro.product.locale.language=en \
+    ro.product.locale.region=GB
 
 # Init files
 PRODUCT_COPY_FILES += \
@@ -52,7 +52,7 @@ PRODUCT_COPY_FILES += \
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 PRODUCT_PROPERTY_OVERRIDES += \
-	dalvik.vm.heapgrowthlimit=64m
+	dalvik.vm.heapgrowthlimit=48m
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
