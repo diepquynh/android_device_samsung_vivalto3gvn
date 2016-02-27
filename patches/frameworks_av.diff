@@ -1,0 +1,48 @@
+diff --git a/include/media/stagefright/MediaDefs.h b/include/media/stagefright/MediaDefs.h
+index bab6432..1f8e390 100644
+--- a/include/media/stagefright/MediaDefs.h
++++ b/include/media/stagefright/MediaDefs.h
+@@ -49,6 +49,9 @@ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG4;
+ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG4_DP;
+ extern const char *MEDIA_MIMETYPE_VIDEO_H263;
+ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG2;
++#ifdef SPRD_HARDWARE
++extern const char *MEDIA_MIMETYPE_VIDEO_MJPG;
++#endif
+ extern const char *MEDIA_MIMETYPE_VIDEO_RAW;
+ 
+ extern const char *MEDIA_MIMETYPE_AUDIO_AMR_NB;
+@@ -63,6 +66,9 @@ extern const char *MEDIA_MIMETYPE_AUDIO_OPUS;
+ extern const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW;
+ extern const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW;
+ extern const char *MEDIA_MIMETYPE_AUDIO_RAW;
++#ifdef SPRD_HARDWARE
++extern const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM;
++#endif
+ extern const char *MEDIA_MIMETYPE_AUDIO_FLAC;
+ extern const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS;
+ extern const char *MEDIA_MIMETYPE_AUDIO_MSGSM;
+diff --git a/media/libstagefright/MediaDefs.cpp b/media/libstagefright/MediaDefs.cpp
+index 54ebb6c..7c13d52 100644
+--- a/media/libstagefright/MediaDefs.cpp
++++ b/media/libstagefright/MediaDefs.cpp
+@@ -47,6 +47,9 @@ const char *MEDIA_MIMETYPE_VIDEO_MPEG4 = "video/mp4v-es";
+ const char *MEDIA_MIMETYPE_VIDEO_MPEG4_DP = "video/mp4v-esdp";
+ const char *MEDIA_MIMETYPE_VIDEO_H263 = "video/3gpp";
+ const char *MEDIA_MIMETYPE_VIDEO_MPEG2 = "video/mpeg2";
++#ifdef SPRD_HARDWARE
++const char *MEDIA_MIMETYPE_VIDEO_MJPG = "video/mjpg";
++#endif
+ const char *MEDIA_MIMETYPE_VIDEO_RAW = "video/raw";
+ 
+ const char *MEDIA_MIMETYPE_AUDIO_AMR_NB = "audio/3gpp";
+@@ -61,6 +64,9 @@ const char *MEDIA_MIMETYPE_AUDIO_OPUS = "audio/opus";
+ const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW = "audio/g711-alaw";
+ const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW = "audio/g711-mlaw";
+ const char *MEDIA_MIMETYPE_AUDIO_RAW = "audio/raw";
++#ifdef SPRD_HARDWARE
++const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM = "audio/ima-adpcm";
++#endif
+ const char *MEDIA_MIMETYPE_AUDIO_FLAC = "audio/flac";
+ const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS = "audio/aac-adts";
+ const char *MEDIA_MIMETYPE_AUDIO_MSGSM = "audio/gsm";
