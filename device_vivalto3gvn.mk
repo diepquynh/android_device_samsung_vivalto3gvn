@@ -18,9 +18,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Keylayouts
+KEYLAYOUT_FILES := \
+	$(LOCAL_PATH)/keylayouts/ist30xx_ts_input.kl \
+	$(LOCAL_PATH)/keylayouts/sci-keypad.kl
+
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/keylayouts/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl \
-	$(LOCAL_PATH)/keylayouts/sci-keypad.kl:system/usr/keylayout/sci-keypad.kl
+	$(foreach f,$(KEYLAYOUT_FILES),$(f):system/usr/keylayout/$(notdir $(f)))
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -32,9 +35,12 @@ PRODUCT_PACKAGES += \
 	mkfs.f2fs
 
 # Bluetooth config
+BLUETOOTH_CONFIGS := \
+	$(LOCAL_PATH)/configs/bluetooth/bt_did.conf \
+	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf
+
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/bluetooth/bt_did.conf:system/etc/bluetooth/bt_did.conf \
-	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
+	$(foreach f,$(BLUETOOTH_CONFIGS),$(f):system/etc/bluetooth/$(notdir $(f)))
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -113,28 +119,34 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	wpa_supplicant \
 	hostapd
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
-# TODO foreach loop
-# General config
+WIFI_CONFIGS := \
+	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf \
+	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf \
+	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf
+
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/permissions/platform.xml:system/etc/permissions/platform.xml \
-	$(LOCAL_PATH)/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-	$(LOCAL_PATH)/permissions/android.hardware.camera.flash.xml:system/etc/permissions/android.hardware.camera.flash.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
-	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
-	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
+	$(foreach f,$(WIFI_CONFIGS),$(f):system/etc/wifi/$(notdir $(f)))
+
+# Permissions
+PERMISSION_XML_FILES := \
+	$(LOCAL_PATH)/permissions/platform.xml \
+	$(LOCAL_PATH)/permissions/handheld_core_hardware.xml \
+	$(LOCAL_PATH)/permissions/android.hardware.camera.flash.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml \
+	frameworks/native/data/etc/android.hardware.camera.xml \
+	frameworks/native/data/etc/android.hardware.camera.front.xml \
+	frameworks/native/data/etc/android.hardware.location.gps.xml \
+	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.xml \
+	frameworks/native/data/etc/android.hardware.telephony.gsm.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.hardware.wifi.xml \
+	frameworks/native/data/etc/android.hardware.wifi.direct.xml
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(PERMISSION_XML_FILES),$(f):system/etc/permissions/$(notdir $(f)))
 
 # Other
 PRODUCT_PACKAGES += \
