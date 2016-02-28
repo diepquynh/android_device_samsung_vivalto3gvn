@@ -272,7 +272,7 @@ on property:ro.config.ksm.support=true
 #   class late_start
 
 
-service modemd /system/bin/modemd
+service modemd /system/bin/logwrapper /system/bin/modemd
     class core
     user system
     group system radio shell
@@ -285,7 +285,7 @@ service phoneserver_t /system/bin/phoneserver -m t
     disabled
     oneshot
 
-service phoneserver_w /system/bin/phoneserver -m w
+service phoneserver_w /system/bin/logwrapper /system/bin/phoneserver -m w
     class core
     user root
     group radio system shell
@@ -305,7 +305,7 @@ service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg 
     disabled
     oneshot
 
-service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg        FALSE
+service nvitemd_w /system/bin/logwrapper /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg        FALSE
     class core
     user system
     group system radio shell

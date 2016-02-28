@@ -574,7 +574,7 @@ service drm /system/bin/drmserver
     user drm
     group drm system inet drmrpc
 
-# XXX  REMOVE ROOT user
+# XXX REMOVE ROOT user
 service media /system/bin/logwrapper /system/bin/mediaserver
     class main
     user root
