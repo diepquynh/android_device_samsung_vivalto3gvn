@@ -27,28 +27,31 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
-# languages
+# Languages
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=en \
-    ro.product.locale.region=GB
+	ro.product.locale.language=en \
+	ro.product.locale.region=GB
 
-# Init files
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
-	$(LOCAL_PATH)/ramdisk/init.board.rc:root/init.board.rc \
-	$(LOCAL_PATH)/ramdisk/init.scx15_ss.rc:root/init.scx15_ss.rc \
-	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc:root/init.vivalto3gvn.rc \
-	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn_base.rc:root/init.vivalto3gvn_base.rc \
-	$(LOCAL_PATH)/ramdisk/init.wifi.rc:root/init.wifi.rc \
-	$(LOCAL_PATH)/ramdisk/fstab.scx15:root/fstab.scx15 \
-	$(LOCAL_PATH)/ramdisk/init.board.rc:root/init.board.rc \
-	$(LOCAL_PATH)/ramdisk/init.scx15.rc:root/init.scx15.rc \
-	$(LOCAL_PATH)/ramdisk/init.scx15.usb.rc:root/init.scx15.usb.rc \
-	$(LOCAL_PATH)/ramdisk/ueventd.scx15.rc:root/ueventd.scx15.rc \
-        $(LOCAL_PATH)/ramdisk/init.recovery.scx15.rc:root/init.recovery.scx15.rc
+# Rootdir files
+ROOTDIR_FILES := \
+	$(LOCAL_PATH)/ramdisk/init.rc \
+	$(LOCAL_PATH)/ramdisk/init.board.rc \
+	$(LOCAL_PATH)/ramdisk/init.scx15.rc \
+	$(LOCAL_PATH)/ramdisk/init.scx15.usb.rc \
+	$(LOCAL_PATH)/ramdisk/init.scx15_ss.rc \
+	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc \
+	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn_base.rc \
+	$(LOCAL_PATH)/ramdisk/init.wifi.rc \
+	$(LOCAL_PATH)/ramdisk/init.recovery.scx15.rc \
+	$(LOCAL_PATH)/ramdisk/ueventd.scx15.rc \
+	$(LOCAL_PATH)/ramdisk/fstab.scx15 \
+	$(LOCAL_PATH)/ramdisk/property_contexts
 
 PRODUCT_COPY_FILES += \
-    	$(LOCAL_PATH)/ramdisk/etc/extra.fstab:recovery/root/etc/extra.fstab
+	$(foreach f,$(ROOTDIR_FILES),$(f):root/$(notdir $(f)))
+
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/ramdisk/etc/extra.fstab:recovery/root/etc/extra.fstab
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 PRODUCT_PROPERTY_OVERRIDES += \
