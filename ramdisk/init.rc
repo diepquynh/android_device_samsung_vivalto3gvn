@@ -496,6 +496,10 @@ service healthd /sbin/healthd
     critical
     seclabel u:r:healthd:s0
 
+service lpm /system/bin/lpm
+    class charger
+    critical
+
 service console /system/bin/sh
     class core
     console
@@ -574,7 +578,7 @@ service drm /system/bin/drmserver
     user drm
     group drm system inet drmrpc
 
-# XXX  REMOVE ROOT user
+# XXX REMOVE ROOT user
 service media /system/bin/logwrapper /system/bin/mediaserver
     class main
     user root
