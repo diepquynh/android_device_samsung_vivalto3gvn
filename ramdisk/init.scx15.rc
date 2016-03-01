@@ -274,21 +274,18 @@ on property:ro.config.ksm.support=true
 
 service modemd /system/bin/logwrapper /system/bin/modemd
     class core
-    user system
-    group system radio shell
+    user root
     oneshot
 
 service phoneserver_t /system/bin/phoneserver -m t
     class core
     user root
-    group radio system shell
     disabled
     oneshot
 
 service phoneserver_w /system/bin/logwrapper /system/bin/phoneserver -m w
     class core
     user root
-    group radio system shell
     disabled
     oneshot
 
@@ -300,33 +297,26 @@ service phoneserver_w /system/bin/logwrapper /system/bin/phoneserver -m w
 #nvitemd
 service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg FALSE
     class core
-    user system
-    group system radio shell
+    user root
     disabled
     oneshot
 
 service nvitemd_w /system/bin/logwrapper /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg        FALSE
     class core
-    user system
-    group system radio shell
+    user root
     disabled
     oneshot
-
-service slog /system/bin/slog -t
-    class main
-    user system
-    group system shell radio log sdcard_r sdcard_rw
 
 service refnotify /system/bin/refnotify -t 0
     class main
     user system
-	group system radio shell
+    group system radio shell
     disabled
 
 service refnotify_w /system/bin/refnotify -t 1
     class main
     user system
-	group system radio shell
+    group system radio shell
     disabled
 
 
