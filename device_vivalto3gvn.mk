@@ -42,6 +42,14 @@ BLUETOOTH_CONFIGS := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(BLUETOOTH_CONFIGS),$(f):system/etc/bluetooth/$(notdir $(f)))
 
+# Media config
+MEDIA_CONFIGS := \
+	$(LOCAL_PATH)/media/media_codecs.xml \
+	$(LOCAL_PATH)/media/media_profiles.xml
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(MEDIA_CONFIGS),$(f):system/etc/$(notdir $(f)))
+
 # Bluetooth
 PRODUCT_PACKAGES += \
 	libbluetooth_jni
