@@ -217,5 +217,6 @@ void init()
 		ALOGD("pthread_mutex_init: [sim_id=%d] [ret=%d]", i, pthread_mutex_init(&mutex[i], NULL));
 		ALOGD("pthread_cond_init: [sim_id=%d] [ret=%d]", i, pthread_cond_init(&cond[i], NULL));
 		ALOGD("OpenClient_RILD: [sim_id=%d] [ret=%p]", i, (ril_client[i] = OpenClient_RILD()));
+		ALOGD("rild_connect_if_required: [ret=%d]", rild_connect_if_required(i));
 	}
 }
