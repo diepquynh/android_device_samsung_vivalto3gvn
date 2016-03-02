@@ -108,8 +108,8 @@ lib/hw/camera2.scx15.so
 lib/hw/sensors.scx15.so
 
 # Media
-etc/media_profiles.xml
-etc/media_codecs.xml
+#etc/media_profiles.xml
+#etc/media_codecs.xml
 
 # Codecs
 #lib/libstagefrighthw.so
