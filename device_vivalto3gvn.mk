@@ -141,15 +141,17 @@ PERMISSION_XML_FILES := \
 	$(LOCAL_PATH)/permissions/platform.xml \
 	$(LOCAL_PATH)/permissions/handheld_core_hardware.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.camera.flash.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth.xml \
-	frameworks/native/data/etc/android.hardware.camera.xml \
 	frameworks/native/data/etc/android.hardware.camera.front.xml \
+	frameworks/native/data/etc/android.hardware.camera.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml \
 	frameworks/native/data/etc/android.hardware.location.gps.xml \
 	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml \
 	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml \
 	frameworks/native/data/etc/android.hardware.touchscreen.xml \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml \
+	frameworks/native/data/etc/android.software.sip.xml \
 	frameworks/native/data/etc/android.hardware.wifi.xml \
 	frameworks/native/data/etc/android.hardware.wifi.direct.xml
 
