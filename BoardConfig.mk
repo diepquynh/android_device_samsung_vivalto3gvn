@@ -175,9 +175,6 @@ WITH_DEXPREOPT := true
 # CMHW
 BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
 
-# Disable ART_HOST_CLANG
-WITHOUT_HOST_CLANG := true
-
 # TWRP
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 SP1_NAME := "internal_sd"
