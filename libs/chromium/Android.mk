@@ -1,5 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
+ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),true)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := webview
@@ -35,3 +37,5 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/lib
 LOCAL_SRC_FILES := libwebviewchromium_loader.so
 
 include $(BUILD_PREBUILT)
+
+endif # PRODUCT_PREBUILT_WEBVIEWCHROMIUM
