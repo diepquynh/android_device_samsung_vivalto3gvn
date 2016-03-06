@@ -36,7 +36,6 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth config
 BLUETOOTH_CONFIGS := \
-	$(LOCAL_PATH)/configs/bluetooth/bt_did.conf \
 	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf
 
 PRODUCT_COPY_FILES += \
