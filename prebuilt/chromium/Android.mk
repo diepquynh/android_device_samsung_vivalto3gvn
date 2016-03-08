@@ -1,6 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),true)
+ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
 
 include $(CLEAR_VARS)
 
