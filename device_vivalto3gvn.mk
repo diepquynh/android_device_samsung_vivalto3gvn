@@ -117,6 +117,7 @@ PRODUCT_PACKAGES += \
 	audio_vbc_eq \
 	libaudio-resampler \
 	libatchannel \
+	libatchannel_wrapper \
 	libtinyalsa
 
 # Use prebuilt webviewchromium
