@@ -29,6 +29,7 @@ import java.util.Collections;
 import android.telephony.PhoneNumberUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Custom RIL to handle unique behavior of SPRD RIL
@@ -48,7 +49,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     public SamsungSPRDRIL(Context context, int networkMode,
             int cdmaSubscription, Integer instanceId) {
         super(context, networkMode, cdmaSubscription, instanceId);
-        mQANElements = 6;
+        mQANElements = SystemProperties.getInt("ro.telephony.ril_qanelements", 6);
     }
 
     public void
@@ -140,6 +141,44 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         // Fake the message
         AsyncResult.forMessage(response, 0, null);
         response.sendToTarget();
+    }
+
+    @Override
+    protected Object
+    responseOperatorInfos(Parcel p) {
+        String strings[] = (String [])responseStrings(p);
+        ArrayList<OperatorInfo> ret;
+
+        // FIXME: What is this really doing
+        SpnOverride spnOverride = new SpnOverride();
+
+        // XXX
+        riljLog("mQANElements: " + Arrays.asList(strings).toString());
+
+        if (strings.length % mQANElements != 0) {
+            throw new RuntimeException(
+                "RIL_REQUEST_QUERY_AVAILABLE_NETWORKS: invalid response. Got "
+                + strings.length + " strings, expected multiple of " + mQANElements);
+        }
+
+        ret = new ArrayList<OperatorInfo>(strings.length / mQANElements);
+
+        for (int i = 0 ; i < strings.length ; i += mQANElements) {
+            String strOperatorLong = null;
+            if (spnOverride.containsCarrier(strings[i+2])) {
+                strOperatorLong = spnOverride.getSpn(strings[i+2]);
+            } else {
+                strOperatorLong = strings[i+0];
+            }
+            ret.add (
+                new OperatorInfo(
+                    strOperatorLong,
+                    strings[i+1],
+                    strings[i+2],
+                    strings[i+3]));
+        }
+
+        return ret;
     }
 
     @Override
