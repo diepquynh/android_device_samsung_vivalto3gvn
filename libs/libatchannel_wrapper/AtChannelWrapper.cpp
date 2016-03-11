@@ -29,7 +29,7 @@
 using namespace std;
 using namespace android;
 
-typedef const char *(*ss_sendAt_f)(int phoneId, int simId, const char *atCmd);
+typedef const char *(*ss_sendAt_f)(int modemId, int simId, const char *atCmd);
 
 static ss_sendAt_f find_ss_sendAt();
 static void init() __attribute__((constructor));
@@ -40,8 +40,8 @@ size_t sendAt(void *buf, size_t bufLen, int simId, const char* atCmd)
 {
 	ALOGI("atCmd=[%s]", atCmd);
 	if (ss_sendAt_handle) {
-		const int phoneId = 0; /* XXX Is 0 for w modem, 1 for other modem? */
-		const char *resp = ss_sendAt_handle(phoneId, simId, atCmd);
+		const int modemId = 0; /* XXX Is 0 for w modem, 1 for other modem? */
+		const char *resp = ss_sendAt_handle(modemId, simId, atCmd);
 		size_t outLen = MIN(bufLen, strlen(resp) + 1);
 		memcpy(buf, resp, outLen);
 		return outLen;
