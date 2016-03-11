@@ -24,12 +24,14 @@ import android.os.Message;
 import android.os.Parcel;
 import android.os.SystemProperties;
 import android.telephony.Rlog;
-import com.android.internal.telephony.RILConstants;
-import java.util.Collections;
 import android.telephony.PhoneNumberUtils;
+
+import com.android.internal.telephony.uicc.SpnOverride;
+import com.android.internal.telephony.RILConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Custom RIL to handle unique behavior of SPRD RIL
@@ -58,9 +60,9 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
-        rr.mParcel.writeInt(0); // UUS information is absent: Samsung SPRD compat
-        rr.mParcel.writeInt(1); // Samsung magic
-        rr.mParcel.writeString(""); // Samsung magic
+        rr.mParcel.writeInt(0);     // CallDetails.call_type
+        rr.mParcel.writeInt(1);     // CallDetails.call_domain
+        rr.mParcel.writeString(""); // CallDetails.getCsvFromExtras
 
         if (uusInfo == null) {
             rr.mParcel.writeInt(0); // UUS information is absent
@@ -410,26 +412,28 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         num = p.readInt();
         response = new ArrayList<DriverCall>(num);
 
+        if (RILJ_LOGV) {
+            riljLog("responseCallList: num=" + num +
+                    " mEmergencyCallbackModeRegistrant=" + mEmergencyCallbackModeRegistrant +
+                    " mTestingEmergencyCall=" + mTestingEmergencyCall.get());
+        }
         for (int i = 0 ; i < num ; i++) {
             dc = new DriverCall();
 
             dc.state = DriverCall.stateFromCLCC(p.readInt());
-            dc.index = p.readInt();
+            // & 0xff to truncate to 1 byte added for us, not in RIL.java
+            dc.index = p.readInt() & 0xff;
             dc.TOA = p.readInt();
             dc.isMpty = (0 != p.readInt());
             dc.isMT = (0 != p.readInt());
             dc.als = p.readInt();
             voiceSettings = p.readInt();
-            dc.isVoice = (0 == voiceSettings) ? false : true;
-            //Some Samsung magic data for Videocalls
-            // hack taken from smdk4210ril class
-            p.readInt();
-            //printing it to cosole for later investigation
-            Rlog.d(RILJ_LOG_TAG, "Samsung magic = " + voiceSettings);
+            dc.isVoice = (0 != voiceSettings);
+            boolean isVideo = (0 != p.readInt());
+            int call_type = p.readInt();            // Samsung CallDetails
+            int call_domain = p.readInt();          // Samsung CallDetails
+            String csv = p.readString();            // Samsung CallDetails
             dc.isVoicePrivacy = (0 != p.readInt());
-            p.readInt();
-            p.readInt();
-            p.readString();
             dc.number = p.readString();
             int np = p.readInt();
             dc.numberPresentation = DriverCall.presentationFromCLIP(np);
@@ -443,12 +447,12 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
                 byte[] userData = p.createByteArray();
                 dc.uusInfo.setUserData(userData);
                 riljLogv(String.format("Incoming UUS : type=%d, dcs=%d, length=%d",
-                                       dc.uusInfo.getType(), dc.uusInfo.getDcs(),
-                                       dc.uusInfo.getUserData().length));
+                                dc.uusInfo.getType(), dc.uusInfo.getDcs(),
+                                dc.uusInfo.getUserData().length));
                 riljLogv("Incoming UUS : data (string)="
-                         + new String(dc.uusInfo.getUserData()));
+                        + new String(dc.uusInfo.getUserData()));
                 riljLogv("Incoming UUS : data (hex): "
-                         + IccUtils.bytesToHexString(dc.uusInfo.getUserData()));
+                        + IccUtils.bytesToHexString(dc.uusInfo.getUserData()));
             } else {
                 riljLogv("Incoming UUS : NOT present!");
             }
@@ -468,6 +472,14 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
 
         Collections.sort(response);
+
+        if ((num == 0) && mTestingEmergencyCall.getAndSet(false)) {
+            if (mEmergencyCallbackModeRegistrant != null) {
+                riljLog("responseCallList: call ended, testing emergency call," +
+                            " notify ECM Registrants");
+                mEmergencyCallbackModeRegistrant.notifyRegistrant();
+            }
+        }
 
         return response;
     }
