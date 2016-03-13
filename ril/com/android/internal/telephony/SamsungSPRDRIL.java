@@ -40,10 +40,6 @@ import java.util.Collections;
  */
 public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
-/*
-    private static int sEnabledDataSimId = 0; // FIXME What whill happen if sim1 is absent?
-*/
-
     public SamsungSPRDRIL(Context context, int networkMode, int cdmaSubscription) {
         this(context, networkMode, cdmaSubscription, null);
     }
@@ -54,6 +50,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         mQANElements = SystemProperties.getInt("ro.telephony.ril_qanelements", 6);
     }
 
+    @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL, result);
@@ -78,6 +75,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         send(rr);
     }
 
+    @Override
     public void setUiccSubscription(int slotId, int appIndex, int subId,
             int subStatus, Message result) {
         if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus);
@@ -103,84 +101,55 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
     }
 
-    private void setDataSubscription(Message result) {
-        int simId = mInstanceId == null ? 0 : mInstanceId;
-        if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
-        invokeOemRilRequestRaw(new byte[] {(byte) 9, (byte) 4}, result);
-        if (result != null) {
-            AsyncResult.forMessage(result, 0, null);
-            result.sendToTarget();
-        }
-    }
-
     @Override
     public void setDataAllowed(boolean allowed, Message result) {
-/*
         int simId = mInstanceId == null ? 0 : mInstanceId;
-        if (!allowed) {
-            // Deactivate data call. This happens when switching data SIM
-            // and the framework will wait for data call to be deactivated.
-            // Emulate this by switching to the other SIM.
-            simId = 1 - simId;
-        }
-        if (sEnabledDataSimId != simId) {
-            if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
-            setDataSubscription(result);
-            sEnabledDataSimId = simId;
+        if (allowed) {
+            riljLog("Setting data subscription to sim [" + simId + "]");
+            invokeOemRilRequestRaw(new byte[] {0x9, 0x4}, result);
         } else {
-            if (RILJ_LOGD) riljLog("Data subscription is already set to " + simId);
+            riljLog("Do nothing when turn-off data on sim [" + simId + "]");
             if (result != null) {
                 AsyncResult.forMessage(result, 0, null);
                 result.sendToTarget();
             }
         }
-*/
-        if (allowed)
-            setDataSubscription(result);
-    }
-
-    public void setDefaultVoiceSub(int subIndex, Message response) {
-        // Fake the message
-        AsyncResult.forMessage(response, 0, null);
-        response.sendToTarget();
     }
 
     @Override
-    protected Object
-    responseOperatorInfos(Parcel p) {
-        String strings[] = (String [])responseStrings(p);
-        ArrayList<OperatorInfo> ret;
-
-        // FIXME: What is this really doing
-        SpnOverride spnOverride = new SpnOverride();
-
-        // XXX
-        riljLog("mQANElements: " + Arrays.asList(strings).toString());
-
-        if (strings.length % mQANElements != 0) {
-            throw new RuntimeException(
-                "RIL_REQUEST_QUERY_AVAILABLE_NETWORKS: invalid response. Got "
-                + strings.length + " strings, expected multiple of " + mQANElements);
+    public void getHardwareConfig (Message result) {
+        riljLog("Ignoring call to 'getHardwareConfig'");
+        if (result != null) {
+            AsyncResult.forMessage(result, null, new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED));
+            result.sendToTarget();
         }
+    }
 
-        ret = new ArrayList<OperatorInfo>(strings.length / mQANElements);
+    @Override
+    protected RadioState getRadioStateFromInt(int stateInt) {
+        RadioState state;
 
-        for (int i = 0 ; i < strings.length ; i += mQANElements) {
-            String strOperatorLong = null;
-            if (spnOverride.containsCarrier(strings[i+2])) {
-                strOperatorLong = spnOverride.getSpn(strings[i+2]);
-            } else {
-                strOperatorLong = strings[i+0];
-            }
-            ret.add (
-                new OperatorInfo(
-                    strOperatorLong,
-                    strings[i+1],
-                    strings[i+2],
-                    strings[i+3]));
+        /* RIL_RadioState ril.h */
+        switch(stateInt) {
+            case 0: state = RadioState.RADIO_OFF; break;
+            case 1: state = RadioState.RADIO_UNAVAILABLE; break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13: state = RadioState.RADIO_ON; break;
+
+            default:
+                throw new RuntimeException(
+                            "Unrecognized RIL_RadioState: " + stateInt);
         }
-
-        return ret;
+        return state;
     }
 
     @Override
@@ -197,12 +166,9 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
     }
 
-    private void invokeOemRilRequestSprd(byte key, byte value, Message response) {
-        invokeOemRilRequestRaw(new byte[] { 'S', 'P', 'R', 'D', key, value }, response);
-    }
-
+    @Override
     protected RILRequest
-    processSolicited (Parcel p) {
+    processSolicited(Parcel p) {
         int serial, error;
 
         serial = p.readInt();
@@ -482,5 +448,9 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
 
         return response;
+    }
+
+    private void invokeOemRilRequestSprd(byte key, byte value, Message response) {
+        invokeOemRilRequestRaw(new byte[] { 'S', 'P', 'R', 'D', key, value }, response);
     }
 }
