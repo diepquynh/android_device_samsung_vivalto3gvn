@@ -46,3 +46,17 @@ index 54ebb6c..7c13d52 100644
  const char *MEDIA_MIMETYPE_AUDIO_FLAC = "audio/flac";
  const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS = "audio/aac-adts";
  const char *MEDIA_MIMETYPE_AUDIO_MSGSM = "audio/gsm";
+diff --git a/media/libstagefright/OMXCodec.cpp b/media/libstagefright/OMXCodec.cpp
+index 3706e9b..c447abb 100644
+--- a/media/libstagefright/OMXCodec.cpp
++++ b/media/libstagefright/OMXCodec.cpp
+@@ -416,6 +416,9 @@ uint32_t OMXCodec::getComponentQuirks(
+     if (info->hasQuirk("requires-global-flush")) {
+         quirks |= kRequiresGlobalFlush;
+     }
++    if (info->hasQuirk("defers-output-buffer-allocation"))  {
++        quirks |= kDefersOutputBufferAllocation;
++    }
+ 
+ #ifdef ENABLE_AV_ENHANCEMENTS
+     quirks |= ExtendedCodec::getComponentQuirks(info);
