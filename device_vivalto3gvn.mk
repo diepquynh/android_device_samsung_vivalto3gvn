@@ -36,7 +36,6 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth config
 BLUETOOTH_CONFIGS := \
-	$(LOCAL_PATH)/configs/bluetooth/bt_did.conf \
 	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf
 
 PRODUCT_COPY_FILES += \
@@ -116,6 +115,7 @@ PRODUCT_PACKAGES += \
 	audio_vbc_eq \
 	libaudio-resampler \
 	libatchannel \
+	libatchannel_wrapper \
 	libtinyalsa
 
 # Wifi
@@ -167,8 +167,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.dex2oat-Xms=8m \
 	dalvik.vm.dex2oat-Xmx=96m \
+	dalvik.vm.dex2oat-flags=--no-watch-dog \
+	dalvik.vm.dex2oat-filter=interpret-only \
 	dalvik.vm.image-dex2oat-Xms=48m \
-	dalvik.vm.image-dex2oat-Xmx=48m
+	dalvik.vm.image-dex2oat-Xmx=48m \
+	dalvik.vm.image-dex2oat-filter=speed
 
 # Support for Browser's saved page feature. This allows
 # for pages saved on previous versions of the OS to be

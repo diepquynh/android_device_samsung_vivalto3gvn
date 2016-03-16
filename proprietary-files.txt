@@ -1,18 +1,18 @@
 # Un-categorized
 bin/at_distributor
-bin/atrace
-bin/bmgr
+#bin/atrace
+#bin/bmgr
 bin/npsmobex
 bin/refnotify
-bin/slog
+#bin/slog
 bin/engpc
-bin/smd
-bin/smdexe
-bin/ddexe
-bin/connfwexe
-bin/createsystemfile
-bin/wlandutservice
-etc/slog.conf
+#bin/smd
+#bin/smdexe
+#bin/ddexe
+#bin/connfwexe
+#bin/createsystemfile
+#bin/wlandutservice
+#etc/slog.conf
 lib/libatparser.so
 lib/libsamsungearcare.so
 lib/libsamsungeffect.so
@@ -45,8 +45,8 @@ etc/tiny_hw.xml
 #bin/tinymix
 #lib/hw/audio.primary.scx15.so
 #lib/hw/audio_policy.scx15.so
-#lib/libfactoryutil.so
-#lib/libomission_avoidance.so
+lib/libfactoryutil.so
+lib/libomission_avoidance.so
 #lib/libcontrolcsc.so
 #lib/libaudiopolicy_sec.so
 #lib/libaudiosa.so
@@ -55,7 +55,7 @@ etc/tiny_hw.xml
 #lib/libnvexchange.so
 #lib/libvbpga.so
 #lib/libdumpdata.so
-#lib/libatchannel.so
+lib/libatchannel.so
 #lib/libsonivox.so
 #lib/libsoundalive.so
 #lib/lib_soundaliveresampler.so
@@ -91,7 +91,8 @@ bin/ext_symlink.sh
 bin/prepare_param.sh
 lib/libril.so
 lib/libreference-ril_sp.so
-#lib/libsecril-client.so
+lib/librilutils.so
+lib/libsecril-client.so
 lib/libsecnativefeature.so
 
 # Camera
