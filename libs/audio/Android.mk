@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 ifeq ($(strip $(BOARD_USES_TINYALSA_AUDIO)),true)
 
 LOCAL_PATH := $(call my-dir)
@@ -45,7 +44,6 @@ else
 LOCAL_CFLAGS += -DVOIP_DSP_PROCESS
 endif
 
-
 LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	external/expat/lib \
@@ -55,17 +53,26 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../audio/vb_pga \
 	$(LOCAL_PATH)/../audio/record_process \
 	$(LOCAL_PATH)/../audio/nv_exchange \
-	$(LOCAL_PATH)/../libatchannel \
 	$(LOCAL_PATH)/../audio/DumpData
-	
-	BOARD_EQ_DIR := v1
+
+ifeq ($(BOARD_USE_LIBATCHANNEL_WRAPPER),true)
+LOCAL_CFLAGS += \
+	-DUSE_LIBATCHANNEL_WRAPPER
+LOCAL_C_INCLUDES += \
+	$(LOCAL_PATH)/../libatchannel_wrapper
+else
+LOCAL_C_INCLUDES += \
+	$(LOCAL_PATH)/../libatchannel
+endif
+
+BOARD_EQ_DIR := v1
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM)),sc8830)
-	BOARD_EQ_DIR := v2
+BOARD_EQ_DIR := v2
 endif
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
-	BOARD_EQ_DIR := v2
+BOARD_EQ_DIR := v2
 endif
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../audio/vb_effect/$(BOARD_EQ_DIR)
@@ -82,14 +89,24 @@ endif
 LOCAL_SHARED_LIBRARIES := \
 	liblog libcutils libtinyalsa libaudioutils \
 	libexpat libdl \
-	libvbeffect libvbpga libnvexchange libdumpdata \
-	libatchannel
+	libvbeffect libvbpga libnvexchange libdumpdata
+
+ifeq ($(BOARD_USE_LIBATCHANNEL_WRAPPER),true)
+LOCAL_SHARED_LIBRARIES += libatchannel_wrapper
+else
+LOCAL_SHARED_LIBRARIES += libatchannel
+endif
 
 LOCAL_REQUIRED_MODULES := \
 	liblog libcutils libtinyalsa libaudioutils \
 	libexpat libdl \
-	libvbeffect libvbpga libnvexchange libdumpdata \
-	libatchannel
+	libvbeffect libvbpga libnvexchange libdumpdata
+
+ifeq ($(BOARD_USE_LIBATCHANNEL_WRAPPER),true)
+LOCAL_REQUIRED_MODULES += libatchannel_wrapper
+else
+LOCAL_REQUIRED_MODULES += libatchannel
+endif
 
 LOCAL_MODULE_TAGS := optional
 

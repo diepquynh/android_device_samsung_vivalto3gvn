@@ -36,11 +36,18 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth config
 BLUETOOTH_CONFIGS := \
-	$(LOCAL_PATH)/configs/bluetooth/bt_did.conf \
 	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(BLUETOOTH_CONFIGS),$(f):system/etc/bluetooth/$(notdir $(f)))
+
+# Media config
+MEDIA_CONFIGS := \
+	$(LOCAL_PATH)/media/media_codecs.xml \
+	$(LOCAL_PATH)/media/media_profiles.xml
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(MEDIA_CONFIGS),$(f):system/etc/$(notdir $(f)))
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -108,6 +115,7 @@ PRODUCT_PACKAGES += \
 	audio_vbc_eq \
 	libaudio-resampler \
 	libatchannel \
+	libatchannel_wrapper \
 	libtinyalsa
 
 # Wifi
@@ -124,15 +132,17 @@ PERMISSION_XML_FILES := \
 	$(LOCAL_PATH)/permissions/platform.xml \
 	$(LOCAL_PATH)/permissions/handheld_core_hardware.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.camera.flash.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth.xml \
-	frameworks/native/data/etc/android.hardware.camera.xml \
 	frameworks/native/data/etc/android.hardware.camera.front.xml \
+	frameworks/native/data/etc/android.hardware.camera.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml \
 	frameworks/native/data/etc/android.hardware.location.gps.xml \
 	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml \
 	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml \
 	frameworks/native/data/etc/android.hardware.touchscreen.xml \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml \
+	frameworks/native/data/etc/android.software.sip.xml \
 	frameworks/native/data/etc/android.hardware.wifi.xml \
 	frameworks/native/data/etc/android.hardware.wifi.direct.xml
 
@@ -157,8 +167,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.dex2oat-Xms=8m \
 	dalvik.vm.dex2oat-Xmx=96m \
+	dalvik.vm.dex2oat-flags=--no-watch-dog \
+	dalvik.vm.dex2oat-filter=interpret-only \
 	dalvik.vm.image-dex2oat-Xms=48m \
-	dalvik.vm.image-dex2oat-Xmx=48m
+	dalvik.vm.image-dex2oat-Xmx=48m \
+	dalvik.vm.image-dex2oat-filter=speed
 
 # Support for Browser's saved page feature. This allows
 # for pages saved on previous versions of the OS to be

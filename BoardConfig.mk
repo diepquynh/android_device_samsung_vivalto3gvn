@@ -85,6 +85,7 @@ TARGET_SCREEN_WIDTH := 480
 
 # Audio
 BOARD_USES_TINYALSA_AUDIO := true
+BOARD_USE_LIBATCHANNEL_WRAPPER := true
 
 # Board specific features
 #BOARD_USE_VETH := true
@@ -195,4 +196,3 @@ TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/ramdisk/recovery.fstab
 TW_HAS_DOWNLOAD_MODE := true
 DEVICE_RESOLUTION := 480x800
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
-
