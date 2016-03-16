@@ -50,6 +50,10 @@
         <group gid="vpn" />
     </permission>
 
+    <permission name="android.permission.SYSTEM_GROUP_INTERNAL" >
+        <group gid="system" />
+    </permission>
+
     <permission name="android.permission.INTERNET" >
         <group gid="inet" />
     </permission>
@@ -146,8 +150,10 @@
          code to link against. -->
 
     <library name="android.test.runner"
-            file="/system/framework/android.test.runner.jar" />
+        file="/system/framework/android.test.runner.jar" />
     <library name="javax.obex"
-            file="/system/framework/javax.obex.jar"/>
+        file="/system/framework/javax.obex.jar" />
+    <library name="javax.btobex"
+        file="/system/framework/javax.btobex.jar" />
 
 </permissions>
