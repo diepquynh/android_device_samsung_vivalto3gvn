@@ -996,21 +996,6 @@ index 374b72e..dde8de9 100644
 -};
 +// ---------------------------------------------------------------------------
 +}; // namespace android
-diff --git a/libs/ui/GraphicBufferAllocator.cpp b/libs/ui/GraphicBufferAllocator.cpp
-index 016692e..f8fee3d 100644
---- a/libs/ui/GraphicBufferAllocator.cpp
-+++ b/libs/ui/GraphicBufferAllocator.cpp
-@@ -130,6 +130,10 @@ status_t GraphicBufferAllocator::alloc(uint32_t w, uint32_t h,
-     }
- #endif
- 
-+#ifdef SPRD_HARDWARE
-+    if (format == HAL_PIXEL_FORMAT_YCbCr_420_I)
-+        format = HAL_PIXEL_FORMAT_YCbCr_420_SP;
-+#endif
-     err = mAllocDev->alloc(mAllocDev, w, h, format, usage, handle, stride);
-     ALOGW_IF(err, "alloc(%u, %u, %d, %08x, ...) failed %d (%s)",
-             w, h, format, usage, err, strerror(-err));
 diff --git a/services/surfaceflinger/Android.mk b/services/surfaceflinger/Android.mk
 index 0166b89..bf1fbde 100644
 --- a/services/surfaceflinger/Android.mk
