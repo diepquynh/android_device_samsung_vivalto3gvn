@@ -405,3 +405,7 @@ service srtd /system/xbin/srtd
     group root
     oneshot
 
+service set_freq /system/bin/set_freq.sh
+    user root
+    class main
+    oneshot
