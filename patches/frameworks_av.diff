@@ -1,0 +1,95 @@
+diff --git a/include/media/stagefright/MediaDefs.h b/include/media/stagefright/MediaDefs.h
+index 481972c..a52e6fc 100644
+--- a/include/media/stagefright/MediaDefs.h
++++ b/include/media/stagefright/MediaDefs.h
+@@ -28,6 +28,7 @@ extern const char *MEDIA_MIMETYPE_VIDEO_AVC;
+ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG4;
+ extern const char *MEDIA_MIMETYPE_VIDEO_H263;
+ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG2;
++extern const char *MEDIA_MIMETYPE_VIDEO_MJPG;
+ extern const char *MEDIA_MIMETYPE_VIDEO_RAW;
+ 
+ extern const char *MEDIA_MIMETYPE_AUDIO_AMR_NB;
+@@ -44,6 +45,7 @@ extern const char *MEDIA_MIMETYPE_AUDIO_VORBIS;
+ extern const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW;
+ extern const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW;
+ extern const char *MEDIA_MIMETYPE_AUDIO_RAW;
++extern const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM;
+ extern const char *MEDIA_MIMETYPE_AUDIO_FLAC;
+ extern const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS;
+ extern const char *MEDIA_MIMETYPE_AUDIO_MSGSM;
+diff --git a/media/libstagefright/ACodec.cpp b/media/libstagefright/ACodec.cpp
+index 802a193..24905de 100755
+--- a/media/libstagefright/ACodec.cpp
++++ b/media/libstagefright/ACodec.cpp
+@@ -41,8 +41,10 @@
+ #include <OMX_Component.h>
+ 
+ #ifdef USE_SAMSUNG_COLORFORMAT
++#ifndef SPRD_HARDWARE
+ #include <sec_format.h>
+ #endif
++#endif
+ 
+ #ifdef USE_TI_CUSTOM_DOMX
+ #include <OMX_TI_IVCommon.h>
+diff --git a/media/libstagefright/CameraSource.cpp b/media/libstagefright/CameraSource.cpp
+index 4978c08..191abf3 100644
+--- a/media/libstagefright/CameraSource.cpp
++++ b/media/libstagefright/CameraSource.cpp
+@@ -122,7 +122,7 @@ static int32_t getColorFormat(const char* colorFormat) {
+     }
+ 
+     if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_YUV420SP)) {
+-#ifdef USE_SAMSUNG_COLORFORMAT
++#if defined(USE_SAMSUNG_COLORFORMAT) && !defined(SPRD_HARDWARE)
+         static const int OMX_SEC_COLOR_FormatNV12LPhysicalAddress = 0x7F000002;
+         return OMX_SEC_COLOR_FormatNV12LPhysicalAddress;
+ #else
+diff --git a/media/libstagefright/MediaDefs.cpp b/media/libstagefright/MediaDefs.cpp
+index 6a69740..42b15a0 100644
+--- a/media/libstagefright/MediaDefs.cpp
++++ b/media/libstagefright/MediaDefs.cpp
+@@ -26,6 +26,7 @@ const char *MEDIA_MIMETYPE_VIDEO_AVC = "video/avc";
+ const char *MEDIA_MIMETYPE_VIDEO_MPEG4 = "video/mp4v-es";
+ const char *MEDIA_MIMETYPE_VIDEO_H263 = "video/3gpp";
+ const char *MEDIA_MIMETYPE_VIDEO_MPEG2 = "video/mpeg2";
++const char *MEDIA_MIMETYPE_VIDEO_MJPG = "video/mjpg";
+ const char *MEDIA_MIMETYPE_VIDEO_RAW = "video/raw";
+ 
+ const char *MEDIA_MIMETYPE_AUDIO_AMR_NB = "audio/3gpp";
+@@ -39,6 +40,7 @@ const char *MEDIA_MIMETYPE_AUDIO_VORBIS = "audio/vorbis";
+ const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW = "audio/g711-alaw";
+ const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW = "audio/g711-mlaw";
+ const char *MEDIA_MIMETYPE_AUDIO_RAW = "audio/raw";
++const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM = "audio/ima-adpcm";
+ const char *MEDIA_MIMETYPE_AUDIO_FLAC = "audio/flac";
+ const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS = "audio/aac-adts";
+ const char *MEDIA_MIMETYPE_AUDIO_MSGSM = "audio/gsm";
+diff --git a/media/libstagefright/OMXCodec.cpp b/media/libstagefright/OMXCodec.cpp
+index 8816dd2..4371f6f 100644
+--- a/media/libstagefright/OMXCodec.cpp
++++ b/media/libstagefright/OMXCodec.cpp
+@@ -66,8 +66,10 @@
+ #endif
+ 
+ #ifdef USE_SAMSUNG_COLORFORMAT
++#ifndef SPRD_HARDWARE
+ #include <sec_format.h>
+ #endif
++#endif
+ 
+ #ifdef USE_TI_CUSTOM_DOMX
+ #include <OMX_TI_Video.h>
+@@ -2438,9 +2440,11 @@ status_t OMXCodec::allocateOutputBuffersFromNativeWindow() {
+     OMX_COLOR_FORMATTYPE eColorFormat;
+ 
+     switch (def.format.video.eColorFormat) {
++#ifndef SPRD_HARDWARE
+     case OMX_SEC_COLOR_FormatNV12TPhysicalAddress:
+         eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_CUSTOM_YCbCr_420_SP_TILED;
+         break;
++#endif
+     case OMX_COLOR_FormatYUV420SemiPlanar:
+         eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCbCr_420_SP;
+         break;
