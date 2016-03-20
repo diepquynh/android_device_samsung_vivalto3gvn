@@ -101,29 +101,25 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="needs-flush-before-disable" />
         </MediaCodec>
 
+        <!-- XXX TESTING -->
+        <MediaCodec name="OMX.sprd.vpx.decoder" type="video/x-vnd.on2.vp9">
+            <Quirk name="requires-allocate-on-output-ports" />
+            <Quirk name="defers-output-buffer-allocation" />
+            <Quirk name="needs-flush-before-disable" />
+        </MediaCodec>
+
         <MediaCodec name="OMX.sprd.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.sprd.mp3.decoder" type="audio/mpeg-L1" />
         <MediaCodec name="OMX.sprd.mp3.decoder" type="audio/mpeg-L2" />
-        <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.sprd.aac.decoder" type="audio/mp4a-latm" />
+        <!--
         <MediaCodec name="OMX.sprd.ape.decoder" type="audio/ape" />
-        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" />
-        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" />
-        <MediaCodec name="OMX.google.imaadpcm.decoder" type="audio/ima-adpcm" />
-        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
-        <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
-
+        -->
         <MediaCodec name="OMX.sprd.soft.mpeg4.decoder" type="video/mp4v-es" />
         <MediaCodec name="OMX.sprd.soft.h263.decoder" type="video/3gpp" />
         <MediaCodec name="OMX.sprd.soft.h264.decoder" type="video/avc" />
-        <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
-        <MediaCodec name="OMX.google.h263.decoder" type="video/3gpp" />
-        <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
-        <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" />
-        <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" />
+
+        <MediaCodec name="OMX.google.imaadpcm.decoder" type="audio/ima-adpcm" />
         <MediaCodec name="OMX.google.mjpg.decoder" type="video/mjpg" />
     </Decoders>
 
@@ -131,13 +127,5 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.sprd.mpeg4.encoder" type="video/mp4v-es" />
         <MediaCodec name="OMX.sprd.h263.encoder" type="video/3gpp" />
         <MediaCodec name="OMX.sprd.h264.encoder" type="video/avc"/>
-
-        <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.encoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.h263.encoder" type="video/3gpp" />
-        <MediaCodec name="OMX.google.h264.encoder" type="video/avc" />
-        <MediaCodec name="OMX.google.mpeg4.encoder" type="video/mp4v-es" />
-        <MediaCodec name="OMX.google.flac.encoder" type="audio/flac" />
     </Encoders>
 </MediaCodecs>
