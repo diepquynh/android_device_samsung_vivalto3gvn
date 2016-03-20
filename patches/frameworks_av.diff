@@ -1,51 +1,23 @@
 diff --git a/include/media/stagefright/MediaDefs.h b/include/media/stagefright/MediaDefs.h
-index bab6432..1f8e390 100644
+index bab6432..78fd007 100644
 --- a/include/media/stagefright/MediaDefs.h
 +++ b/include/media/stagefright/MediaDefs.h
-@@ -49,6 +49,9 @@ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG4;
+@@ -49,6 +49,7 @@ extern const char *MEDIA_MIMETYPE_VIDEO_MPEG4;
  extern const char *MEDIA_MIMETYPE_VIDEO_MPEG4_DP;
  extern const char *MEDIA_MIMETYPE_VIDEO_H263;
  extern const char *MEDIA_MIMETYPE_VIDEO_MPEG2;
-+#ifdef SPRD_HARDWARE
 +extern const char *MEDIA_MIMETYPE_VIDEO_MJPG;
-+#endif
  extern const char *MEDIA_MIMETYPE_VIDEO_RAW;
  
  extern const char *MEDIA_MIMETYPE_AUDIO_AMR_NB;
-@@ -63,6 +66,9 @@ extern const char *MEDIA_MIMETYPE_AUDIO_OPUS;
+@@ -63,6 +64,7 @@ extern const char *MEDIA_MIMETYPE_AUDIO_OPUS;
  extern const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW;
  extern const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW;
  extern const char *MEDIA_MIMETYPE_AUDIO_RAW;
-+#ifdef SPRD_HARDWARE
 +extern const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM;
-+#endif
  extern const char *MEDIA_MIMETYPE_AUDIO_FLAC;
  extern const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS;
  extern const char *MEDIA_MIMETYPE_AUDIO_MSGSM;
-diff --git a/media/libstagefright/MediaDefs.cpp b/media/libstagefright/MediaDefs.cpp
-index 54ebb6c..7c13d52 100644
---- a/media/libstagefright/MediaDefs.cpp
-+++ b/media/libstagefright/MediaDefs.cpp
-@@ -47,6 +47,9 @@ const char *MEDIA_MIMETYPE_VIDEO_MPEG4 = "video/mp4v-es";
- const char *MEDIA_MIMETYPE_VIDEO_MPEG4_DP = "video/mp4v-esdp";
- const char *MEDIA_MIMETYPE_VIDEO_H263 = "video/3gpp";
- const char *MEDIA_MIMETYPE_VIDEO_MPEG2 = "video/mpeg2";
-+#ifdef SPRD_HARDWARE
-+const char *MEDIA_MIMETYPE_VIDEO_MJPG = "video/mjpg";
-+#endif
- const char *MEDIA_MIMETYPE_VIDEO_RAW = "video/raw";
- 
- const char *MEDIA_MIMETYPE_AUDIO_AMR_NB = "audio/3gpp";
-@@ -61,6 +64,9 @@ const char *MEDIA_MIMETYPE_AUDIO_OPUS = "audio/opus";
- const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW = "audio/g711-alaw";
- const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW = "audio/g711-mlaw";
- const char *MEDIA_MIMETYPE_AUDIO_RAW = "audio/raw";
-+#ifdef SPRD_HARDWARE
-+const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM = "audio/ima-adpcm";
-+#endif
- const char *MEDIA_MIMETYPE_AUDIO_FLAC = "audio/flac";
- const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS = "audio/aac-adts";
- const char *MEDIA_MIMETYPE_AUDIO_MSGSM = "audio/gsm";
 diff --git a/include/media/stagefright/OMXCodec.h b/include/media/stagefright/OMXCodec.h
 index b57b491..f3bdaa4 100644
 --- a/include/media/stagefright/OMXCodec.h
@@ -59,18 +31,85 @@ index b57b491..f3bdaa4 100644
      status_t setVideoPortFormatType(
              OMX_U32 portIndex,
              OMX_VIDEO_CODINGTYPE compressionFormat,
+diff --git a/media/libstagefright/ACodec.cpp b/media/libstagefright/ACodec.cpp
+index 607b7b0..8dd8541 100644
+--- a/media/libstagefright/ACodec.cpp
++++ b/media/libstagefright/ACodec.cpp
+@@ -93,8 +93,10 @@
+ #include "include/ExtendedUtils.h"
+ 
+ #ifdef USE_SAMSUNG_COLORFORMAT
++#ifndef SPRD_HARDWARE
+ #include <sec_format.h>
+ #endif
++#endif
+ 
+ #include "include/avc_utils.h"
+ 
+@@ -1053,6 +1055,10 @@ void ACodec::setNativeWindowColorFormat(OMX_COLOR_FORMATTYPE &eNativeColorFormat
+     if (!strcasecmp(mComponentName.c_str(), "OMX.SEC.AVC.Decoder")
+         || !strcasecmp(mComponentName.c_str(), "OMX.SEC.FP.AVC.Decoder")
+         || !strcasecmp(mComponentName.c_str(), "OMX.SEC.MPEG4.Decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.mpeg4.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.h263.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.h264.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.vpx.decoder")
+         || !strcasecmp(mComponentName.c_str(), "OMX.Exynos.AVC.Decoder")) {
+         switch (eNativeColorFormat) {
+             case OMX_COLOR_FormatYUV420SemiPlanar:
+diff --git a/media/libstagefright/CameraSource.cpp b/media/libstagefright/CameraSource.cpp
+index 006ef5e..07d2c23 100644
+--- a/media/libstagefright/CameraSource.cpp
++++ b/media/libstagefright/CameraSource.cpp
+@@ -108,7 +108,7 @@ static int32_t getColorFormat(const char* colorFormat) {
+     }
+ 
+     if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_YUV420SP)) {
+-#ifdef USE_SAMSUNG_COLORFORMAT
++#if defined(USE_SAMSUNG_COLORFORMAT) && !defined(SPRD_HARDWARE)
+         static const int OMX_SEC_COLOR_FormatNV12LPhysicalAddress = 0x7F000002;
+         return OMX_SEC_COLOR_FormatNV12LPhysicalAddress;
+ #else
+diff --git a/media/libstagefright/MediaDefs.cpp b/media/libstagefright/MediaDefs.cpp
+index 54ebb6c..0e8bd1b 100644
+--- a/media/libstagefright/MediaDefs.cpp
++++ b/media/libstagefright/MediaDefs.cpp
+@@ -47,6 +47,7 @@ const char *MEDIA_MIMETYPE_VIDEO_MPEG4 = "video/mp4v-es";
+ const char *MEDIA_MIMETYPE_VIDEO_MPEG4_DP = "video/mp4v-esdp";
+ const char *MEDIA_MIMETYPE_VIDEO_H263 = "video/3gpp";
+ const char *MEDIA_MIMETYPE_VIDEO_MPEG2 = "video/mpeg2";
++const char *MEDIA_MIMETYPE_VIDEO_MJPG = "video/mjpg";
+ const char *MEDIA_MIMETYPE_VIDEO_RAW = "video/raw";
+ 
+ const char *MEDIA_MIMETYPE_AUDIO_AMR_NB = "audio/3gpp";
+@@ -61,6 +62,7 @@ const char *MEDIA_MIMETYPE_AUDIO_OPUS = "audio/opus";
+ const char *MEDIA_MIMETYPE_AUDIO_G711_ALAW = "audio/g711-alaw";
+ const char *MEDIA_MIMETYPE_AUDIO_G711_MLAW = "audio/g711-mlaw";
+ const char *MEDIA_MIMETYPE_AUDIO_RAW = "audio/raw";
++const char *MEDIA_MIMETYPE_AUDIO_IMAADPCM = "audio/ima-adpcm";
+ const char *MEDIA_MIMETYPE_AUDIO_FLAC = "audio/flac";
+ const char *MEDIA_MIMETYPE_AUDIO_AAC_ADTS = "audio/aac-adts";
+ const char *MEDIA_MIMETYPE_AUDIO_MSGSM = "audio/gsm";
 diff --git a/media/libstagefright/OMXCodec.cpp b/media/libstagefright/OMXCodec.cpp
-index 3706e9b..e2b0ba6 100644
+index 3706e9b..bf9660c 100644
 --- a/media/libstagefright/OMXCodec.cpp
 +++ b/media/libstagefright/OMXCodec.cpp
-@@ -416,6 +416,14 @@ uint32_t OMXCodec::getComponentQuirks(
+@@ -116,8 +116,10 @@
+ #endif
+ 
+ #ifdef USE_SAMSUNG_COLORFORMAT
++#ifndef SPRD_HARDWARE
+ #include <sec_format.h>
+ #endif
++#endif
+ 
+ #ifdef USE_S3D_SUPPORT
+ #include "Exynos_OMX_Def.h"
+@@ -416,6 +418,11 @@ uint32_t OMXCodec::getComponentQuirks(
      if (info->hasQuirk("requires-global-flush")) {
          quirks |= kRequiresGlobalFlush;
      }
 +#ifdef SPRD_HARDWARE
-+    if (info->hasQuirk("defers-output-buffer-allocation"))  {
-+        quirks |= kDefersOutputBufferAllocation;
-+    }
 +    if (info->hasQuirk("needs-flush-before-disable")) {
 +        quirks |= kNeedsFlushBeforeDisable;
 +    }
@@ -78,7 +117,7 @@ index 3706e9b..e2b0ba6 100644
  
  #ifdef ENABLE_AV_ENHANCEMENTS
      quirks |= ExtendedCodec::getComponentQuirks(info);
-@@ -1651,6 +1659,8 @@ status_t OMXCodec::setVideoOutputFormat(
+@@ -1651,6 +1658,8 @@ status_t OMXCodec::setVideoOutputFormat(
          compressionFormat = OMX_VIDEO_CodingVP9;
      } else if (!strcasecmp(MEDIA_MIMETYPE_VIDEO_MPEG2, mime)) {
          compressionFormat = OMX_VIDEO_CodingMPEG2;
@@ -87,7 +126,7 @@ index 3706e9b..e2b0ba6 100644
      } else {
          status_t err = ERROR_UNSUPPORTED;
  #ifdef ENABLE_AV_ENHANCEMENTS
-@@ -1918,6 +1928,8 @@ void OMXCodec::setComponentRole(
+@@ -1918,6 +1927,8 @@ void OMXCodec::setComponentRole(
              "audio_decoder.flac", "audio_encoder.flac" },
          { MEDIA_MIMETYPE_AUDIO_MSGSM,
              "audio_decoder.gsm", "audio_encoder.gsm" },
@@ -96,38 +135,19 @@ index 3706e9b..e2b0ba6 100644
          { MEDIA_MIMETYPE_VIDEO_MPEG2,
              "video_decoder.mpeg2", "video_encoder.mpeg2" },
          { MEDIA_MIMETYPE_AUDIO_AC3,
-@@ -2299,11 +2311,30 @@ status_t OMXCodec::allocateOutputBuffersFromNativeWindow() {
-             frameHeight,
-             def.format.video.eColorFormat);
- #else
-+#if defined(SPRD_HARDWARE)
-+    OMX_COLOR_FORMATTYPE eColorFormat;
-+
-+    switch (def.format.video.eColorFormat) {
-+    case OMX_COLOR_FormatYUV420SemiPlanar:
-+        eColorFormat = (OMX_COLOR_FORMATTYPE) HAL_PIXEL_FORMAT_YCbCr_420_SP;
-+        break;
-+    default:
-+        eColorFormat = def.format.video.eColorFormat;
-+        break;
-+    }
-+
-+    err = native_window_set_buffers_geometry(
-+            mNativeWindow.get(),
-+            def.format.video.nFrameWidth,
-+            def.format.video.nFrameHeight,
-+            eColorFormat);
-+#else
-     err = native_window_set_buffers_geometry(
-             mNativeWindow.get(),
-             def.format.video.nFrameWidth,
-             def.format.video.nFrameHeight,
-             def.format.video.eColorFormat);
-+#endif /* SPRD_HARDWARE */
- #endif
- 
-     if (err != 0) {
-@@ -4359,6 +4390,42 @@ void OMXCodec::setG711Format(int32_t numChannels) {
+@@ -2509,9 +2520,11 @@ void OMXCodec::setNativeWindowColorFormat(OMX_COLOR_FORMATTYPE &eNativeColorForm
+     // Convert OpenMAX color format to native color format
+     switch (eNativeColorFormat) {
+         // In case of SAMSUNG color format
++#ifndef SPRD_HARDWARE
+         case OMX_SEC_COLOR_FormatNV12TPhysicalAddress:
+             eNativeColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_CUSTOM_YCbCr_420_SP_TILED;
+             break;
++#endif
+         case OMX_SEC_COLOR_FormatNV12Tiled:
+             eNativeColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCbCr_420_SP_TILED;
+             break;
+@@ -4359,6 +4372,42 @@ void OMXCodec::setG711Format(int32_t numChannels) {
      setRawAudioFormat(kPortIndexInput, 8000, numChannels);
  }
  
