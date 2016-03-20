@@ -61,8 +61,7 @@ PRODUCT_PACKAGES += \
 	gralloc.scx15 \
 	hwcomposer.scx15 \
 	sprd_gsp.scx15 \
-	libion \
-	iontest
+	libion
 
 # Camera
 PRODUCT_PACKAGES += \
