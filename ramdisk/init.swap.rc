@@ -1,4 +1,4 @@
-#on init
+on init
     # Swap one page at a time (default 8)
     write /proc/sys/vm/page-cluster 0
 
