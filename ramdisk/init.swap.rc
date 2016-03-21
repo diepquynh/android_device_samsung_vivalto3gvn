@@ -1,6 +1,6 @@
 #on init
-#    # Swap one page at a time (default 8)
-#    write /proc/sys/vm/page-cluster 0
+    # Swap one page at a time (default 8)
+    write /proc/sys/vm/page-cluster 0
 
 on property:ro.config.swappiness=*
     # Set swappiness
