@@ -39,7 +39,6 @@ on init
 on fs
     ubiattach 0 ubipac
     mount_all /fstab.scx15
-    swapon_all /fstab.scx15
     setprop ro.crypto.fuse_sdcard true
 
 #Allow others to read fb devices
