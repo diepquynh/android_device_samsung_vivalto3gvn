@@ -85,6 +85,7 @@ TARGET_SCREEN_WIDTH := 480
 
 # Audio
 BOARD_USES_TINYALSA_AUDIO := true
+BOARD_USES_SS_VOIP := true
 BOARD_USE_LIBATCHANNEL_WRAPPER := true
 
 # Board specific features
