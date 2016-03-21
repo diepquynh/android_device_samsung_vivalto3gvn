@@ -42,9 +42,11 @@ ROOTDIR_FILES := \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn.rc \
 	$(LOCAL_PATH)/ramdisk/init.vivalto3gvn_base.rc \
 	$(LOCAL_PATH)/ramdisk/init.wifi.rc \
+	$(LOCAL_PATH)/ramdisk/init.swap.rc \
 	$(LOCAL_PATH)/ramdisk/init.recovery.scx15.rc \
 	$(LOCAL_PATH)/ramdisk/ueventd.scx15.rc \
 	$(LOCAL_PATH)/ramdisk/fstab.scx15 \
+	$(LOCAL_PATH)/ramdisk/fstab.swap \
 	$(LOCAL_PATH)/ramdisk/property_contexts
 
 PRODUCT_COPY_FILES += \
