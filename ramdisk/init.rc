@@ -11,6 +11,7 @@ import /init.${ro.zygote}.rc
 import /init.trace.rc
 # Include CM's extra init file
 import /init.cm.rc
+import /init.swap.rc
 
 
 on early-init
@@ -584,10 +585,9 @@ service drm /system/bin/drmserver
     user drm
     group drm system inet drmrpc
 
-# XXX REMOVE ROOT user
 service media /system/bin/mediaserver
     class main
-    user root
+    user media
     group system audio camera inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag mediadrm radio sdcard_rw sdcard_r media_rw shell
     ioprio rt 4
 

@@ -13,6 +13,3 @@
 
 # USB otg
 #/devices/platform/dwc_otg.0*   # TODO
-
-# zRAM
-/dev/block/zram0                                      none            swap    defaults                                                                          zramsize=268435456
