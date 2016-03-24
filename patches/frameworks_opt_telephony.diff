@@ -1,5 +1,5 @@
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index 330679e..1126028 100644
+index 330679e..1224e8b 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
 @@ -301,7 +301,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
@@ -11,11 +11,3 @@ index 330679e..1126028 100644
  
      static final int SOCKET_OPEN_RETRY_MILLIS = 4 * 1000;
  
-@@ -658,6 +658,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
-         mPreferredNetworkType = preferredNetworkType;
-         mPhoneType = RILConstants.NO_PHONE;
-         mInstanceId = instanceId;
-+        riljLog("####### mInstanceId=" + mInstanceId);
- 
-         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
-         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, RILJ_LOG_TAG);
