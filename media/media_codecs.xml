@@ -43,15 +43,10 @@
         </MediaCodec>
 
         <MediaCodec name="OMX.sprd.aac.decoder" type="audio/mp4a-latm" />
-        <!--
-        <MediaCodec name="OMX.sprd.ape.decoder" type="audio/ape" />
-        -->
+
         <MediaCodec name="OMX.sprd.soft.mpeg4.decoder" type="video/mp4v-es" />
         <MediaCodec name="OMX.sprd.soft.h263.decoder" type="video/3gpp" />
         <MediaCodec name="OMX.sprd.soft.h264.decoder" type="video/avc" />
-
-        <MediaCodec name="OMX.google.imaadpcm.decoder" type="audio/ima-adpcm" />
-        <MediaCodec name="OMX.google.mjpg.decoder" type="video/mjpg" />
     </Decoders>
 
     <Encoders>
