@@ -76,20 +76,10 @@ index 0000000..3e155f4
 +
 +#endif // ANDROID_MEMORY_HEAP_ION_H
 diff --git a/include/media/openmax/OMX_Audio.h b/include/media/openmax/OMX_Audio.h
-index a516df8..c366887 100644
+index a516df8..c51d810 100644
 --- a/include/media/openmax/OMX_Audio.h
 +++ b/include/media/openmax/OMX_Audio.h
-@@ -130,6 +130,9 @@ typedef enum OMX_AUDIO_CODINGTYPE {
- #endif // DOLBY_END
-     OMX_AUDIO_CodingKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
-     OMX_AUDIO_CodingVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
-+#ifdef SPRD_HARDWARE
-+    OMX_AUDIO_CodingIMAADPCM,    /**< Any variant of IMAADPCM encoded data */
-+#endif
-     OMX_AUDIO_CodingMax = 0x7FFFFFFF
- } OMX_AUDIO_CODINGTYPE;
- 
-@@ -375,7 +378,6 @@ typedef struct OMX_AUDIO_PARAM_FLACTYPE {
+@@ -375,7 +375,6 @@ typedef struct OMX_AUDIO_PARAM_FLACTYPE {
                                     to 8 (highest compression */
  } OMX_AUDIO_PARAM_FLACTYPE;
  
@@ -97,30 +87,6 @@ index a516df8..c366887 100644
  /** WMA Version */
  typedef enum OMX_AUDIO_WMAFORMATTYPE {
    OMX_AUDIO_WMAFormatUnused = 0, /**< format unused or unknown */
-@@ -492,6 +494,23 @@ typedef struct OMX_AUDIO_PARAM_ADPCMTYPE {
- } OMX_AUDIO_PARAM_ADPCMTYPE;
- 
- 
-+#ifdef SPRD_HARDWARE
-+/** IMAADPCM stream format parameters */
-+typedef struct OMX_AUDIO_PARAM_IMAADPCMTYPE {
-+    OMX_U32 nSize;              /**< size of the structure in bytes */
-+    OMX_VERSIONTYPE nVersion;   /**< OMX specification version information */
-+    OMX_U32 nPortIndex;         /**< port that this structure applies to */
-+    OMX_U32 nChannels;          /**< Number of channels in the data stream (not
-+                                     necessarily the same as the number of channels
-+                                     to be rendered. */
-+    OMX_U32 nBitsPerSample;     /**< Number of bits in each sample */
-+    OMX_U32 nSampleRate;        /**< Sampling rate of the source data.  Use 0 for
-+                                    variable or unknown sampling rate. */
-+    OMX_U32 nBlockAlign;        /**< Sampling rate of the source data.	Use 0 for
-+                                    variable or unknown sampling rate. */
-+} OMX_AUDIO_PARAM_IMAADPCMTYPE;
-+#endif
-+
- /** G723 rate */
- typedef enum OMX_AUDIO_G723RATE {
-     OMX_AUDIO_G723ModeUnused = 0,  /**< AMRNB Mode unused / unknown */
 diff --git a/include/media/openmax/OMX_IVCommon.h b/include/media/openmax/OMX_IVCommon.h
 index a5b9d18..d57afa1 100644
 --- a/include/media/openmax/OMX_IVCommon.h
@@ -136,7 +102,7 @@ index a5b9d18..d57afa1 100644
  } OMX_COLOR_FORMATTYPE;
  
 diff --git a/include/media/openmax/OMX_Index.h b/include/media/openmax/OMX_Index.h
-index 1a2a548..1001d4d 100644
+index 1a2a548..45f9515 100644
 --- a/include/media/openmax/OMX_Index.h
 +++ b/include/media/openmax/OMX_Index.h
 @@ -134,6 +134,10 @@ typedef enum OMX_INDEXTYPE {
@@ -150,7 +116,7 @@ index 1a2a548..1001d4d 100644
  
      OMX_IndexConfigAudioMidiImmediateEvent, /**< reference: OMX_AUDIO_CONFIG_MIDIIMMEDIATEEVENTTYPE */
      OMX_IndexConfigAudioMidiControl,        /**< reference: OMX_AUDIO_CONFIG_MIDICONTROLTYPE */
-@@ -262,6 +266,25 @@ typedef enum OMX_INDEXTYPE {
+@@ -262,6 +266,23 @@ typedef enum OMX_INDEXTYPE {
         private indexes are not guaranteed unique and therefore should
         only be sent to the appropriate component. */
  
@@ -169,8 +135,6 @@ index 1a2a548..1001d4d 100644
 +    OMX_IndexParamPrependSPSPPSToIDR           = 0x7F000015,
 +#define SPRD_INDEX_CONFIG_THUMBNAIL_MODE "OMX.sprd.index.ThumbnailMode"
 +    OMX_IndexConfigThumbnailMode               = 0x7F000016,
-+
-+    OMX_IndexParamAudioImaAdpcm = 0x7FA7B09C,  /**< reference: OMX_AUDIO_PARAM_IMAADPCMTYPE */
 +#endif
 +
      OMX_IndexMax = 0x7FFFFFFF
