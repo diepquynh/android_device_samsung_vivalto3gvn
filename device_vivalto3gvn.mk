@@ -115,6 +115,7 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+	libnetcmdiface \
 	dhcpcd.conf \
 	wpa_supplicant \
 	hostapd
@@ -155,10 +156,6 @@ SCRIPTS_FILES := \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(SCRIPTS_FILES),$(f):system/bin/$(notdir $(f)))
-
-# Other
-PRODUCT_PACKAGES += \
-	libnetcmdiface
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
