@@ -114,6 +114,11 @@ PRODUCT_PACKAGES += \
 	libtinyalsa
 
 # Wifi
+PRODUCT_PACKAGES += \
+	dhcpcd.conf \
+	wpa_supplicant \
+	hostapd
+
 WIFI_CONFIGS := \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf \
