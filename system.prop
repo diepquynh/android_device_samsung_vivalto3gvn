@@ -102,7 +102,7 @@ ro.telephony.ril_qanelements=6
 ro.config.low_ram=false
 
 # Media
-persist.sys.media.use-awesome=true
+#persist.sys.media.use-awesome=true
 
 # zRAM
 ro.config.zram.disksize=134217728
