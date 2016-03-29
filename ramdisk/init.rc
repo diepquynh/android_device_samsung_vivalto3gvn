@@ -258,7 +258,7 @@ on post-fs-data
     mkdir /data/radio 0770 radio radio
 
     # create dalvik-cache on /system, so as to enforce our permissions
-    mkdir /system/dalvik-cache 0771 root root
+    mkdir /system/dalvik-cache 0771 system system
     # link dalvik-cache to /data
     symlink /system/dalvik-cache /data/dalvik-cache
 
