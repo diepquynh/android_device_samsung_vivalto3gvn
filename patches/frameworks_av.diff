@@ -1,5 +1,5 @@
 diff --git a/media/libstagefright/ACodec.cpp b/media/libstagefright/ACodec.cpp
-index 802a193..24905de 100755
+index 802a193..e41f85f 100755
 --- a/media/libstagefright/ACodec.cpp
 +++ b/media/libstagefright/ACodec.cpp
 @@ -41,8 +41,10 @@
@@ -13,6 +13,17 @@ index 802a193..24905de 100755
  
  #ifdef USE_TI_CUSTOM_DOMX
  #include <OMX_TI_IVCommon.h>
+@@ -910,6 +912,10 @@ void ACodec::setNativeWindowColorFormat(OMX_COLOR_FORMATTYPE &eNativeColorFormat
+ {
+     // In case of Samsung decoders, we set proper native color format for the Native Window
+     if (!strcasecmp(mComponentName.c_str(), "OMX.SEC.AVC.Decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.mpeg4.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.h263.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.h264.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.vpx.decoder")
+         || !strcasecmp(mComponentName.c_str(), "OMX.SEC.FP.AVC.Decoder")) {
+         switch (eNativeColorFormat) {
+             case OMX_COLOR_FormatYUV420SemiPlanar:
 diff --git a/media/libstagefright/CameraSource.cpp b/media/libstagefright/CameraSource.cpp
 index 4978c08..191abf3 100644
 --- a/media/libstagefright/CameraSource.cpp
