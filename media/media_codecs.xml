@@ -40,6 +40,7 @@
             <Quirk name="needs-flush-before-disable" />
         </MediaCodec>
 
+        <!--
         <MediaCodec name="OMX.sprd.mp3.decoder">
             <Type name="audio/mpeg" />
             <Type name="audio/mpeg-L1" />
@@ -47,6 +48,7 @@
         </MediaCodec>
 
         <MediaCodec name="OMX.sprd.aac.decoder" type="audio/mp4a-latm" />
+        -->
 
         <!--
         <MediaCodec name="OMX.sprd.soft.mpeg4.decoder" type="video/mp4v-es" />
