@@ -1145,7 +1145,7 @@ bool SPRDAVCDecoder::handlePortSettingChangeEvent(const H264SwDecInfo *info) {
 
         updatePortDefinitions();
         (*mH264Dec_ReleaseRefBuffers)(mHandle);
-        notify(OMX_EventPortSettingsChanged, 1, 0, NULL);
+        notify(OMX_EventPortSettingsChanged, kOutputPortIndex, 0, NULL);
         mOutputPortSettingsChange = AWAITING_DISABLED;
         return true;
     }
@@ -1280,21 +1280,21 @@ void SPRDAVCDecoder::onPortFlushPrepare(OMX_U32 portIndex) {
 }
 
 void SPRDAVCDecoder::updatePortDefinitions() {
-    OMX_PARAM_PORTDEFINITIONTYPE *def = &editPortInfo(0)->mDef;
-    def->format.video.nFrameWidth = mWidth;
-    def->format.video.nFrameHeight = mHeight;
-    def->format.video.nStride = def->format.video.nFrameWidth;
-    def->format.video.nSliceHeight = def->format.video.nFrameHeight;
+    OMX_PARAM_PORTDEFINITIONTYPE *outDef = &editPortInfo(kOutputPortIndex)->mDef;
+    outDef->format.video.nFrameWidth = mWidth;
+    outDef->format.video.nFrameHeight = mHeight;
+    outDef->format.video.nStride = outDef->format.video.nFrameWidth;
+    outDef->format.video.nSliceHeight = outDef->format.video.nFrameHeight;
 
-    def = &editPortInfo(1)->mDef;
-    def->format.video.nFrameWidth = mWidth;
-    def->format.video.nFrameHeight = mHeight;
-    def->format.video.nStride = def->format.video.nFrameWidth;
-    def->format.video.nSliceHeight = def->format.video.nFrameHeight;
+    outDef->nBufferSize =
+        (outDef->format.video.nStride * outDef->format.video.nSliceHeight * 3) / 2;
 
-    def->nBufferSize =
-        (def->format.video.nFrameWidth
-         * def->format.video.nFrameHeight * 3) / 2;
+    OMX_PARAM_PORTDEFINITIONTYPE *inDef = &editPortInfo(kInputPortIndex)->mDef;
+    inDef->format.video.nFrameWidth = mWidth;
+    inDef->format.video.nFrameHeight = mHeight;
+    // input port is compressed, hence it has no stride
+    inDef->format.video.nStride = 0;
+    inDef->format.video.nSliceHeight = 0;
 }
 
 
