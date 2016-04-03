@@ -1,77 +1,51 @@
-diff --git a/include/binder/MemoryHeapIon.h b/include/binder/MemoryHeapIon.h
-index 7e059f4..3e155f4 100644
---- a/include/binder/MemoryHeapIon.h
-+++ b/include/binder/MemoryHeapIon.h
-@@ -1,6 +1,6 @@
- /*
-  * Copyright (C) 2008 The Android Open Source Project
-- * Copyright 2011, Samsung Electronics Co. LTD
+diff --git a/include/binder/MemoryHeapIon.SPRD.h b/include/binder/MemoryHeapIon.SPRD.h
+new file mode 100644
+index 0000000..3e155f4
+--- /dev/null
++++ b/include/binder/MemoryHeapIon.SPRD.h
+@@ -0,0 +1,71 @@
++/*
++ * Copyright (C) 2008 The Android Open Source Project
 + * Copyright (c) 2011, Code Aurora Forum. All rights reserved.
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License");
-  * you may not use this file except in compliance with the License.
-@@ -14,55 +14,58 @@
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
--/*!
-- * \file MemoryHeapIon.h
-- * \brief header file for MemoryHeapIon
-- * \author MinGu, Jeon(mingu85.jeon)
-- * \date 2011/11/20
-- *
-- * <b>Revision History: </b>
-- * - 2011/11/21 : MinGu, Jeon(mingu85.jeon)) \n
-- * Initial version
-- * - 2012/11/29 : MinGu, Jeon(mingu85.jeon)) \n
-- * Change name
-- */
- 
- #ifndef ANDROID_MEMORY_HEAP_ION_H
- #define ANDROID_MEMORY_HEAP_ION_H
- 
--#include <binder/IMemory.h>
--#include <binder/MemoryHeapBase.h>
- #include <stdlib.h>
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++#ifndef ANDROID_MEMORY_HEAP_ION_H
++#define ANDROID_MEMORY_HEAP_ION_H
++
++#include <stdlib.h>
 +#include <stdint.h>
- 
--#define MHB_ION_HEAP_SYSTEM_CONTIG_MASK     (1 << 1)
--#define MHB_ION_HEAP_EXYNOS_CONTIG_MASK     (1 << 4)
--#define MHB_ION_HEAP_EXYNOS_MASK            (1 << 5)
--#define MHB_ION_HEAP_SYSTEM_MASK            (1 << 6)
--
--#define MHB_ION_FLAG_CACHED                 (1 << 16)
--#define MHB_ION_FLAG_CACHED_NEEDS_SYNC      (1 << 17)
--#define MHB_ION_FLAG_PRESERVE_KMAP          (1 << 18)
++
 +#include <binder/MemoryHeapBase.h>
 +#include <binder/IMemory.h>
 +#include <utils/SortedVector.h>
 +#include <utils/threads.h>
- 
--#define MHB_ION_EXYNOS_VIDEO_MASK           (1 << 21)
--#define MHB_ION_EXYNOS_MFC_INPUT_MASK       (1 << 25)
--#define MHB_ION_EXYNOS_MFC_OUTPUT_MASK      (1 << 26)
--#define MHB_ION_EXYNOS_GSC_MASK             (1 << 27)
--#define MHB_ION_EXYNOS_FIMD_VIDEO_MASK      (1 << 28)
++
 +struct ion_handle;
- 
- namespace android {
- 
++
++namespace android {
++
 +class MemoryHeapBase;
 +
 +// ---------------------------------------------------------------------------
 +
- class MemoryHeapIon : public MemoryHeapBase
- {
- public:
--    enum {
--        USE_ION_FD = IMemoryHeap::USE_ION_FD
--    };
--    MemoryHeapIon(size_t size, uint32_t flags = 0, char const* name = NULL);
--    MemoryHeapIon(int fd, size_t size, uint32_t flags = 0, uint32_t offset = 0);
++class MemoryHeapIon : public MemoryHeapBase
++{
++public:
 +    MemoryHeapIon(const char*, size_t, uint32_t, long unsigned int);
 +    MemoryHeapIon();
-     ~MemoryHeapIon();
++    ~MemoryHeapIon();
 +
 +    status_t mapIonFd(int fd, size_t size, unsigned long memory_type, int flags);
 +
@@ -93,56 +67,14 @@ index 7e059f4..3e155f4 100644
 +    static bool Gsp_iommu_is_enabled(void);
 +    static bool Mm_iommu_is_enabled(void);
 +
- private:
--    int mIonClient;
--};
++private:
 +    int mIonDeviceFd;  /*fd we get from open("/dev/ion")*/
 +    struct ion_handle *mIonHandle;  /*handle we get from ION_IOC_ALLOC*/ };
 +
 +// ---------------------------------------------------------------------------
 +}; // namespace android
- 
--};
--#endif
-+#endif // ANDROID_MEMORY_HEAP_ION_H
-diff --git a/include/media/openmax/OMX_Audio.h b/include/media/openmax/OMX_Audio.h
-index 2aa6c95..9dd3778 100644
---- a/include/media/openmax/OMX_Audio.h
-+++ b/include/media/openmax/OMX_Audio.h
-@@ -135,6 +135,9 @@ typedef enum OMX_AUDIO_CODINGTYPE {
-     OMX_AUDIO_CodingAC3,         /**< Any variant of AC3 encoded data */
-     OMX_AUDIO_CodingAPE,         /**< Any variant of APE encoded data */
-     OMX_AUDIO_CodingDTS,         /**< Any variant of DTS encoded data */
-+#ifdef SPRD_HARDWARE
-+    OMX_AUDIO_CodingIMAADPCM,    /**< Any variant of IMAADPCM encoded data */
-+#endif
-     OMX_AUDIO_CodingFFMPEG,      /**< Any variant of FFMPEG encoded data */
-     OMX_AUDIO_CodingMax = 0x7FFFFFFF
- } OMX_AUDIO_CODINGTYPE;
-@@ -573,6 +576,23 @@ typedef struct OMX_AUDIO_PARAM_ADPCMTYPE {
- } OMX_AUDIO_PARAM_ADPCMTYPE; 
- 
- 
-+#ifdef SPRD_HARDWARE
-+/** IMAADPCM stream format parameters */
-+typedef struct OMX_AUDIO_PARAM_IMAADPCMTYPE {
-+    OMX_U32 nSize;              /**< size of the structure in bytes */
-+    OMX_VERSIONTYPE nVersion;   /**< OMX specification version information */
-+    OMX_U32 nPortIndex;         /**< port that this structure applies to */
-+    OMX_U32 nChannels;          /**< Number of channels in the data stream (not
-+                                     necessarily the same as the number of channels
-+                                     to be rendered. */
-+    OMX_U32 nBitsPerSample;     /**< Number of bits in each sample */
-+    OMX_U32 nSampleRate;        /**< Sampling rate of the source data.  Use 0 for
-+                                    variable or unknown sampling rate. */
-+    OMX_U32 nBlockAlign;        /**< Sampling rate of the source data.	Use 0 for
-+                                    variable or unknown sampling rate. */
-+} OMX_AUDIO_PARAM_IMAADPCMTYPE;
-+#endif
 +
- /** G723 rate */
- typedef enum OMX_AUDIO_G723RATE {
-     OMX_AUDIO_G723ModeUnused = 0,  /**< AMRNB Mode unused / unknown */
++#endif // ANDROID_MEMORY_HEAP_ION_H
 diff --git a/include/media/openmax/OMX_IVCommon.h b/include/media/openmax/OMX_IVCommon.h
 index 940911e..4171951 100644
 --- a/include/media/openmax/OMX_IVCommon.h
@@ -160,7 +92,7 @@ index 940911e..4171951 100644
  
  
 diff --git a/include/media/openmax/OMX_Index.h b/include/media/openmax/OMX_Index.h
-index ab3f55e..afe7ed4 100644
+index ab3f55e..097238e 100644
 --- a/include/media/openmax/OMX_Index.h
 +++ b/include/media/openmax/OMX_Index.h
 @@ -141,7 +141,7 @@ typedef enum OMX_INDEXTYPE {
@@ -172,7 +104,7 @@ index ab3f55e..afe7ed4 100644
  #endif
  
      OMX_IndexConfigAudioMidiImmediateEvent, /**< reference: OMX_AUDIO_CONFIG_MIDIIMMEDIATEEVENTTYPE */
-@@ -277,6 +277,25 @@ typedef enum OMX_INDEXTYPE {
+@@ -277,6 +277,23 @@ typedef enum OMX_INDEXTYPE {
         private indexes are not guaranteed unique and therefore should
         only be sent to the appropriate component. */
  
@@ -191,8 +123,6 @@ index ab3f55e..afe7ed4 100644
 +    OMX_IndexParamPrependSPSPPSToIDR           = 0x7F000015,
 +#define SPRD_INDEX_CONFIG_THUMBNAIL_MODE "OMX.sprd.index.ThumbnailMode"
 +    OMX_IndexConfigThumbnailMode               = 0x7F000016,
-+
-+    OMX_IndexParamAudioImaAdpcm = 0x7FA7B09C,/**< reference: OMX_AUDIO_PARAM_IMAADPCMTYPE */
 +#endif
 +
  #ifdef MTK_HARDWARE
@@ -213,122 +143,43 @@ index 79a29bc..5d960b1 100644
  
  typedef int32_t PixelFormat;
 diff --git a/libs/binder/Android.mk b/libs/binder/Android.mk
-index 7861fef..4479ada 100644
+index 7861fef..60f7319 100644
 --- a/libs/binder/Android.mk
 +++ b/libs/binder/Android.mk
-@@ -13,76 +13,56 @@
- # limitations under the License.
+@@ -45,6 +45,11 @@ sources += \
+     MemoryHeapIon.cpp
+ endif
  
- # we have the common sources, plus some device-specific stuff
--sources := \
--    AppOpsManager.cpp \
--    Binder.cpp \
--    BpBinder.cpp \
--    BufferedTextOutput.cpp \
--    Debug.cpp \
--    IAppOpsCallback.cpp \
--    IAppOpsService.cpp \
--    IInterface.cpp \
--    IMemory.cpp \
--    IPCThreadState.cpp \
--    IPermissionController.cpp \
--    IServiceManager.cpp \
--    MemoryDealer.cpp \
--    MemoryBase.cpp \
--    MemoryHeapBase.cpp \
--    Parcel.cpp \
--    PermissionCache.cpp \
--    ProcessState.cpp \
--    Static.cpp \
--    TextOutput.cpp \
--
--ifeq ($(BOARD_NEEDS_MEMORYHEAPPMEM),true)
--sources += \
--    MemoryHeapPmem.cpp
--endif
--
--ifeq ($(BOARD_NEEDS_MEMORYHEAPION),true)
--sources += \
--    MemoryHeapIon.cpp
--endif
-+sources := 			\
-+    AppOpsManager.cpp 		\
-+    Binder.cpp 			\
-+    BpBinder.cpp 		\
-+    BufferedTextOutput.cpp 	\
-+    Debug.cpp 			\
-+    IAppOpsCallback.cpp 	\
-+    IAppOpsService.cpp 		\
-+    IInterface.cpp 		\
-+    IMemory.cpp 		\
-+    IPCThreadState.cpp 		\
-+    IPermissionController.cpp 	\
-+    IServiceManager.cpp 	\
-+    MemoryDealer.cpp 		\
-+    MemoryBase.cpp 		\
-+    MemoryHeapBase.cpp 		\
-+    MemoryHeapIon.cpp 		\
-+    Parcel.cpp 			\
-+    PermissionCache.cpp 	\
-+    ProcessState.cpp 		\
-+    Static.cpp 			\
-+    TextOutput.cpp
- 
++ifeq ($(BOARD_NEEDS_MEMORYHEAPION_SPRD),true)
++sources += \
++    MemoryHeapIon.SPRD.cpp
++endif
++
  LOCAL_PATH:= $(call my-dir)
  
--include $(CLEAR_VARS)
-+$(warning sec:${USE_PROJECT_SEC})
- 
--ifeq ($(BOARD_NEEDS_MEMORYHEAPION),true)
--LOCAL_SHARED_LIBRARIES += libion_exynos
--LOCAL_CFLAGS += -DUSE_MEMORY_HEAP_ION
--ifneq ($(TARGET_SLSI_VARIANT),)
--PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)-$(TARGET_SLSI_VARIANT)
--else
--PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)
--endif
--LOCAL_C_INCLUDES += hardware/samsung_slsi/$(PLATFORM_DIR)/include
-+include $(CLEAR_VARS)
-+ifeq ($(USE_PROJECT_SEC),true)
-+LOCAL_C_INCLUDES :=			\
-+	$(LOCAL_PATH) 		\
-+	$(TOP)/external/sqlite/dist
-+LOCAL_SHARED_LIBRARIES := libsqlite
-+LOCAL_CFLAGS += -DUSE_PROJECT_SEC
-+LOCAL_LDFLAGS += 			\
-+	$(TOP)/frameworks/native/libs/libsecbinder/libsecbinder.a
- endif
--
- LOCAL_LDLIBS += -lpthread
- LOCAL_MODULE := libbinder
- LOCAL_SHARED_LIBRARIES += liblog libcutils libutils
-+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
- LOCAL_SRC_FILES := $(sources)
--
- include $(BUILD_SHARED_LIBRARY)
- 
  include $(CLEAR_VARS)
--
--ifeq ($(BOARD_NEEDS_MEMORYHEAPION),true)
--LOCAL_SHARED_LIBRARIES += libion_exynos
--LOCAL_CFLAGS += -DUSE_MEMORY_HEAP_ION
--ifneq ($(TARGET_SLSI_VARIANT),)
--PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)-$(TARGET_SLSI_VARIANT)
--else
--PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)
--endif
--LOCAL_C_INCLUDES += hardware/samsung_slsi/$(PLATFORM_DIR)/include
--endif
--
+@@ -59,6 +64,10 @@ PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)
+ endif
+ LOCAL_C_INCLUDES += hardware/samsung_slsi/$(PLATFORM_DIR)/include
+ endif
++ifeq ($(BOARD_NEEDS_MEMORYHEAPION_SPRD),true)
++LOCAL_C_INCLUDES += \
++    $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
++endif
+ 
  LOCAL_LDLIBS += -lpthread
  LOCAL_MODULE := libbinder
- LOCAL_STATIC_LIBRARIES += libutils
- LOCAL_SRC_FILES := $(sources)
--
-+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
- include $(BUILD_STATIC_LIBRARY)
+@@ -79,6 +88,10 @@ PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)
+ endif
+ LOCAL_C_INCLUDES += hardware/samsung_slsi/$(PLATFORM_DIR)/include
+ endif
++ifeq ($(BOARD_NEEDS_MEMORYHEAPION_SPRD),true)
++LOCAL_C_INCLUDES += \
++    $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
++endif
+ 
+ LOCAL_LDLIBS += -lpthread
+ LOCAL_MODULE := libbinder
 diff --git a/libs/binder/IPCThreadState.cpp b/libs/binder/IPCThreadState.cpp
 index aaad104..725b549 100644
 --- a/libs/binder/IPCThreadState.cpp
@@ -350,63 +201,43 @@ index aaad104..725b549 100644
          result = UNKNOWN_ERROR;
          break;
      }
-diff --git a/libs/binder/MemoryHeapIon.cpp b/libs/binder/MemoryHeapIon.cpp
-index 374b72e..dde8de9 100644
---- a/libs/binder/MemoryHeapIon.cpp
-+++ b/libs/binder/MemoryHeapIon.cpp
-@@ -1,12 +1,12 @@
- /*
-- * Copyright Samsung Electronics Co.,LTD.
-- * Copyright (C) 2011 The Android Open Source Project
+diff --git a/libs/binder/MemoryHeapIon.SPRD.cpp b/libs/binder/MemoryHeapIon.SPRD.cpp
+new file mode 100644
+index 0000000..48b68db
+--- /dev/null
++++ b/libs/binder/MemoryHeapIon.SPRD.cpp
+@@ -0,0 +1,499 @@
++/*
 + * Copyright (C) 2008 The Android Open Source Project
 + * Copyright (c) 2011, Code Aurora Forum. All rights reserved.
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License");
-  * you may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at
-  *
-- * http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
 + *      http://www.apache.org/licenses/LICENSE-2.0
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-@@ -14,176 +14,486 @@
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
--/*!
-- * \file MemoryHeapIon.cpp
-- * \brief source file for MemoryHeapIon
-- * \author MinGu, Jeon(mingu85.jeon)
-- * \date 2011/11/20
-- *
-- * <b>Revision History: </b>
-- * - 2011/11/20 : MinGu, Jeon(mingu85.jeon)) \n
-- * Initial version
-- * - 2012/11/29 : MinGu, Jeon(mingu85.jeon)) \n
-- * Change name
-- */
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
 +
 +#define LOG_TAG "MemoryHeapIon"
- 
- #include <stdlib.h>
- #include <stdint.h>
- #include <unistd.h>
- #include <fcntl.h>
++
++#include <stdlib.h>
++#include <stdint.h>
++#include <unistd.h>
++#include <fcntl.h>
 +#include <errno.h>
- #include <sys/types.h>
++#include <sys/types.h>
 +#include <sys/stat.h>
 +#include <sys/ioctl.h>
 +
- #include <cutils/log.h>
--#include <binder/MemoryHeapBase.h>
--#include <binder/IMemory.h>
++#include <cutils/log.h>
 +
- #include <binder/MemoryHeapIon.h>
--#include <unistd.h>
--#include <sys/types.h>
--#include <sys/mman.h>
--#include "ion.h"
++#include <binder/MemoryHeapIon.SPRD.h>
 +#include <binder/MemoryHeapBase.h>
 +
 +#ifdef USE_TARGET_SIMULATOR_MODE
@@ -417,9 +248,7 @@ index 374b72e..dde8de9 100644
 +    unsigned long phys;
 +    size_t size;
 +};
- 
--#define HEAP_MASK_FILTER    ((1 << 16) - (2))
--#define FLAG_MASK_FILTER    (~(HEAP_MASK_FILTER) - (1))
++
 +struct ion_msync_data {
 +    int fd_buffer;
 +    void *vaddr;
@@ -435,29 +264,9 @@ index 374b72e..dde8de9 100644
 +#include <linux/ion.h>
 +#include <video/ion_sprd.h>
 +#endif
- 
- namespace android {
- 
--uint32_t ion_HeapMask_valid_check(uint32_t flags)
--{
--    uint32_t heap_mask, result;
--    result = 0;
--
--    heap_mask = flags & HEAP_MASK_FILTER;
--
--    switch(heap_mask) {
--        case MHB_ION_HEAP_SYSTEM_MASK:
--            return ION_HEAP_SYSTEM_MASK;
--        case MHB_ION_HEAP_SYSTEM_CONTIG_MASK:
--            return ION_HEAP_SYSTEM_CONTIG_MASK;
--        case MHB_ION_HEAP_EXYNOS_CONTIG_MASK:
--            return ION_HEAP_EXYNOS_CONTIG_MASK;
--        case MHB_ION_HEAP_EXYNOS_MASK:
--            return ION_HEAP_EXYNOS_MASK;
--        default:
--            ALOGE("MemoryHeapIon : Heap Mask flag is default (flags:%x)", flags);
--            return 0;
--            break;
++
++namespace android {
++
 +int  MemoryHeapIon::Get_phy_addr_from_ion(int buffer_fd, int *phy_addr, int *size){
 +    int fd = open("/dev/ion", O_SYNC);
 +    if(fd<0){
@@ -670,10 +479,9 @@ index 374b72e..dde8de9 100644
 +            ALOGE("%s: Free gsp iova error!",__func__);
 +            return -2;
 +        }
-     }
--    ALOGE("MemoryHeapIon : Heap Mask flag is wrong (flags:%x)", flags);
-     return 0;
- }
++    }
++    return 0;
++}
 +int MemoryHeapIon::Free_mm_iova(int buffer_fd,int mmu_addr, int size){
 +    int fd = open("/dev/ion", O_SYNC);
 +    if(fd<0){
@@ -683,8 +491,7 @@ index 374b72e..dde8de9 100644
 +        int ret;
 +        struct ion_mmu_data mmu_data;
 +        struct ion_custom_data  custom_data;
- 
--uint32_t ion_FlagMask_valid_check(uint32_t flags)
++
 +        mmu_data.fd_buffer = buffer_fd;
 +        mmu_data.iova_addr = mmu_addr;
 +        mmu_data.iova_size = size;
@@ -702,33 +509,7 @@ index 374b72e..dde8de9 100644
 +}
 +
 +bool MemoryHeapIon::Gsp_iommu_is_enabled(void)
- {
--    uint32_t flag_mask, result;
--    result = 0;
--
--    flag_mask = flags & FLAG_MASK_FILTER;
--
--    if (flag_mask & MHB_ION_FLAG_CACHED)
--        result |= ION_FLAG_CACHED;
--    if (flag_mask & MHB_ION_FLAG_CACHED_NEEDS_SYNC)
--        result |= ION_FLAG_CACHED_NEEDS_SYNC;
--    if (flag_mask & MHB_ION_FLAG_PRESERVE_KMAP)
--        result |= ION_FLAG_PRESERVE_KMAP;
--    if (flag_mask & MHB_ION_EXYNOS_VIDEO_MASK)
--        result |= ION_EXYNOS_VIDEO_MASK;
--    if (flag_mask & MHB_ION_EXYNOS_MFC_INPUT_MASK)
--        result |= ION_EXYNOS_MFC_INPUT_MASK;
--    if (flag_mask & MHB_ION_EXYNOS_MFC_OUTPUT_MASK)
--        result |= ION_EXYNOS_MFC_OUTPUT_MASK;
--    if (flag_mask & MHB_ION_EXYNOS_GSC_MASK)
--        result |= ION_EXYNOS_GSC_MASK;
--    if (flag_mask & MHB_ION_EXYNOS_FIMD_VIDEO_MASK)
--        result |= ION_EXYNOS_FIMD_VIDEO_MASK;
--
--    return result;
--}
--
--MemoryHeapIon::MemoryHeapIon(size_t size, uint32_t flags, char const *name):MemoryHeapBase()
++{
 +	if(access("/dev/sprd_iommu_gsp",F_OK)<0)
 +	{
 +		return false;
@@ -737,55 +518,14 @@ index 374b72e..dde8de9 100644
 +}
 +
 +bool MemoryHeapIon::Mm_iommu_is_enabled(void)
- {
--    void* base = NULL;
--    int fd = -1;
--    uint32_t isReadOnly, heapMask, flagMask;
--
--    mIonClient = ion_client_create();
--
--    if (mIonClient < 0) {
--        ALOGE("MemoryHeapIon : ION client creation failed : %s", strerror(errno));
--        mIonClient = -1;
--    } else {
--        isReadOnly = flags & (IMemoryHeap::READ_ONLY);
--        heapMask = ion_HeapMask_valid_check(flags);
--        flagMask = ion_FlagMask_valid_check(flags);
--
--        if (heapMask) {
--            ALOGD("MemoryHeapIon : Allocated with size:%d, heap:0x%X , flag:0x%X", size, heapMask, flagMask);
--            fd = ion_alloc(mIonClient, size, 0, heapMask, flagMask);
--            if (fd < 0) {
--                ALOGE("MemoryHeapIon : ION Reserve memory allocation failed(size[%u]) : %s", size, strerror(errno));
--                if (errno == ENOMEM) { // Out of reserve memory. So re-try allocating in system heap
--                    ALOGD("MemoryHeapIon : Re-try Allocating in default heap - SYSTEM heap");
--                    fd = ion_alloc(mIonClient, size, 0, ION_HEAP_SYSTEM_MASK, ION_FLAG_CACHED | ION_FLAG_CACHED_NEEDS_SYNC | ION_FLAG_PRESERVE_KMAP);
--                }
--            }
--        } else {
--            fd = ion_alloc(mIonClient, size, 0, ION_HEAP_SYSTEM_MASK, ION_FLAG_CACHED | ION_FLAG_CACHED_NEEDS_SYNC | ION_FLAG_PRESERVE_KMAP);
--            ALOGD("MemoryHeapIon : Allocated with default heap - SYSTEM heap");
--        }
++{
 +	if(access("/dev/sprd_iommu_mm",F_OK)<0)
 +	{
 +		return false;
 +	}
 +	return true;
 +}
- 
--        flags = isReadOnly | heapMask | flagMask;
--
--        if (fd < 0) {
--            ALOGE("MemoryHeapIon : ION memory allocation failed(size[%u]) : %s", size, strerror(errno));
--        } else {
--            flags |= USE_ION_FD;
--            base = ion_map(fd, size, 0);
--            if (base != MAP_FAILED) {
--                init(fd, base, size, flags, NULL);
--            } else {
--                ALOGE("MemoryHeapIon : ION mmap failed(size[%u], fd[%d]) : %s", size, fd, strerror(errno));
--                ion_free(fd);
--            }
++
 +int  MemoryHeapIon::Flush_ion_buffer(int buffer_fd, void *v_addr,void *p_addr,int size){
 +       int fd = open("/dev/ion", O_SYNC);
 +    if(fd<0){
@@ -808,8 +548,8 @@ index 374b72e..dde8de9 100644
 +        {
 +            ALOGE("%s: Flush ion buffer error!",__func__);
 +            return -2;
-         }
-     }
++        }
++    }
 +    return 0;
 +}
 +
@@ -821,7 +561,7 @@ index 374b72e..dde8de9 100644
 +        struct ion_msync_data msync_data;
 +        struct ion_custom_data  custom_data;
 +
-+        if ((v_addr<MemoryHeapBase::getBase())  ||  (v_addr+size>MemoryHeapBase::getBase()+MemoryHeapBase::getSize())){
++        if ((v_addr<MemoryHeapBase::getBase())  ||  (((char *)v_addr)+size>((char *)MemoryHeapBase::getBase())+MemoryHeapBase::getSize())){
 +             ALOGE("flush_ion_buffer error  mBase=0x%x,mSize=0x%x",MemoryHeapBase::getBase(), MemoryHeapBase::getSize());
 +             ALOGE("flush_ion_buffer error  v_addr=0x%x,p_addr=0x%x,size=0x%x",v_addr,p_addr,size);
 +             return -3;
@@ -844,35 +584,12 @@ index 374b72e..dde8de9 100644
 +
 +MemoryHeapIon::MemoryHeapIon() : mIonDeviceFd(-1), mIonHandle(NULL)
 +{
- }
- 
--MemoryHeapIon::MemoryHeapIon(int fd, size_t size, uint32_t flags, uint32_t offset):MemoryHeapBase()
++}
++
 +MemoryHeapIon::MemoryHeapIon(const char* device, size_t size,
 +    uint32_t flags, unsigned long memory_types)
 +    : MemoryHeapBase()
- {
--    void* base = NULL;
--    int dup_fd = -1;
--
--    mIonClient = ion_client_create();
--
--    if (mIonClient < 0) {
--        ALOGE("MemoryHeapIon : ION client creation failed : %s", strerror(errno));
--        mIonClient = -1;
--    } else {
--        if (fd >= 0) {
--            dup_fd = dup(fd);
--            if (dup_fd == -1) {
--                ALOGE("MemoryHeapIon : cannot dup fd (size[%u], fd[%d]) : %s", size, fd, strerror(errno));
--            } else {
--                flags |= USE_ION_FD;
--                base = ion_map(dup_fd, size, 0);
--                if (base != MAP_FAILED) {
--                    init(dup_fd, base, size, flags, NULL);
--                } else {
--                    ALOGE("MemoryHeapIon : ION mmap failed(size[%u], fd[%d]): %s", size, fd, strerror(errno));
--                    ion_free(dup_fd);
--                }
++{
 +    int open_flags = O_RDONLY;
 +    if (flags & NO_CACHING)
 +         open_flags |= O_SYNC;
@@ -883,9 +600,7 @@ index 374b72e..dde8de9 100644
 +            size = ((size + pagesize-1) & ~(pagesize-1));
 +            if (mapIonFd(fd, size, memory_types, flags) == NO_ERROR) {
 +                MemoryHeapBase::setDevice(device);
-             }
--        } else {
--            ALOGE("MemoryHeapIon : fd parameter error(fd : %d)", fd);
++            }
 +    }else {
 +        ALOGE("open ion fail");
 +    }
@@ -958,8 +673,8 @@ index 374b72e..dde8de9 100644
 +            ioctl(fd, ION_IOC_FREE, &handle_data);
 +            close(fd);
 +            return -errno;
-         }
-     }
++        }
++    }
 +    mIonHandle = data.handle;
 +    mIonDeviceFd = fd;
 +
@@ -970,14 +685,10 @@ index 374b72e..dde8de9 100644
 +    MemoryHeapBase::init(fd_data.fd, base, size, uflags, NULL);
 +
 +    return NO_ERROR;
- }
- 
- MemoryHeapIon::~MemoryHeapIon()
- {
--    if (mIonClient != -1) {
--        ion_unmap(getBase(), getSize());
--        ion_client_destroy(mIonClient);
--        mIonClient = -1;
++}
++
++MemoryHeapIon::~MemoryHeapIon()
++{
 +    struct ion_handle_data data;
 +
 +    data.handle = mIonHandle;
@@ -990,10 +701,9 @@ index 374b72e..dde8de9 100644
 +    if (mIonDeviceFd > 0) {
 +        ioctl(mIonDeviceFd, ION_IOC_FREE, &data);
 +        close(mIonDeviceFd);
-     }
- }
- 
--};
++    }
++}
++
 +// ---------------------------------------------------------------------------
 +}; // namespace android
 diff --git a/services/surfaceflinger/Android.mk b/services/surfaceflinger/Android.mk

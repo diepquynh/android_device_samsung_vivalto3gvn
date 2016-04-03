@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <cutils/properties.h>
 #include <linux/ion.h>
-#include <binder/MemoryHeapIon.h>
+#include <binder/MemoryHeapIon.SPRD.h>
 #include <camera/Camera.h>
 #include <semaphore.h>
 #include "cmr_oem.h"

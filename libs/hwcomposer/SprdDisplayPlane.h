@@ -47,7 +47,7 @@
 #include <utils/Vector.h>
 #include <utils/Condition.h>
 #include <utils/Mutex.h>
-#include <binder/MemoryHeapIon.h>
+#include <binder/MemoryHeapIon.SPRD.h>
 #include <semaphore.h>
 
 #ifdef DYNAMIC_RELEASE_PLANEBUFFER

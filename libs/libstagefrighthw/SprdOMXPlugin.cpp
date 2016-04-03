@@ -41,7 +41,6 @@ static const struct {
     { "OMX.sprd.vpx.decoder", "sprd_vpxdec", "video_decoder.vpx" },
     { "OMX.sprd.aac.decoder", "sprd_aacdec", "audio_decoder.aac" },
     { "OMX.sprd.mp3.decoder", "sprd_mp3dec", "audio_decoder.mp3" },
-    { "OMX.sprd.ape.decoder", "sprd_apedec", "audio_decoder.ape" },
 
     { "OMX.sprd.h263.encoder", "sprd_mpeg4enc", "video_encoder.h263" },
     { "OMX.sprd.mpeg4.encoder", "sprd_mpeg4enc", "video_encoder.mpeg4" },
@@ -81,7 +80,7 @@ OMX_ERRORTYPE SprdOMXPlugin::makeComponentInstance(
         void *libHandle = dlopen(libName.c_str(), RTLD_NOW);
 
         if (libHandle == NULL) {
-            ALOGE("unable to dlopen %s", libName.c_str());
+            ALOGE("unable to dlopen %s, dlerror %s", libName.c_str(), dlerror());
 
             return OMX_ErrorComponentNotFound;
         }

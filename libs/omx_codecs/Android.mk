@@ -12,7 +12,6 @@ endef
 
 my_packages := \
 	libomx_aacdec_sprd.so \
-	libomx_apedec_sprd.so \
 	libomx_avcdec_hw_sprd.so \
 	libomx_avcdec_sw_sprd.so \
 	libomx_avcenc_hw_sprd.so \

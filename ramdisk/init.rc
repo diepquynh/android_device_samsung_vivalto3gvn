@@ -257,10 +257,10 @@ on post-fs-data
     mkdir /data/ssh/empty 0700 root root
     mkdir /data/radio 0770 radio radio
 
-    # create dalvik-cache and double-check the perms, so as to enforce our permissions
-    mkdir /data/dalvik-cache 0771 system system
-    chown system system /data/dalvik-cache
-    chmod 0771 /data/dalvik-cache
+    # create dalvik-cache on /system, so as to enforce our permissions
+    mkdir /system/dalvik-cache 0771 system system
+    # link dalvik-cache to /data
+    symlink /system/dalvik-cache /data/dalvik-cache
 
     # create resource-cache and double-check the perms
     mkdir /data/resource-cache 0771 system system

@@ -99,7 +99,7 @@ ro.telephony.ril_class=SamsungSPRDRIL
 ro.telephony.ril_qanelements=6
 
 # Low memory device
-ro.config.low_ram=true
+ro.config.low_ram=false
 
 # zRAM
 ro.config.zram.disksize=134217728
