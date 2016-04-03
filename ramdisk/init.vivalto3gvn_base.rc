@@ -347,6 +347,7 @@ on fs
 chmod 0755 /system/etc/init_touch
 
 on post-fs-data
+    mkdir /data/media 0770 media_rw media_rw
     setprop vold.post_fs_data_done 1
 
 service napa_ts /system/bin/sh /system/etc/init_touch

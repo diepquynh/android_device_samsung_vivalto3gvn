@@ -142,7 +142,7 @@ lib/libomafldrm.so
 lib/drm/libomaplugin.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libWVStreamControlAPI_L3.so
-vendor/lib/mediadrm/libwvdrmengine.so
+#vendor/lib/mediadrm/libwvdrmengine.so
 
 # Battery
 bin/lpm

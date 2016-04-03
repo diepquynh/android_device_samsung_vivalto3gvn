@@ -78,13 +78,9 @@ PRODUCT_PACKAGES += \
 	libstagefright_sprd_h264dec \
 	libstagefright_sprd_h264enc \
 	libstagefright_sprd_vpxdec \
-	libstagefright_soft_mjpgdec \
-	libstagefright_soft_imaadpcmdec \
 	libstagefright_sprd_aacdec \
 	libstagefright_sprd_mp3dec \
-	libstagefright_sprd_apedec \
 	libomx_aacdec_sprd.so \
-	libomx_apedec_sprd.so \
 	libomx_avcdec_hw_sprd.so \
 	libomx_avcdec_sw_sprd.so \
 	libomx_avcenc_hw_sprd.so \
@@ -127,6 +123,8 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+	libnetcmdiface \
+	dhcpcd.conf \
 	wpa_supplicant \
 	hostapd
 
@@ -166,10 +164,6 @@ SCRIPTS_FILES := \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(SCRIPTS_FILES),$(f):system/bin/$(notdir $(f)))
-
-# Other
-PRODUCT_PACKAGES += \
-	libnetcmdiface
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
