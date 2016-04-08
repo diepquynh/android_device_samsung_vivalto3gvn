@@ -806,6 +806,11 @@ OMX_ERRORTYPE SPRDMPEG4Encoder::internalSetParameter(
     case OMX_IndexParamStoreMetaDataBuffer:
     {
         StoreMetaDataInBuffersParams *pStoreMetaData = (StoreMetaDataInBuffersParams *)params;
+
+        // Ignore this setting on output port
+        if (pStoreMetaData->nPortIndex == 1 /* kOutputPortIndex */)
+            return OMX_ErrorNone;
+
         mStoreMetaData = pStoreMetaData->bStoreMetaData;
         return OMX_ErrorNone;
     }
