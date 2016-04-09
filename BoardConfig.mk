@@ -179,7 +179,7 @@ MALLOC_IMPL := dlmalloc
 PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
 # Enable dex-preoptimization to speed up the first boot sequence
-#WITH_DEXPREOPT := true # Disabled, since Xposed doesn't need this, and it recompiles all apps with its own libart/dex2oat
+WITH_DEXPREOPT := true
 
 # CMHW
 BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
