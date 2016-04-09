@@ -172,6 +172,9 @@ TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,SM-G313HZ,vivalto3gvndx
 #	vold.te	\
 #	zygote.te
 
+# Use dmalloc() for such low memory devices like us
+MALLOC_IMPL := dlmalloc
+
 # Use prebuilt webviewchromium to cut down build time
 PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
