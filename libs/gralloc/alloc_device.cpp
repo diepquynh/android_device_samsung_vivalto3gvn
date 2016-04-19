@@ -540,8 +540,10 @@ static int alloc_device_alloc(alloc_device_t* dev, int w, int h, int format, int
 			bpp = 3;
 			break;
 		case HAL_PIXEL_FORMAT_RGB_565:
+#if 0
 		case HAL_PIXEL_FORMAT_RGBA_5551:
 		case HAL_PIXEL_FORMAT_RGBA_4444:
+#endif
 			bpp = 2;
 			break;
 		default:

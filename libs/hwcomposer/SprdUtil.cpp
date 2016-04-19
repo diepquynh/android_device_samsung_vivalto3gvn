@@ -366,7 +366,7 @@ int SprdUtil:: acquireTmpBuffer(int width, int height, int format, private_handl
     GSPOutputFormat = HAL_PIXEL_FORMAT_YCbCr_422_SP;
 #endif
 #endif
-    int stride;
+    uint32_t stride;
 
     if (friendBuffer == NULL)
     {
