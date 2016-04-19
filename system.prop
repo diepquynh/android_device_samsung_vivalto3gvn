@@ -29,14 +29,6 @@ ro.modem.w.assert=/dev/spipe_w2
 ro.modem.w.vbc=/dev/spipe_w6
 ro.modem.w.id=0
 
-#ro.modem.wcn.enable=1
-#ro.modem.wcn.dev=/dev/cpwcn
-#ro.modem.wcn.tty=/deiv/stty_wcn
-#ro.modem.wcn.diag=/dev/slog_wcn
-#ro.modem.wcn.assert=/dev/spipe_wcn2
-#ro.modem.wcn.id=1
-#ro.modem.wcn.count=1
-
 # MultiTouch support
 ro.product.multi_touch_enabled=true
 ro.product.max_num_touch=2
@@ -69,20 +61,11 @@ persist.sys.font_clarity=0
 # System property for Strict Mode
 persist.sys.strictmode.disable=1
 
-# KDHA
-#ro.config.dha_cached_max=4
-#ro.config.dha_empty_max=24
-#ro.config.dha_update_max_count=7
-#ro.config.dha_empty_min=3
-#ro.config.dha_empty_init=16
-
 # Smart-DHA
 ro.config.dha_margin_min_extra=10
 
 # Control EONS (true = EONS enabled, false = EONS disabled)
 persist.eons.enabled=true
-
-persist.sys.sprd.modemreset=0
 
 # RIL
 ro.com.android.dataroaming=false
@@ -97,6 +80,7 @@ ro.ril.gprsclass=10
 persist.radio.multisim.config=dsds
 ro.telephony.ril_class=SamsungSPRDRIL
 ro.ril.telephony.mqanelements=6
+persist.sys.sprd.modemreset=0
 
 # Low memory device
 ro.config.low_ram=false
