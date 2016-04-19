@@ -155,22 +155,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,SM-G313HZ,vivalto3gvndx
 
 # SELinux
-#BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
-#BOARD_SEPOLICY_UNION :=	\
-#	file.te	\
-#	file_contexts \
-#	seapp_contexts \
-#	theme.te \
-#	healthd.te \
-#	init.te \
-#	init_shell.te \
-#	installd.te \
-#	netd.te \
-#	shell.te \
-#	system.te \
-#	untrusted_app.te \
-#	vold.te	\
-#	zygote.te
+BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
 
 # Use dmalloc() for such low memory devices like us
 MALLOC_IMPL := dlmalloc
