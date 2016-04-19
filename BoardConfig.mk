@@ -161,7 +161,7 @@ BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
 MALLOC_IMPL := dlmalloc
 
 # Use prebuilt webviewchromium to cut down build time
-PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
+#PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
