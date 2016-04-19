@@ -2,7 +2,6 @@ import /init.board.rc
 import /init.scx15.usb.rc
 import /init.scx15_ss.rc
 
-
 on early-init
     mount debugfs debugfs /sys/kernel/debug
 

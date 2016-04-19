@@ -14,29 +14,14 @@ on init
     mkdir /efs 0774 radio system
 
     # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt 0775 root system
-    mkdir /mnt/media_rw 0700 media_rw media_rw
-    mkdir /mnt/media_rw/extSdCard 0700 media_rw media_rw
-    mkdir /mnt/shell/emulated 0750 shell shell
-    mkdir /storage 0751 root sdcard_r
-    # mkdir /storage/sdcard0 0755 system sdcard_rw
-    mkdir /storage/emulated 0555 root root
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/extSdCard
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
 
     # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
     # map "real" external storages paths also in same way. backwards compatibility.
     symlink /storage/extSdCard /mnt/extSdCard
-
-    mkdir /storage/extSdCard 0700 root root
+    symlink /storage/usbdisk /mnt/usbdisk
 
 # SecEDS
     setprop ro.SecEDS.enable false
@@ -213,7 +198,6 @@ on boot
     setprop status.battery.level_raw  100
     setprop status.battery.level_scale 10
 
-
 # phone
     setprop ro.telephony.call_ring.multiple 0
 
@@ -294,19 +278,19 @@ on fs
     chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
 
 # permissions for bluetooth.
-   setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-   chown bluetooth net_bt_stack ro.bt.bdaddr_path
-   symlink /system/etc/dbus.conf /etc/dbus.conf
-   symlink /system/etc/bluetooth /etc/bluetooth
-   mkdir /efs/bluetooth 0775 radio system
-   mkdir /data/misc 01771 system misc
-   mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
-   mkdir /data/misc/bluetooth 0770 system system
-   chmod 0770 /data/misc/bluetoothd
-   chmod 0770 /data/misc/bluetooth
-   chown bluetooth bluetooth /data/misc/bluetoothd
-   chown bluetooth bluetooth /data/misc/bluetooth
-   chown root bluetooth /dev/ttyS0
+    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
+    chown bluetooth net_bt_stack ro.bt.bdaddr_path
+    symlink /system/etc/dbus.conf /etc/dbus.conf
+    symlink /system/etc/bluetooth /etc/bluetooth
+    mkdir /efs/bluetooth 0775 radio system
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetooth 0770 system system
+    chmod 0770 /data/misc/bluetoothd
+    chmod 0770 /data/misc/bluetooth
+    chown bluetooth bluetooth /data/misc/bluetoothd
+    chown bluetooth bluetooth /data/misc/bluetooth
+    chown root bluetooth /dev/ttyS0
     chmod 0770 /dev/ttyS0
     chmod 0770 /dev/ttyS1
     chmod 0660 /sys/class/rfkill/rfkill0/state
@@ -314,40 +298,22 @@ on fs
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chmod 0777 /system/bin/btld
 
-# permissions for NFC
-#    setprop ro.nfc.port "I2C"
-#    mkdir /data/bcmnfc
-#    mkdir /data/bcmnfc/param
-#    chmod 0755 /data/bcmnfc
-#    chmod 0777 /data/bcmnfc/param
-#    chown nfc nfc /data/bcmnfc
-#    chown nfc nfc /data/bcmnfc/param
-#    chown nfc nfc /data/bcmnfc/libnfc-brcm-20791b04.conf
-#    chown nfc nfc /data/bcmnfc/libnfc-brcm-20791b03.conf
-#    chmod 666 /data/bcmnfc/libnfc-brcm-20791b04.conf
-#    chmod 666 /data/bcmnfc/libnfc-brcm-20791b03.conf
-
 #runSysCmd
     mkdir /data/brcm/utils
     chmod 0777 /data/brcm/utils
 
 #Enable PMTUD tcp_mtu_probing
- write /proc/sys/net/ipv4/tcp_mtu_probing 1
+    write /proc/sys/net/ipv4/tcp_mtu_probing 1
 
 # needed to avoid the 7-minute-halt issue in (DOS) passive mode ftp on vodafone networ
- write /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal 1
+    write /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal 1
 
 
 
 # Permissions for System Server and daemons.
     chown system system /sys/devices/platform/panel/backlight/panel/brightness
 
-# for Napa TS
-#   insmod Napa Touchscreen module
-chmod 0755 /system/etc/init_touch
-
 on post-fs-data
-    mkdir /data/media 0770 media_rw media_rw
     setprop vold.post_fs_data_done 1
 
 service napa_ts /system/bin/sh /system/etc/init_touch
@@ -437,16 +403,6 @@ service watchdogd /system/bin/watchdogd
     group root
     oneshot
 
-# virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-    oneshot
-
-service fuse_extSdCard /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/extSdCard /storage/extSdCard
-    class late_start
-    disabled
-    oneshot
-
 # This will make sure that sdcard service starts as late_start.
 on nonencrypted
     setprop ro.fuse_sdcard ${persist.fuse_sdcard}
@@ -472,7 +428,6 @@ service copy_cp_imgs /system/bin/sh /system/etc/copy_cp_imgs.sh
     oneshot
     user root
     disabled
-
 
 #Indicate boot complete to PM to complete PM initialization
 on property:dev.bootcomplete=1
