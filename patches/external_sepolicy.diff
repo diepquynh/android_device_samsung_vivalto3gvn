@@ -1,0 +1,50 @@
+diff --git a/domain.te b/domain.te
+index b6eeb2e..b1eda94 100644
+--- a/domain.te
++++ b/domain.te
+@@ -288,15 +288,15 @@ neverallow { domain -kernel -init -recovery -vold -zygote } { fs_type -sdcard_ty
+ # Assert that, to the extent possible, we're not loading executable content from
+ # outside the rootfs or /system partition except for a few whitelisted domains.
+ #
+-neverallow {
+-    domain
+-    -appdomain
+-    -dumpstate
+-    -shell
+-    userdebug_or_eng(`-su')
+-    -system_server
+-    -zygote
+-} { file_type -system_file -exec_type }:file execute;
++#neverallow {
++#    domain
++#    -appdomain
++#    -dumpstate
++#    -shell
++#    userdebug_or_eng(`-su')
++#    -system_server
++#    -zygote
++#} { file_type -system_file -exec_type }:file execute;
+ neverallow {
+     domain
+     -appdomain # for oemfs
+@@ -308,8 +308,8 @@ neverallow { domain -init -recovery } property_data_file:dir no_w_dir_perms;
+ neverallow { domain -init -recovery } property_data_file:file no_w_file_perms;
+ 
+ # Only recovery should be doing writes to /system
+-neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
+-    { create write setattr relabelfrom append unlink link rename };
++#neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
++#    { create write setattr relabelfrom append unlink link rename };
+ neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
+ 
+ # Don't allow mounting on top of /system files or directories
+diff --git a/init.te b/init.te
+index a9c567e..6112f8f 100644
+--- a/init.te
++++ b/init.te
+@@ -287,4 +287,4 @@ neverallow init shell_data_file:lnk_file read;
+ neverallow init app_data_file:lnk_file read;
+ 
+ # init should never execute a program without changing to another domain.
+-neverallow init { file_type fs_type }:file execute_no_trans;
++#neverallow init { file_type fs_type }:file execute_no_trans;

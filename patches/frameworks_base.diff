@@ -1,0 +1,101 @@
+diff --git a/core/jni/android_view_DisplayListCanvas.cpp b/core/jni/android_view_DisplayListCanvas.cpp
+index ef1e4ab..3082fc9 100644
+--- a/core/jni/android_view_DisplayListCanvas.cpp
++++ b/core/jni/android_view_DisplayListCanvas.cpp
+@@ -222,7 +222,7 @@ static void android_view_DisplayListCanvas_drawLayer(JNIEnv* env, jobject clazz,
+ 
+ static jboolean android_view_DisplayListCanvas_isAvailable(JNIEnv* env, jobject clazz) {
+     char prop[PROPERTY_VALUE_MAX];
+-    if (property_get("ro.kernel.qemu", prop, NULL) == 0) {
++    if (property_get("ro.kernel.qemu", prop, NULL) == 0 || atoi(prop) == 0) {
+         // not in the emulator
+         return JNI_TRUE;
+     }
+diff --git a/telephony/java/android/telephony/TelephonyManager.java b/telephony/java/android/telephony/TelephonyManager.java
+index 7afaf7e..b7ec287 100644
+--- a/telephony/java/android/telephony/TelephonyManager.java
++++ b/telephony/java/android/telephony/TelephonyManager.java
+@@ -3335,44 +3335,22 @@ public class TelephonyManager {
+         return SubscriptionManager.getSlotId(SubscriptionManager.getDefaultSubId());
+     }
+ 
++    /*
++     * vivalto3gvn uses this naming scheme
++     */
++    private static String getPropNameForPhoneId(int phoneId, String prop) {
++        if (phoneId <= 0)
++            return prop;
++        return prop + (phoneId + 1);
++    }
++
+     /**
+      * Sets the telephony property with the value specified.
+      *
+      * @hide
+      */
+     public static void setTelephonyProperty(int phoneId, String property, String value) {
+-        String propVal = "";
+-        String p[] = null;
+-        String prop = SystemProperties.get(property);
+-
+-        if (value == null) {
+-            value = "";
+-        }
+-
+-        if (prop != null) {
+-            p = prop.split(",");
+-        }
+-
+-        if (!SubscriptionManager.isValidPhoneId(phoneId)) {
+-            Rlog.d(TAG, "setTelephonyProperty: invalid phoneId=" + phoneId +
+-                    " property=" + property + " value: " + value + " prop=" + prop);
+-            return;
+-        }
+-
+-        for (int i = 0; i < phoneId; i++) {
+-            String str = "";
+-            if ((p != null) && (i < p.length)) {
+-                str = p[i];
+-            }
+-            propVal = propVal + str + ",";
+-        }
+-
+-        propVal = propVal + value;
+-        if (p != null) {
+-            for (int i = phoneId + 1; i < p.length; i++) {
+-                propVal = propVal + "," + p[i];
+-            }
+-        }
++        String propVal = value == null ? "" : value;
+ 
+         if (property.length() > SystemProperties.PROP_NAME_MAX
+                 || propVal.length() > SystemProperties.PROP_VALUE_MAX) {
+@@ -3383,7 +3361,7 @@ public class TelephonyManager {
+ 
+         Rlog.d(TAG, "setTelephonyProperty: success phoneId=" + phoneId +
+                 " property=" + property + " value: " + value + " propVal=" + propVal);
+-        SystemProperties.set(property, propVal);
++        SystemProperties.set(getPropNameForPhoneId(phoneId, property), propVal);
+     }
+ 
+     /**
+@@ -3480,15 +3458,10 @@ public class TelephonyManager {
+      * @hide
+      */
+     public static String getTelephonyProperty(int phoneId, String property, String defaultVal) {
+-        String propVal = null;
+-        String prop = SystemProperties.get(property);
+-        if ((prop != null) && (prop.length() > 0)) {
+-            String values[] = prop.split(",");
+-            if ((phoneId >= 0) && (phoneId < values.length) && (values[phoneId] != null)) {
+-                propVal = values[phoneId];
+-            }
+-        }
+-        return propVal == null ? defaultVal : propVal;
++         String propVal = SystemProperties.get(getPropNameForPhoneId(phoneId, property));
++         Rlog.d(TAG, "getTelephonyProperty: return propVal='" + propVal + "' phoneId=" + phoneId
++                + " property='" + property + "' defaultVal='" + defaultVal + "'");
++        return propVal == null || propVal.length() == 0 ? defaultVal : propVal;
+     }
+ 
+     /** @hide */
