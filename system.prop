@@ -96,7 +96,7 @@ ro.ril.hsxpa=1
 ro.ril.gprsclass=10
 persist.radio.multisim.config=dsds
 ro.telephony.ril_class=SamsungSPRDRIL
-ro.telephony.ril_qanelements=6
+ro.ril.telephony.mqanelements=6
 
 # Low memory device
 ro.config.low_ram=false
