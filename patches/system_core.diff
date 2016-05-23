@@ -2801,3 +2801,38 @@ index c006dc8..0000000
 -        }
 -    }
 -}
+diff --git a/init/Android.mk b/init/Android.mk
+index aa32236..ed5f4c8 100644
+--- a/init/Android.mk
++++ b/init/Android.mk
+@@ -68,6 +68,8 @@ ifneq ($(TARGET_IGNORE_RO_BOOT_REVISION),)
+ LOCAL_CFLAGS += -DIGNORE_RO_BOOT_REVISION
+ endif
+ 
++LOCAL_CFLAGS += -DTARGET_BOARD_PLATFORM=\"$(TARGET_BOARD_PLATFORM)\"
++
+ LOCAL_MODULE:= init
+ LOCAL_C_INCLUDES += \
+     external/zlib \
+diff --git a/init/init.cpp b/init/init.cpp
+index 58d7d34..1f00d0f 100644
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -817,7 +817,9 @@ static void export_kernel_boot_props() {
+         { "ro.boot.mode",       "ro.bootmode",   "unknown", },
+         { "ro.boot.baseband",   "ro.baseband",   "unknown", },
+         { "ro.boot.bootloader", "ro.bootloader", "unknown", },
++#if !defined(SPRD_HARDWARE)
+         { "ro.boot.hardware",   "ro.hardware",   "unknown", },
++#endif
+ #ifndef IGNORE_RO_BOOT_REVISION
+         { "ro.boot.revision",   "ro.revision",   "0", },
+ #endif
+@@ -827,6 +829,9 @@ static void export_kernel_boot_props() {
+         int rc = property_get(prop_map[i].src_prop, value);
+         property_set(prop_map[i].dst_prop, (rc > 0) ? value : prop_map[i].default_value);
+     }
++#if defined(SPRD_HARDWARE)
++    property_set("ro.hardware", TARGET_BOARD_PLATFORM);
++#endif
+ }
