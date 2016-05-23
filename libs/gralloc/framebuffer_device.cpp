@@ -726,7 +726,9 @@ static int fb_close(struct hw_device_t *device)
 #if 0
 		delete dev;
 #else
+#if 0
                  free(dev);
+#endif
 #endif
 	}
 

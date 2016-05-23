@@ -3,24 +3,22 @@ on early-init
     chown system system /sys/devices/platform/panel/backlight/panel/brightness
     chown system system /sys/class/input/event0/device/device/enable
     chmod 777 /sys/class/input/event0/device/device/enable
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
 
 on init
     #thermistor
     chown radio system /sys/devices/platform/sec-thermistor/temp_adc
     chown radio system /sys/devices/platform/sec-thermistor/temperature
 
-    mkdir /cache 0000 system system
     mkdir /efs 0774 radio system
 
-    # See storage config details at http://source.android.com/tech/storage/
+    # See storage config details at https://source.android.com/devices/storage/
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
     # map "real" external storages paths also in same way. backwards compatibility.
-    symlink /storage/extSdCard /mnt/extSdCard
+    symlink /storage/sdcard1 /mnt/sdcard1
     symlink /storage/usbdisk /mnt/usbdisk
 
 # SecEDS
@@ -235,36 +233,6 @@ on boot
 # SEC_PRODUCT_FEATURE_COMMON_USE_MULTISIM
     setprop ro.multisim.simslotcount 2
 
-#wcdma rild service
-service ril-daemon /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 0
-    class core
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    disabled
-    user root
-    group radio cache inet misc audio sdcard_rw log shell sdcard_r
-
-service ril-daemon2 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 1
-    class core
-    socket rild1 stream 660 root radio
-    socket rild-debug1 stream 660 radio system
-    disabled
-    user root
-    group radio cache inet misc audio sdcard_rw log shell sdcard_r
-
-service ril-daemon3 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 2
-    class core
-    socket rild2 stream 660 root radio
-    socket rild-debug2 stream 660 radio system
-    disabled
-    user root
-    group radio cache inet misc audio sdcard_rw log shell sdcard_r
-
-on fs
-#    mount_all /fstab.vivalto3g
-# Temporary hack for root access
-    chmod 6755 /system/xbin/su
-
 #for efs
     chown radio system /efs
     chmod 0771 /efs
@@ -308,13 +276,36 @@ on fs
 # needed to avoid the 7-minute-halt issue in (DOS) passive mode ftp on vodafone networ
     write /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal 1
 
-
-
 # Permissions for System Server and daemons.
     chown system system /sys/devices/platform/panel/backlight/panel/brightness
 
 on post-fs-data
     setprop vold.post_fs_data_done 1
+
+#wcdma rild service
+service ril-daemon /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 0
+    class core
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    disabled
+    user root
+    group radio cache inet misc audio sdcard_rw log shell sdcard_r
+
+service ril-daemon2 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 1
+    class core
+    socket rild1 stream 660 root radio
+    socket rild-debug1 stream 660 radio system
+    disabled
+    user root
+    group radio cache inet misc audio sdcard_rw log shell sdcard_r
+
+service ril-daemon3 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 2
+    class core
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    disabled
+    user root
+    group radio cache inet misc audio sdcard_rw log shell sdcard_r
 
 service napa_ts /system/bin/sh /system/etc/init_touch
     class main
@@ -334,51 +325,11 @@ service at_distributor /system/bin/at_distributor
     user root
     group radio misc log
 
-# Run usb_portd to automatically launch atx when USB configuration changes.
-service usb_portd /system/bin/usb_portd
-    class main
-    oneshot
-    user system
-    group input vpn net_admin net_raw radio system sdcard_rw
-
-# Run atxd daemon, which needs group permissions to run in non-root mode.
-service atxd /system/bin/atxd
-    class main
-    user shell
-    group input vpn net_admin net_raw radio system sdcard_rw log
-
-# Run usbdev_mode to set USB configuration from uboot if bootargs usbdev_mode option is set.
-service usbdev_mode /system/bin/usbdev_mode
-    class main
-    oneshot
-    user system
-    group radio system
-
-# Run bkmgrd automatically on startup
-service bkmgrd /system/bin/bkmgrd
-    class main
-    oneshot
-    user root
-    group radio system log
-
-service set_simid /system/bin/atx --fordev=ACM --runcmd=/data/atx/setsim.txt
-    disabled
-    oneshot
-
 # When the default SIM for data connections is updated,
 # also update the DUN AT channel with the default SIM.
 on property:persist.sys.dataprefer.simid=0
     write /data/atx/setsim.txt at*msetsim=1
     start set_simid
-
-#for DUN policy routing
-service config_dun_up /system/bin/sh /system/etc/configure_dun.sh up
-    disabled
-    oneshot
-
-service config_dun_down /system/bin/sh /system/etc/configure_dun.sh do
-    disabled
-    oneshot
 
 #DUN on
 on property:brcm.dun.state=1
@@ -389,45 +340,11 @@ on property:brcm.dun.state=1
 on property:brcm.dun.state=0
     start config_dun_down
 
-
 # When the default SIM for data connections is updated,
 # also update the DUN AT channel with the default SIM.
 on property:persist.sys.dataprefer.simid=1
     write /data/atx/setsim.txt at*msetsim=2
     start set_simid
-
-#start watchdog daemon
-service watchdogd /system/bin/watchdogd
-    class core
-    user root
-    group root
-    oneshot
-
-# This will make sure that sdcard service starts as late_start.
-on nonencrypted
-    setprop ro.fuse_sdcard ${persist.fuse_sdcard}
-
-on property:vold.decrypt=trigger_restart_framework
-    setprop ro.fuse_sdcard ${persist.fuse_sdcard}
-
-# Runtime Compcache
-service rtccd /system/bin/rtccd3 -a 120m
-    class core
-    user root
-    oneshot
-
-# Run the script to rename the panic logs
-service apanic_rename /system/bin/sh /system/etc/apanic_rename.sh
-    class main
-    user root
-    group log sdcard_rw
-    oneshot
-
-service copy_cp_imgs /system/bin/sh /system/etc/copy_cp_imgs.sh
-    class main
-    oneshot
-    user root
-    disabled
 
 #Indicate boot complete to PM to complete PM initialization
 on property:dev.bootcomplete=1
@@ -436,8 +353,6 @@ on property:dev.bootcomplete=1
     write /sys/class/input/input1/enable 1
     start copy_cp_imgs
     write /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/governor "ondemand"    
-# service battery_charger /charger
-#    class charger
 
 on charger
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"

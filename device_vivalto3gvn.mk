@@ -116,10 +116,15 @@ PRODUCT_PACKAGES += \
 	libtinyalsa
 
 # Use prebuilt webviewchromium
+#PRODUCT_PACKAGES += \
+#	webview \
+#	libwebviewchromium_loader.so \
+#	libwebviewchromium_plat_support.so
+
+# Commom libraries
+# XXX Need to clone android_external_stlport into external/stlport
 PRODUCT_PACKAGES += \
-	webview \
-	libwebviewchromium_loader.so \
-	libwebviewchromium_plat_support.so
+	libstlport
 
 # Wifi
 PRODUCT_PACKAGES += \

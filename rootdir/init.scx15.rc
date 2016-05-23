@@ -3,8 +3,6 @@ import /init.scx15.usb.rc
 import /init.scx15_ss.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
-
     # set core dump resource limit
     setrlimit 4 -1 -1
 
@@ -18,25 +16,9 @@ on early-init
 
 on init
     mkdir /productinfo 0771 system system
-    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    #mkdir /storage/sdcard0 0700 root root
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-
-    #export EXTERNAL_STORAGE /storage/emulated/legacy
-    #export SECONDARY_STORAGE /storage/sdcard0
-    #export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    #export EMULATED_STORAGE_TARGET /storage/emulated
-
-    # Support legacy paths
-    # move this to board level init @{
-    #symlink /storage/emulated/legacy /sdcard
-    #symlink /storage/emulated/legacy /mnt/sdcard
-    # @}
-    #symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    #export LD_SHIM_LIBS /system/lib/libc++.so|libstlport.so
 
 on fs
-    ubiattach 0 ubipac
     mount_all /fstab.scx15
 
 #Allow others to read fb devices
@@ -90,13 +72,8 @@ on post-fs
     chown system system /productinfo
     chmod 0771 /productinfo
     insmod /system/lib/modules/mali.ko
-    insmod /system/lib/modules/trout_fm.ko
 
 on post-fs-data
-    #copy /system/etc/bluetooth/bt_stack.conf /data/misc/bluedroid/bt_stack.conf
-    #chown bluetooth bluetooth /data/misc/bluedroid/bt_stack.conf
-    #chmod 0640 /data/misc/bluedroid/bt_stack.conf
-
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
@@ -197,19 +174,6 @@ on boot
     chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp2_iis0
     chmod 0666 /proc/pin_switch/bt_iis_sys_sel/ap_iis0
 
-# on charger
-#    class_start core
-
-#on property:ro.debuggable=1
-#    write /sys/kernel/debug/fatal_dump/enable 1
-#    mkdir /data/corefile
-#    chmod 777 /data/corefile
-#    chmod 777 /sys/kernel/debug/sc2711-regulator/vddarm/voltage
-#    chmod 777 /sys/kernel/debug/sc2711-regulator/vddcore/voltage
-#    chmod 777 /sys/kernel/debug
-#    write /proc/sys/kernel/core_pattern /data/corefile/core-%e-%p
-#    write /proc/sys/fs/suid_dumpable 1
-
 on property:ro.modem.t.count=1
     write /proc/sim/0 t
 
@@ -234,40 +198,10 @@ on property:ro.modem.w.count=3
     write /proc/sim/1 w
     write /proc/sim/2 w
 
-
 on property:ro.config.ksm.support=true
     write /sys/kernel/mm/ksm/pages_to_scan 100
     write /sys/kernel/mm/ksm/sleep_millisecs 500
-    write /sys/kernel/mm/ksm/run   1
-
-
-# add for storage manage @{
-#on property:persist.storage.type=1
-#    start legacy_tempsd
-
-#on property:sys.tempsd.enable=1
-#    start fuse_tempsd
-
-#on property:sys.tempsd.enable=0
-#    stop fuse_tempsd
-
-#service legacy_tempsd /system/bin/sdcard -u 1023 -g 1023 -w 1051 -l /data/media/temp_sd /storage/temp_sd
-#    disabled
-
-#service fuse_tempsd /system/bin/sdcard -u 1023 -g 1023 -w 1051 -l /data/media/temp_sd /storage/sdcard0
-#    class late_start
-#    disabled
-# @}
-
-# modify for physical external storage could be writable
-#service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -w 1052 -d /mnt/media_rw/sdcard0 /storage/sdcard0
-#    class late_start
-#    disabled
-
-# virtual sdcard daemon running as media_rw (1023)
-#service sdcard /system/bin/sdcard -u 1023 -g 1023 -w 1051 -l /data/media /mnt/shell/emulated
-#   class late_start
-
+    write /sys/kernel/mm/ksm/run 1
 
 service modemd /system/bin/modemd
     class core
@@ -289,11 +223,6 @@ service phoneserver_w /system/bin/phoneserver -m w
     disabled
     oneshot
 
-#service batterysrv /bin/batterysrv
-#    class core
-#    user root
-#    oneshot
-
 #nvitemd
 service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg FALSE
     class core
@@ -302,28 +231,23 @@ service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg 
     disabled
     oneshot
 
-service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg        FALSE
+service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FALSE
     class core
     user system
     group system radio shell
     disabled
     oneshot
 
-service slog /system/bin/slog -t
-    class main
-    user system
-    group system shell radio log sdcard_r sdcard_rw
-
 service refnotify /system/bin/refnotify -t 0
     class main
     user system
-	group system radio shell
+    group system radio shell
     disabled
 
 service refnotify_w /system/bin/refnotify -t 1
     class main
     user system
-	group system radio shell
+    group system radio shell
     disabled
 
 
@@ -336,7 +260,7 @@ on property:persist.modem.w.enable=1
     start refnotify_w
 
 on property:persist.modem.t.enable=1
-	symlink /dev/spipe_td1 /dev/vbpipe1
+    symlink /dev/spipe_td1 /dev/vbpipe1
     symlink /dev/spipe_td2 /dev/vbpipe2
     symlink /dev/spipe_td3 /dev/vbpipe3
     symlink /dev/spipe_td6 /dev/vbpipe6
@@ -385,22 +309,14 @@ service set_mac /system/bin/ext_chown.sh  -e
     disabled
     oneshot
 
-service  inputfreq  /system/bin/inputfreq.sh
+service inputfreq /system/bin/inputfreq.sh
     user root
     disabled
     oneshot
 
-service  recoveryfreq  /system/bin/recoveryfreq.sh
+service recoveryfreq /system/bin/recoveryfreq.sh
     user root
     disabled
-    oneshot
-
-# SRT server
-service srtd /system/xbin/srtd
-    class main
-    socket srtserver stream 0777 system system
-    user root
-    group root
     oneshot
 
 service set_freq /system/bin/set_freq.sh
