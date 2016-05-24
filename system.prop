@@ -90,7 +90,7 @@ persist.sys.media.use-awesome=true
 
 # zRAM
 ro.config.zram.disksize=134217728
-ro.config.swappiness=10
+ro.config.swappiness=100
 
 # PLEASE REMOVE ME
 qemu.hw.mainkeys=0
