@@ -109,7 +109,8 @@ PRODUCT_PACKAGES += \
 
 # Shim libraries
 PRODUCT_PACKAGES += \
-	libril_shim
+	libril_shim \
+	libgps_shim \
 
 # Wifi
 PRODUCT_PACKAGES += \
