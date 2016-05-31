@@ -1,0 +1,325 @@
+import /init.board.rc
+import /init.scx15.usb.rc
+import /init.scx15_ss.rc
+
+on early-init
+    # set core dump resource limit
+    setrlimit 4 -1 -1
+
+    # coredump file will not be generated in release version
+    write /proc/sys/kernel/core_pattern /dev/null
+# radio pipe
+    mkdir /dev/rpipe 0550 radio radio
+    pipe 666 /dev/rpipe/ril.vt.0
+    pipe 666 /dev/rpipe/ril.vt.1
+    pipe 666 /dev/rpipe/ril.vt.2
+
+on init
+    mkdir /productinfo 0771 system system
+    export LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so
+
+on fs
+    mount_all /fstab.scx15
+
+#Allow others to read fb devices
+    chmod 660 /dev/graphics/fb0
+    chmod 660 /dev/fb0
+
+#permissions for debug
+    chown system system /sys/power/restart_cpc
+    chmod 0220 /sys/power/restart_cpc
+
+#permissions for cpufreq
+    chown system system /sys/power/cpufreq_min_limit
+    chown system system /sys/power/cpufreq_max_limit
+    chown system system /sys/power/cpufreq_table
+    chmod 0664 /sys/power/cpufreq_min_limit
+    chmod 0664 /sys/power/cpufreq_max_limit
+    chmod 0664 /sys/power/cpufreq_table
+
+#permissions for ddr
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/polling_interval
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/min_freq
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/max_freq
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/governor
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/cur_freq
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/available_frequencies
+    chmod 664 /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/min_freq
+    chmod 664 /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/max_freq
+    chmod 664 /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/available_frequencies
+
+# permissions for sensors (accelerometer)
+    chown system system /sys/class/input/input0/enable
+    chown system system /sys/class/input/input0/delay
+    chown system system /sys/class/input/input0/poll_delay
+    chmod 0660 /sys/class/input/input0/enable
+    chmod 0660 /sys/class/input/input0/delay
+    chmod 0660 /sys/class/input/input0/poll_delay
+
+    chown system system /sys/class/input/input1/enable
+    chown system system /sys/class/input/input1/delay
+    chown system system /sys/class/input/input1/poll_delay
+    chmod 0660 /sys/class/input/input1/enable
+    chmod 0660 /sys/class/input/input1/delay
+    chmod 0660 /sys/class/input/input1/poll_delay
+
+# permissions for TSP
+    chown system system /sys/class/sec/tsp/cmd
+
+    chmod 0664 /sys/class/sec/tsp/cmd
+    
+on post-fs
+    chown system system /productinfo
+    chmod 0771 /productinfo
+    insmod /system/lib/modules/mali.ko
+
+on post-fs-data
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
+on early-boot
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
+    # Support audio loopback test
+    mkdir /dev/pipe 0755 system system
+    pipe 666 /dev/pipe/mmi.audio.ctrl
+    # Support audio parameter stored
+    mkdir /data/local/media 0775 media system
+
+    chmod 660 /proc/cpt/wdtirq
+    chmod 660 /proc/cpt/stop
+    chmod 660 /proc/cpt/start
+    chmod 660 /proc/cpt/modem
+    chmod 660 /proc/cpt/dsp
+
+    chown system root /proc/cpt/wdtirq
+    chown system root /proc/cpt/stop
+    chown system root /proc/cpt/start
+    chown system root /proc/cpt/modem
+    chown system root /proc/cpt/dsp
+
+    chmod 660 /proc/cpw/wdtirq
+    chmod 660 /proc/cpw/stop
+    chmod 660 /proc/cpw/start
+    chmod 660 /proc/cpw/modem
+    chmod 660 /proc/cpw/dsp
+
+    chown system root /proc/cpw/wdtirq
+    chown system root /proc/cpw/stop
+    chown system root /proc/cpw/start
+    chown system root /proc/cpw/modem
+    chown system root /proc/cpw/dsp
+
+    chmod 660 /proc/cpwcn/wdtirq
+    chmod 660 /proc/cpwcn/stop
+    chmod 660 /proc/cpwcn/start
+    chmod 660 /proc/cpwcn/modem
+    chmod 660 /proc/cpwcn/dsp
+
+    chown system root /proc/cpwcn/wdtirq
+    chown system root /proc/cpwcn/stop
+    chown system root /proc/cpwcn/start
+    chown system root /proc/cpwcn/modem
+    chown system root /proc/cpwcn/dsp
+
+on boot
+    chown system system /sys/module/mali/parameters/gpu_cur_freq
+    chown system system /sys/module/mali/parameters/gpufreq_max_limit
+    chown system system /sys/module/mali/parameters/gpufreq_min_limit
+    chown system system /sys/module/mali/parameters/gpufreq_table
+    chown system system /sys/class/backlight/sprd_backlight/brightness
+
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_enable
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_upthreshold
+    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_downdifferential
+    chown media system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_freq
+    chown media system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_request
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_freq
+
+    chown system system /sys/class/graphics/fb0/dynamic_pclk
+    chown system system /sys/class/graphics/fb0/dynamic_fps
+    chown system system /sys/class/graphics/fb0/dynamic_mipi_clk
+
+# <Sensors>
+# Accelerometer_sensor
+    chown system radio /dev/accelerometer
+    chown system radio /sys/class/sensors/accelerometer_sensor
+    chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
+    chown system radio /sys/class/sensors/accelerometer_sensor/calibration
+    chown system radio /sys/class/sensors/accelerometer_sensor/accel_cal_open 
+    chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
+    chown system radio /sys/class/sensors/accelerometer_sensor/vendor
+    chown system radio /sys/class/sensors/accelerometer_sensor/name
+
+
+    chmod 777 radio /dev/accelerometer
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor/raw_data
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor/calibration
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor/accel_cal_open
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor/reactive_alert
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor/vendor
+    chmod 777 radio /sys/class/sensors/accelerometer_sensor/name
+
+#audio pin mux
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp0_iis0
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp1_iis0
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/cp2_iis0
+    chmod 0666 /proc/pin_switch/iis0_sys_sel/ap_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp0_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp1_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/cp2_iis0
+    chmod 0666 /proc/pin_switch/bt_iis_sys_sel/ap_iis0
+
+on property:ro.modem.t.count=1
+    write /proc/sim/0 t
+
+on property:ro.modem.t.count=2
+    write /proc/sim/0 t
+    write /proc/sim/1 t
+
+on property:ro.modem.t.count=3
+    write /proc/sim/0 t
+    write /proc/sim/1 t
+    write /proc/sim/2 t
+
+on property:ro.modem.w.count=1
+    write /proc/sim/0 w
+
+on property:ro.modem.w.count=2
+    write /proc/sim/0 w
+    write /proc/sim/1 w
+
+on property:ro.modem.w.count=3
+    write /proc/sim/0 w
+    write /proc/sim/1 w
+    write /proc/sim/2 w
+
+on property:ro.config.ksm.support=true
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
+service modemd /system/bin/modemd
+    class core
+    user system
+    group system radio shell
+    oneshot
+
+service phoneserver_t /system/bin/phoneserver -m t
+    class core
+    user root
+    group radio system shell
+    disabled
+    oneshot
+
+service phoneserver_w /system/bin/phoneserver -m w
+    class core
+    user root
+    group radio system shell
+    disabled
+    oneshot
+
+#nvitemd
+service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg FALSE
+    class core
+    user system
+    group system radio shell
+    disabled
+    oneshot
+
+service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FALSE
+    class core
+    user system
+    group system radio shell
+    disabled
+    oneshot
+
+service refnotify /system/bin/refnotify -t 0
+    class main
+    user system
+    group system radio shell
+    disabled
+
+service refnotify_w /system/bin/refnotify -t 1
+    class main
+    user system
+    group system radio shell
+    disabled
+
+
+on property:persist.modem.w.enable=1
+    symlink /dev/spipe_w1 /dev/vbpipe1
+    symlink /dev/spipe_w2 /dev/vbpipe2
+    symlink /dev/spipe_w3 /dev/vbpipe3
+    symlink /dev/spipe_w6 /dev/vbpipe6
+    start nvitemd_w
+    start refnotify_w
+
+on property:persist.modem.t.enable=1
+    symlink /dev/spipe_td1 /dev/vbpipe1
+    symlink /dev/spipe_td2 /dev/vbpipe2
+    symlink /dev/spipe_td3 /dev/vbpipe3
+    symlink /dev/spipe_td6 /dev/vbpipe6
+    start nvitemd_td
+    start refnotify
+
+#create symlink
+service smd_symlink /system/bin/ext_symlink.sh -u
+    user root
+    disabled
+    oneshot
+
+#data on
+service data_on /system/bin/ext_data.sh  -u
+    user root
+    disabled
+    oneshot
+
+#data off
+service data_off /system/bin/ext_data.sh  -d
+    user root
+    disabled
+    oneshot
+
+#kill td app
+service kill_td_phone /system/bin/ext_kill.sh  -t
+    user root
+    disabled
+    oneshot
+
+#kill w app
+service kill_w_phone /system/bin/ext_kill.sh  -w
+    user root
+    disabled
+    oneshot
+
+#change owner
+service chown_service /system/bin/ext_chown.sh  -c
+    class main
+    user root
+    oneshot
+
+#set mac addr
+service set_mac /system/bin/ext_chown.sh  -e
+    user root
+    disabled
+    oneshot
+
+service inputfreq /system/bin/inputfreq.sh
+    user root
+    disabled
+    oneshot
+
+service recoveryfreq /system/bin/recoveryfreq.sh
+    user root
+    disabled
+    oneshot
+
+service set_freq /system/bin/set_freq.sh
+    user root
+    class main
+    oneshot
