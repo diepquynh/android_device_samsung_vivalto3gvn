@@ -83,7 +83,12 @@ ro.ril.telephony.mqanelements=6
 persist.sys.sprd.modemreset=0
 
 # Low memory device
-ro.config.low_ram=false
+ro.config.low_ram=true
+persist.sys.force_highendgfx=true
+config.disable_atlas=true
+dalvik.vm.jit.codecachesize=0
+ro.config.max_starting_bg=8
+ro.sys.fw.bg_apps_limit=16
 
 # Media
 persist.sys.media.use-awesome=true
