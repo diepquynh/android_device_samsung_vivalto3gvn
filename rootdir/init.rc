@@ -675,7 +675,7 @@ service drm /system/bin/drmserver
 
 service media /system/bin/mediaserver
     class main
-    user media
+    user root
     group system audio camera inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag mediadrm radio sdcard_rw sdcard_r media_rw shell
     ioprio rt 4
 
