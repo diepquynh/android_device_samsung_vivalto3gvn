@@ -52,10 +52,6 @@ MEDIA_CONFIGS := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(MEDIA_CONFIGS),$(f):system/etc/$(notdir $(f)))
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-	libbluetooth_jni
-
 # HWC
 PRODUCT_PACKAGES += \
 	gralloc.scx15 \
@@ -69,34 +65,30 @@ PRODUCT_PACKAGES += \
 	camera2.scx15
 
 # Codecs
-PRODUCT_PACKAGES += \
-	libstagefrighthw \
-	libstagefright_sprd_soft_mpeg4dec \
-	libstagefright_sprd_soft_h264dec \
-	libstagefright_sprd_mpeg4dec \
-	libstagefright_sprd_mpeg4enc \
-	libstagefright_sprd_h264dec \
-	libstagefright_sprd_h264enc \
-	libstagefright_sprd_vpxdec \
-	libstagefright_sprd_aacdec \
-	libstagefright_sprd_mp3dec \
-	libomx_aacdec_sprd.so \
-	libomx_avcdec_hw_sprd.so \
-	libomx_avcdec_sw_sprd.so \
-	libomx_avcenc_hw_sprd.so \
-	libomx_m4vh263dec_hw_sprd.so \
-	libomx_m4vh263dec_sw_sprd.so \
-	libomx_m4vh263enc_hw_sprd.so \
-	libomx_mp3dec_sprd.so \
-	libomx_vpxdec_hw_sprd.so
+#PRODUCT_PACKAGES += \
+#	libstagefrighthw \
+#	libstagefright_sprd_soft_mpeg4dec \
+#	libstagefright_sprd_soft_h264dec \
+#	libstagefright_sprd_mpeg4dec \
+#	libstagefright_sprd_mpeg4enc \
+#	libstagefright_sprd_h264dec \
+#	libstagefright_sprd_h264enc \
+#	libstagefright_sprd_vpxdec \
+#	libstagefright_sprd_aacdec \
+#	libstagefright_sprd_mp3dec \
+#	libomx_aacdec_sprd.so \
+#	libomx_avcdec_hw_sprd.so \
+#	libomx_avcdec_sw_sprd.so \
+#	libomx_avcenc_hw_sprd.so \
+#	libomx_m4vh263dec_hw_sprd.so \
+#	libomx_m4vh263dec_sw_sprd.so \
+#	libomx_m4vh263enc_hw_sprd.so \
+#	libomx_mp3dec_sprd.so \
+#	libomx_vpxdec_hw_sprd.so
 
 # Lights
 PRODUCT_PACKAGES += \
 	lights.scx15
-
-# Device-specific packages
-PRODUCT_PACKAGES += \
-	SamsungServiceMode
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -115,14 +107,8 @@ PRODUCT_PACKAGES += \
 	libatchannel_wrapper \
 	libtinyalsa
 
-# Use prebuilt webviewchromium
-#PRODUCT_PACKAGES += \
-#	webview \
-#	libwebviewchromium_loader.so \
-#	libwebviewchromium_plat_support.so
-
 # Common libraries
-# XXX Need to clone android_external_stlport into external/stlport
+# Need to clone android_external_stlport into external/stlport
 PRODUCT_PACKAGES += \
 	libstlport
 
@@ -193,14 +179,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.image-dex2oat-Xms=48m \
 	dalvik.vm.image-dex2oat-Xmx=48m \
 	dalvik.vm.image-dex2oat-filter=everything
-
-# Support for Browser's saved page feature. This allows
-# for pages saved on previous versions of the OS to be
-# viewed on the current OS.
-PRODUCT_PACKAGES += \
-	libskia_legacy
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Set those variables here to overwrite the inherited values.
 PRODUCT_NAME := full_vivalto3gvn

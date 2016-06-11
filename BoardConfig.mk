@@ -42,14 +42,12 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 
 # RIL
 BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
-COMMON_GLOBAL_CFLAGS += -DSEC_PRODUCT_FEATURE_RIL_CALL_DUALMODE_CDMAGSM
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/vivalto3gvn/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/vivalto3gvn/bluetooth/libbt_vndcfg.txt
-#USE_BLUETOOTH_BCM4343 := true
 
 # Wifi
 BOARD_WLAN_DEVICE := bcmdhd
@@ -159,9 +157,6 @@ BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
 
 # Use dmalloc() for such low memory devices like us
 MALLOC_IMPL := dlmalloc
-
-# Use prebuilt webviewchromium to cut down build time
-#PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
