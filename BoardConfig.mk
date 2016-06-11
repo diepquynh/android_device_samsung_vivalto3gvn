@@ -159,9 +159,6 @@ BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
 # Use dmalloc() for such low memory devices like us
 MALLOC_IMPL := dlmalloc
 
-# Use prebuilt webviewchromium to cut down build time
-#PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
-
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
 WITH_DEXPREOPT_PIC := true
