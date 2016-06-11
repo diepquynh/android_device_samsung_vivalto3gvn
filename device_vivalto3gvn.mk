@@ -52,10 +52,6 @@ MEDIA_CONFIGS := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(MEDIA_CONFIGS),$(f):system/etc/$(notdir $(f)))
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-	libbluetooth_jni
-
 # HWC
 PRODUCT_PACKAGES += \
 	gralloc.scx15 \
