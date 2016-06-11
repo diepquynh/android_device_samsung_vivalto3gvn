@@ -722,7 +722,7 @@ static int fb_close(struct hw_device_t *device)
 	{
 #if GRALLOC_ARM_UMP_MODULE
 		ump_close();
-#endif
+#else
                  free(dev);
 #endif
 	}
