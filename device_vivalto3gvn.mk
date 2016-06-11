@@ -90,10 +90,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	lights.scx15
 
-# Device-specific packages
-PRODUCT_PACKAGES += \
-	SamsungServiceMode
-
 # Bluetooth
 PRODUCT_PACKAGES += \
 	bluetooth.default \
