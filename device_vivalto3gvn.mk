@@ -180,12 +180,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.image-dex2oat-Xmx=48m \
 	dalvik.vm.image-dex2oat-filter=everything
 
-# Support for Browser's saved page feature. This allows
-# for pages saved on previous versions of the OS to be
-# viewed on the current OS.
-PRODUCT_PACKAGES += \
-	libskia_legacy
-
 # Set those variables here to overwrite the inherited values.
 PRODUCT_NAME := full_vivalto3gvn
 PRODUCT_DEVICE := vivalto3gvn
