@@ -105,16 +105,6 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     }
 
     @Override
-    public void getHardwareConfig (Message result) {
-        riljLog("Ignoring call to 'getHardwareConfig'");
-        if (result != null) {
-            AsyncResult.forMessage(result, null, new CommandException(
-                    CommandException.Error.REQUEST_NOT_SUPPORTED));
-            result.sendToTarget();
-        }
-    }
-
-    @Override
     public void getRadioCapability(Message response) {
         riljLog("getRadioCapability: returning static radio capability");
         if (response != null) {
@@ -133,6 +123,11 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             state = super.getRadioStateFromInt(stateInt);
         }
         return state;
+    }
+
+     @Override
+    public void getHardwareConfig(Message response) {
+        unsupportedRequest("getHardwareConfig", response);
     }
 
     @Override
