@@ -90,9 +90,6 @@ dalvik.vm.jit.codecachesize=0
 ro.config.max_starting_bg=8
 ro.sys.fw.bg_apps_limit=16
 
-# Media
-persist.sys.media.use-awesome=true
-
 # zRAM
 ro.config.zram.disksize=134217728
 ro.config.swappiness=100
