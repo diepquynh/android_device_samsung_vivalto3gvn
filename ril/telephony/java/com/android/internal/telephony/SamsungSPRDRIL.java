@@ -74,11 +74,9 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         send(rr);
     }
 
-    /* FIXME This method does not override super, check it out in RIL.java */
-    /* @Override */
-    public void setUiccSubscription(int slotId, int appIndex, int subId,
-            int subStatus, Message result) {
-        if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus);
+    @Override
+    public void setUiccSubscription(int appIndex, boolean activate, Message result) {
+        riljLog("setUiccSubscription " + appIndex + " " + activate);
 
         // Fake response (note: should be sent before mSubscriptionStatusRegistrants or
         // SubscriptionManager might not set the readiness correctly)
@@ -86,19 +84,9 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         result.sendToTarget();
 
         // TODO: Actually turn off/on the radio (and don't fight with the ServiceStateTracker)
-        if (subStatus == 1 /* ACTIVATE */) {
-            // Subscription changed: enabled
-            if (mSubscriptionStatusRegistrants != null) {
-                mSubscriptionStatusRegistrants.notifyRegistrants(
-                        new AsyncResult (null, new int[] {1}, null));
-            }
-        } else if (subStatus == 0 /* DEACTIVATE */) {
-            // Subscription changed: disabled
-            if (mSubscriptionStatusRegistrants != null) {
-                mSubscriptionStatusRegistrants.notifyRegistrants(
-                        new AsyncResult (null, new int[] {0}, null));
-            }
-        }
+        if (mSubscriptionStatusRegistrants != null)
+            mSubscriptionStatusRegistrants.notifyRegistrants(
+                    new AsyncResult (null, new int[] { activate ? 1 : 0 }, null));
     }
 
     @Override
@@ -117,18 +105,10 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     }
 
     @Override
-    public void getHardwareConfig (Message result) {
-        riljLog("Ignoring call to 'getHardwareConfig'");
-        if (result != null) {
-            AsyncResult.forMessage(result, null, new CommandException(
-                    CommandException.Error.REQUEST_NOT_SUPPORTED));
-            result.sendToTarget();
-        }
-    }
-
-    @Override
     public void getRadioCapability(Message response) {
-        riljLog("getRadioCapability: returning static radio capability");
+        String rafString = mContext.getResources().getString(
+            com.android.internal.R.string.config_radio_access_family);
+        riljLog("getRadioCapability: returning static radio capability [" + rafString + "]");
         if (response != null) {
             Object ret = makeStaticRadioCapability();
             AsyncResult.forMessage(response, ret, null);
@@ -139,27 +119,45 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     @Override
     protected RadioState getRadioStateFromInt(int stateInt) {
         RadioState state;
-
-        /* RIL_RadioState ril.h */
-        switch(stateInt) {
-            case 0: state = RadioState.RADIO_OFF; break;
-            case 1: state = RadioState.RADIO_UNAVAILABLE; break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 13: state = RadioState.RADIO_ON; break;
-
-            default:
-                throw new RuntimeException(
-                            "Unrecognized RIL_RadioState: " + stateInt);
+        switch (stateInt) {
+        case 13: state = RadioState.RADIO_ON; break;
+        default:
+            state = super.getRadioStateFromInt(stateInt);
         }
         return state;
+    }
+
+     @Override
+    public void getHardwareConfig(Message response) {
+        unsupportedRequest("getHardwareConfig", response);
+    }
+
+    @Override
+    public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
+        unsupportedRequest("startLceService", response);
+    }
+
+    @Override
+    public void stopLceService(Message response) {
+        unsupportedRequest("stopLceService", response);
+    }
+
+    @Override
+    public void pullLceData(Message response) {
+        unsupportedRequest("pullLceData", response);
+    }
+
+    @Override
+    protected Object responseFailCause(Parcel p) {
+        int numInts = p.readInt();
+        int response[] = new int[numInts];
+        for (int i = 0 ; i < numInts ; i++)
+            response[i] = p.readInt();
+        LastCallFailCause failCause = new LastCallFailCause();
+        failCause.causeCode = response[0];
+        if (p.dataAvail() > 0)
+            failCause.vendorCause = p.readString();
+        return failCause;
     }
 
     @Override
@@ -230,7 +228,7 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_SWITCH_WAITING_OR_HOLDING_AND_ACTIVE: ret =  responseVoid(p); break;
             case RIL_REQUEST_CONFERENCE: ret =  responseVoid(p); break;
             case RIL_REQUEST_UDUB: ret =  responseVoid(p); break;
-            case RIL_REQUEST_LAST_CALL_FAIL_CAUSE: ret =  responseInts(p); break;
+            case RIL_REQUEST_LAST_CALL_FAIL_CAUSE: ret =  responseFailCause(p); break;
             case RIL_REQUEST_SIGNAL_STRENGTH: ret =  responseSignalStrength(p); break;
             case RIL_REQUEST_VOICE_REGISTRATION_STATE: ret =  responseStrings(p); break;
             case RIL_REQUEST_DATA_REGISTRATION_STATE: ret =  responseStrings(p); break;
@@ -458,6 +456,15 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         }
 
         return response;
+    }
+
+    private void unsupportedRequest(String methodName, Message response) {
+        riljLog("[" + getClass().getSimpleName() + "] Ignore call to: " + methodName);
+        if (response != null) {
+            AsyncResult.forMessage(response, null, new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED));
+            response.sendToTarget();
+        }
     }
 
     private void invokeOemRilRequestSprd(byte key, byte value, Message response) {
