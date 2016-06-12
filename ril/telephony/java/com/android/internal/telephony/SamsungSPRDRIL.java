@@ -133,6 +133,11 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     }
 
     @Override
+    public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
+        unsupportedRequest("startLceService", response);
+    }
+
+    @Override
     protected void notifyRegistrantsRilConnectionChanged(int rilVer) {
         super.notifyRegistrantsRilConnectionChanged(rilVer);
         if (rilVer != -1) {
