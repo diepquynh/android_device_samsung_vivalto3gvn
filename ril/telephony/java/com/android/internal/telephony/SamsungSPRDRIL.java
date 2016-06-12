@@ -433,6 +433,15 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         return response;
     }
 
+    private void unsupportedRequest(String methodName, Message response) {
+        riljLog("[" + getClass().getSimpleName() + "] Ignore call to: " + methodName);
+        if (response != null) {
+            AsyncResult.forMessage(response, null, new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED));
+            response.sendToTarget();
+        }
+    }
+
     private void invokeOemRilRequestSprd(byte key, byte value, Message response) {
         invokeOemRilRequestRaw(new byte[] { 'S', 'P', 'R', 'D', key, value }, response);
     }
