@@ -22,7 +22,7 @@ ifeq ($(strip $(USE_SPRD_HWCOMPOSER)),true)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
-LOCAL_SHARED_LIBRARIES := libion liblog libEGL libbinder libutils libcutils libGLESv1_CM libhardware libui libsync
+LOCAL_SHARED_LIBRARIES := libion liblog libEGL libutils libcutils libGLESv1_CM libhardware libui libsync libmemoryheapion_sprd
 LOCAL_SRC_FILES := SprdHWComposer.cpp \
 		   SprdPrimaryDisplayDevice/SprdFrameBufferHAL.cpp \
 		   AndroidFence.cpp \
@@ -40,7 +40,10 @@ LOCAL_SRC_FILES := SprdHWComposer.cpp \
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/../gralloc \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/video/ \
-	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/ \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/
+
+LOCAL_ADDITIONAL_DEPENDENCIES += \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_MODULE := hwcomposer.$(TARGET_BOARD_PLATFORM)
 LOCAL_CFLAGS:= -DLOG_TAG=\"SPRDHWComposer\"

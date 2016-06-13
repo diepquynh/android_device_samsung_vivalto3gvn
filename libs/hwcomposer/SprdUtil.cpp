@@ -37,7 +37,6 @@
 
 
 #include <ui/GraphicBufferAllocator.h>
-#include <binder/MemoryHeapIon.SPRD.h>
 #include "SprdUtil.h"
 #include "dump.h"
 #include <ui/GraphicBufferMapper.h>

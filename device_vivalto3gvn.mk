@@ -108,9 +108,9 @@ PRODUCT_PACKAGES += \
 	libtinyalsa
 
 # Common libraries
-# Need to clone android_external_stlport into external/stlport
 PRODUCT_PACKAGES += \
-	libstlport
+	libstlport \
+	libmemoryheapion_sprd
 
 # Shim libraries
 PRODUCT_PACKAGES += \
@@ -130,6 +130,10 @@ WIFI_CONFIGS := \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(WIFI_CONFIGS),$(f):system/etc/wifi/$(notdir $(f)))
+
+# Radio
+PRODUCT_PACKAGES += \
+	FMRadio
 
 # Permissions
 PERMISSION_XML_FILES := \
