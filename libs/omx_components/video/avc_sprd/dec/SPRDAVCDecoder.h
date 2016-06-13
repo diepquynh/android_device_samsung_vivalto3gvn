@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-#ifndef SPRD_MPEG4_DECODER_H_
-#define SPRD_MPEG4_DECODER_H_
+#ifndef SPRD_AVC_DECODER_H_
+#define SPRD_AVC_DECODER_H_
 
-#include <SprdSimpleOMXComponent.h>
-#include <MemoryHeapIon_SPRD.h>
-
-#include "m4v_h263_dec_api.h"
+#include "SprdSimpleOMXComponent.h"
+#include <utils/KeyedVector.h>
+#include <binder/MemoryHeapIon.SPRD.h>
+#include "avc_dec_api.h"
 
 #define SPRD_ION_DEV "/dev/ion"
 
-#define MP4DEC_INTERNAL_BUFFER_SIZE  (0x200000)
-#define ONEFRAME_BITSTREAM_BFR_SIZE	(1500*1024)  //for bitstream size of one encoded frame.
+#define H264_DECODER_INTERNAL_BUFFER_SIZE (0x100000)
+#define H264_DECODER_STREAM_BUFFER_SIZE (1024*1024*2)
 
-struct tagMP4Handle;
+struct tagAVCHandle;
 
 namespace android {
 
-struct SPRDMPEG4Decoder : public SprdSimpleOMXComponent {
-    SPRDMPEG4Decoder(const char *name,
-                     const OMX_CALLBACKTYPE *callbacks,
-                     OMX_PTR appData,
-                     OMX_COMPONENTTYPE **component);
+struct SPRDAVCDecoder : public SprdSimpleOMXComponent {
+    SPRDAVCDecoder(const char *name,
+                   const OMX_CALLBACKTYPE *callbacks,
+                   OMX_PTR appData,
+                   OMX_COMPONENTTYPE **component);
 
 protected:
-    virtual ~SPRDMPEG4Decoder();
+    virtual ~SPRDAVCDecoder();
 
     virtual OMX_ERRORTYPE internalGetParameter(
         OMX_INDEXTYPE index, OMX_PTR params);
@@ -70,21 +70,15 @@ protected:
     virtual void onPortFlushCompleted(OMX_U32 portIndex);
     virtual void onPortEnableCompleted(OMX_U32 portIndex, bool enabled);
     virtual void onPortFlushPrepare(OMX_U32 portIndex);
-
-    virtual OMX_ERRORTYPE getExtensionIndex(
-        const char *name, OMX_INDEXTYPE *index);
+    virtual OMX_ERRORTYPE getExtensionIndex(const char *name, OMX_INDEXTYPE *index);
 
 private:
     enum {
+        kInputPortIndex   = 0,
+        kOutputPortIndex  = 1,
         kNumInputBuffers  = 8,
         kNumOutputBuffers = 5,
     };
-
-    enum {
-        MODE_MPEG4,
-        MODE_H263,
-
-    } mMode;
 
     enum EOSStatus {
         INPUT_DATA_AVAILABLE,
@@ -92,21 +86,9 @@ private:
         OUTPUT_FRAMES_FLUSHED,
     };
 
-    tagMP4Handle *mHandle;
+    tagAVCHandle *mHandle;
 
     size_t mInputBufferCount;
-
-    int32_t mWidth, mHeight;
-    int32_t mCropLeft, mCropTop, mCropRight, mCropBottom;
-
-    int32 mMaxWidth, mMaxHeight;
-    int mSetFreqCount;
-
-    bool mSignalledError;
-    bool mInitialized;
-    bool mFramesConfigured;
-
-    int32_t mNumSamplesOutput;
 
     bool mIOMMUEnabled;
     uint8_t *mCodecInterBuffer;
@@ -122,57 +104,73 @@ private:
     int32  mPbuf_extra_p;
     int32  mPbuf_extra_size;
 
+    uint32_t mWidth, mHeight, mPictureSize;
+    uint32_t mCropLeft, mCropTop;
+    uint32_t mCropWidth, mCropHeight;
+
+    int32 mMaxWidth, mMaxHeight;
+    int mSetFreqCount;
+
     OMX_BOOL iUseAndroidNativeBuffer[2];
 
     void* mLibHandle;
     bool mDecoderSwFlag;
-    bool mChangeToHwDec;
+    bool mChangeToSwDec;
+    bool mAllocateBuffers;
+    FT_H264DecGetNALType mH264DecGetNALType;
+    FT_H264DecGetInfo mH264DecGetInfo;
+    FT_H264GetCodecCapability mH264GetCodecCapability;
+    FT_H264DecInit mH264DecInit;
+    FT_H264DecDecode mH264DecDecode;
+    FT_H264DecRelease mH264DecRelease;
+    FT_H264Dec_SetCurRecPic  mH264Dec_SetCurRecPic;
+    FT_H264Dec_GetLastDspFrm  mH264Dec_GetLastDspFrm;
+    FT_H264Dec_ReleaseRefBuffers  mH264Dec_ReleaseRefBuffers;
+    FT_H264DecMemInit mH264DecMemInit;
+
+    int32_t mPicId;  // Which output picture is for which input buffer?
+
+    // OMX_BUFFERHEADERTYPE may be overkill, but it is convenient
+    // for tracking the following fields: nFlags, nTimeStamp, etc.
+    KeyedVector<int32_t, OMX_BUFFERHEADERTYPE *> mPicToHeaderMap;
+    bool mHeadersDecoded;
+
     EOSStatus mEOSStatus;
     bool mNeedIVOP;
-    bool mHeadersDecoded;
-    bool mAllocateBuffers;
-    FT_MP4DecSetCurRecPic mMP4DecSetCurRecPic;
-    FT_MP4DecInit mMP4DecInit;
-    FT_MP4DecVolHeader mMP4DecVolHeader;
-    FT_MP4DecMemInit mMP4DecMemInit;
-    FT_MP4DecDecode mMP4DecDecode;
-    FT_MP4DecRelease mMP4DecRelease;
-    FT_Mp4GetVideoDimensions mMp4GetVideoDimensions;
-    FT_Mp4GetBufferDimensions mMp4GetBufferDimensions;
-    FT_MP4DecReleaseRefBuffers mMP4DecReleaseRefBuffers;
-    FT_MP4DecSetReferenceYUV mMP4DecSetReferenceYUV;
-    FT_MP4DecGetLastDspFrm mMP4DecGetLastDspFrm;
-    FT_MP4GetCodecCapability mMP4GetCodecCapability;
 
-    static int32_t extMemoryAllocWrapper(void *userData, unsigned int extra_mem_size);
-    static int32_t BindFrameWrapper(void *aUserData, void *pHeader, int flag);
-    static int32_t UnbindFrameWrapper(void *aUserData, void *pHeader, int flag);
-
-    int extMemoryAlloc(unsigned int extra_mem_size) ;
-    int VSP_bind_cb(void *pHeader,int flag);
-    int VSP_unbind_cb(void *pHeader,int flag);
-
-    enum {
+    enum OutputPortSettingChange {
         NONE,
         AWAITING_DISABLED,
         AWAITING_ENABLED
-    } mOutputPortSettingsChange;
+    };
+    OutputPortSettingChange mOutputPortSettingsChange;
+
+    bool mSignalledError;
 
     void initPorts();
     status_t initDecoder();
     void releaseDecoder();
-    bool drainAllOutputBuffers();
-    bool portSettingsChanged();
     void updatePortDefinitions();
+    bool drainAllOutputBuffers();
+    void drainOneOutputBuffer(int32_t picId, void* pBufferHeader);
+    bool handleCropRectEvent(const CropParams* crop);
+    bool handlePortSettingChangeEvent(const H264SwDecInfo *info);
+
+    static int32_t ExtMemAllocWrapper(void* aUserData, unsigned int size_extra) ;
+    static int32_t BindFrameWrapper(void *aUserData, void *pHeader);
+    static int32_t UnbindFrameWrapper(void *aUserData, void *pHeader);
+
+    int VSP_malloc_cb(unsigned int size_extra);
+    int VSP_bind_cb(void *pHeader);
+    int VSP_unbind_cb(void *pHeader);
     bool openDecoder(const char* libName);
     void set_ddr_freq(const char* freq_in_khz);
     void change_ddr_freq();
 
-    DISALLOW_EVIL_CONSTRUCTORS(SPRDMPEG4Decoder);
+    DISALLOW_EVIL_CONSTRUCTORS(SPRDAVCDecoder);
 };
 
 }  // namespace android
 
-#endif  // SPRD_MPEG4_DECODER_H_
-
+#endif  // SPRD_AVC_DECODER_H_
 
