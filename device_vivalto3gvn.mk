@@ -131,6 +131,10 @@ WIFI_CONFIGS := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(WIFI_CONFIGS),$(f):system/etc/wifi/$(notdir $(f)))
 
+# Radio
+PRODUCT_PACKAGES += \
+	FMRadio
+
 # Permissions
 PERMISSION_XML_FILES := \
 	$(LOCAL_PATH)/permissions/platform.xml \
