@@ -17,9 +17,10 @@
 #ifndef SPRD_AVC_DECODER_H_
 #define SPRD_AVC_DECODER_H_
 
-#include "SprdSimpleOMXComponent.h"
+#include <SprdSimpleOMXComponent.h>
 #include <utils/KeyedVector.h>
-#include <binder/MemoryHeapIon.SPRD.h>
+#include <MemoryHeapIon_SPRD.h>
+
 #include "avc_dec_api.h"
 
 #define SPRD_ION_DEV "/dev/ion"

@@ -109,7 +109,8 @@ PRODUCT_PACKAGES += \
 
 # Common libraries
 PRODUCT_PACKAGES += \
-	libstlport
+	libstlport \
+	libmemoryheapion_sprd
 
 # Shim libraries
 PRODUCT_PACKAGES += \

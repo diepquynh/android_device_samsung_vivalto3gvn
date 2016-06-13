@@ -30,6 +30,9 @@ LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/../gralloc \
 	$(LOCAL_PATH)/../kernel-headers/arch-arm
 
+LOCAL_ADDITIONAL_DEPENDENCIES += \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+
 LOCAL_SRC_FILES:= \
 	sc8830/src/SprdOEMCamera.c \
 	sc8830/src/SprdCameraParameters.cpp \
@@ -242,7 +245,7 @@ endif
 LOCAL_MODULE_TAGS := optional
 
 ifeq ($(strip $(sc8830like)),1)
-LOCAL_SHARED_LIBRARIES := libexif libutils libbinder libcamera_client libskia libcutils libsqlite libhardware libmorpho_easy_hdr libcamera_metadata
+LOCAL_SHARED_LIBRARIES := libexif libutils libbinder libcamera_client libskia libcutils libsqlite libhardware libmorpho_easy_hdr libcamera_metadata libmemoryheapion_sprd
 endif
 
 ifdef CONFIG_CAMERA_ISP
