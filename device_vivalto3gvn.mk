@@ -108,7 +108,6 @@ PRODUCT_PACKAGES += \
 	libtinyalsa
 
 # Common libraries
-# Need to clone android_external_stlport into external/stlport
 PRODUCT_PACKAGES += \
 	libstlport
 
