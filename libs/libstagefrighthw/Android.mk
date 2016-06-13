@@ -14,6 +14,9 @@ LOCAL_C_INCLUDES:= \
 	$(LOCAL_PATH)/include \
 	$(LOCAL_PATH)/../gralloc
 
+LOCAL_EXPORT_C_INCLUDE_DIRS := \
+	$(LOCAL_PATH)/include
+
 LOCAL_SHARED_LIBRARIES :=       \
         libbinder               \
         libutils                \
