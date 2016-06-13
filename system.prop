@@ -93,6 +93,3 @@ ro.sys.fw.bg_apps_limit=16
 # zRAM
 ro.config.zram.disksize=256M
 ro.config.swappiness=100
-
-# PLEASE REMOVE ME
-qemu.hw.mainkeys=0
