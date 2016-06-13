@@ -97,38 +97,6 @@ COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 # healthd
 BOARD_HAL_STATIC_LIBRARIES := libhealthd-vivalto3gvn.scx15
 
-# Camera
-TARGET_BOARD_CAMERA_HAL_VERSION := HAL1.0
-#android zsl capture
-TARGET_BOARD_CAMERA_ANDROID_ZSL_MODE := false
-#back camera rotation capture
-TARGET_BOARD_BACK_CAMERA_ROTATION := false
-#front camera rotation capture
-TARGET_BOARD_FRONT_CAMERA_ROTATION := false
-#rotation capture
-TARGET_BOARD_CAMERA_ROTATION_CAPTURE := false
-# select camera 2M,3M,5M,8M
-CAMERA_SUPPORT_SIZE := 3M
-#
-TARGET_BOARD_NO_FRONT_SENSOR := false
-#
-TARGET_BOARD_CAMERA_FLASH_CTRL := true
-#select camera zsl cap mode
-TARGET_BOARD_CAMERA_CAPTURE_MODE := false
-#face detect
-TARGET_BOARD_CAMERA_FACE_DETECT := false
-#
-TARGET_BOARD_CAMERA_USE_IOMMU := true
-TARGET_BOARD_CAMERA_DMA_COPY := true
-#
-TARGET_BOARD_BACK_CAMERA_INTERFACE := ccir
-TARGET_BOARD_FRONT_CAMERA_INTERFACE := ccir
-#select continuous auto focus
-TARGET_BOARD_CAMERA_CAF := true
-#
-CONFIG_CAMERA_ISP := true
-COMMON_GLOBAL_CFLAGS += -DCONFIG_CAMERA_ISP
-
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
