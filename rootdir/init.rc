@@ -523,9 +523,17 @@ on property:sys.init_log_level=*
     loglevel ${sys.init_log_level}
 
 on charger
+
+    chmod 0666 /dev/log/radio
+    chmod 0666 /dev/log/main
+    chmod 0666 /dev/log/event
+
     mount ext4 /dev/block/mmcblk0p18 /system ro,barrier=1 wait
     exec sfsck /dev/block/mmcblk0p20 ext4
     mount ext4 /dev/block/mmcblk0p20 /data noatime,nosuid,nodev,nomblk_io_submit wait,encryptable=footer,check
+
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+
     class_start charger
 
 on property:vold.decrypt=trigger_reset_main
@@ -590,9 +598,10 @@ service healthd /sbin/healthd
     seclabel u:r:healthd:s0
     group root system
 
-service lpm /system/bin/lpm
+service healthd-charger /charger
     class charger
     critical
+    seclabel u:r:healthd:s0
 
 service console /system/bin/sh
     class core
