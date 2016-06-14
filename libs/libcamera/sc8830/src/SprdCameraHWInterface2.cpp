@@ -525,7 +525,6 @@ status_t SprdCameraHWInterface2::CamconstructDefaultRequest(
 	uint8_t demosaicMode = 0;
 	uint8_t noiseMode = 0;
 	uint8_t shadingMode = 0;
-	uint8_t geometricMode = 0;
 	uint8_t colorMode = 0;
 	uint8_t tonemapMode = 0;
 	uint8_t edgeMode = 0;
@@ -542,7 +541,6 @@ status_t SprdCameraHWInterface2::CamconstructDefaultRequest(
 		demosaicMode = ANDROID_DEMOSAIC_MODE_HIGH_QUALITY;
 		noiseMode = ANDROID_NOISE_REDUCTION_MODE_HIGH_QUALITY;
 		shadingMode = ANDROID_SHADING_MODE_HIGH_QUALITY;
-		geometricMode = ANDROID_GEOMETRIC_MODE_HIGH_QUALITY;
 		colorMode = ANDROID_COLOR_CORRECTION_MODE_HIGH_QUALITY;
 		tonemapMode = ANDROID_TONEMAP_MODE_HIGH_QUALITY;
 		edgeMode = ANDROID_EDGE_MODE_HIGH_QUALITY;
@@ -557,7 +555,6 @@ status_t SprdCameraHWInterface2::CamconstructDefaultRequest(
 		demosaicMode = ANDROID_DEMOSAIC_MODE_FAST;
 		noiseMode = ANDROID_NOISE_REDUCTION_MODE_FAST;
 		shadingMode = ANDROID_SHADING_MODE_FAST;
-		geometricMode = ANDROID_GEOMETRIC_MODE_FAST;
 		colorMode = ANDROID_COLOR_CORRECTION_MODE_FAST;
 		tonemapMode = ANDROID_TONEMAP_MODE_FAST;
 		edgeMode = ANDROID_EDGE_MODE_FAST;
@@ -567,7 +564,6 @@ status_t SprdCameraHWInterface2::CamconstructDefaultRequest(
 	ADD_OR_SIZE(ANDROID_DEMOSAIC_MODE, &demosaicMode, 1);
 	ADD_OR_SIZE(ANDROID_NOISE_REDUCTION_MODE, &noiseMode, 1);
 	ADD_OR_SIZE(ANDROID_SHADING_MODE, &shadingMode, 1);
-	ADD_OR_SIZE(ANDROID_GEOMETRIC_MODE, &geometricMode, 1);
 	ADD_OR_SIZE(ANDROID_COLOR_CORRECTION_MODE, &colorMode, 1);
 	ADD_OR_SIZE(ANDROID_TONEMAP_MODE, &tonemapMode, 1);
 	ADD_OR_SIZE(ANDROID_EDGE_MODE, &edgeMode, 1);
@@ -5226,24 +5222,27 @@ static hw_module_methods_t camera_module_methods = {
 };
 
 extern "C" {
-    struct camera_module HAL_MODULE_INFO_SYM = {
-      common : {
-          tag                : HARDWARE_MODULE_TAG,
-          module_api_version : CAMERA_MODULE_API_VERSION_2_0,
-          hal_api_version    : HARDWARE_HAL_API_VERSION,
-          id                 : CAMERA_HARDWARE_MODULE_ID,
-          name               : "Sprd Camera HAL2",
-          author             : "Spreadtrum Corporation",
-          methods            : &camera_module_methods,
-          dso:                NULL,
-          reserved:           {0},
-      },
-      get_number_of_cameras : HAL2_getNumberOfCameras,
-      get_camera_info       : HAL2_getCameraInfo,
-      set_callbacks         : NULL,
-      get_vendor_tag_ops    : NULL,
-      reserved              :{NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}
-    };
+	struct camera_module HAL_MODULE_INFO_SYM = {
+		common : {
+			tag                : HARDWARE_MODULE_TAG,
+			module_api_version : CAMERA_MODULE_API_VERSION_2_0,
+			hal_api_version    : HARDWARE_HAL_API_VERSION,
+			id                 : CAMERA_HARDWARE_MODULE_ID,
+			name               : "SSPRD Camera HAL2",
+			author             : "Spreadtrum Corporation",
+			methods            : &camera_module_methods,
+			dso                : NULL,
+			reserved : { 0 }
+		},
+		get_number_of_cameras : HAL2_getNumberOfCameras,
+		get_camera_info       : HAL2_getCameraInfo,
+		set_callbacks         : NULL,
+		get_vendor_tag_ops    : NULL,
+		open_legacy           : NULL,
+		set_torch_mode        : NULL,
+		init                  : NULL,
+		reserved              : { NULL, NULL, NULL, NULL, NULL }
+	};
 }
 
 } // namespace android

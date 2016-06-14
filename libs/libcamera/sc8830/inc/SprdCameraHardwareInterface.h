@@ -20,9 +20,6 @@
 #include <utils/threads.h>
 #include <pthread.h>
 #include <semaphore.h>
-extern "C" {
-    #include <linux/android_pmem.h>
-}
 #include <sys/types.h>
 
 #include "SprdOEMCamera.h"

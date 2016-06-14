@@ -18,6 +18,5 @@
 
 #include "sensor_cfg.h"
 #include "sensor_drv_u.h"
-#include <linux/delay.h>
 
 #endif
