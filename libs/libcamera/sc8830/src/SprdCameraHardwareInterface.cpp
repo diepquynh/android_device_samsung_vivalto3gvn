@@ -5904,21 +5904,24 @@ static hw_module_methods_t camera_module_methods = {
 extern "C" {
 	struct camera_module HAL_MODULE_INFO_SYM = {
 		common : {
-		tag : HARDWARE_MODULE_TAG,
-		version_major : 1,
-		version_minor : 0,
-		id : CAMERA_HARDWARE_MODULE_ID,
-		name : "Sprd camera HAL",
-		author : "Spreadtrum Corporation",
-		methods : &camera_module_methods,
-		dso : NULL,
-		reserved : {0},
+			tag                : HARDWARE_MODULE_TAG,
+			module_api_version : CAMERA_MODULE_API_VERSION_1_0,
+			hal_api_version    : HARDWARE_HAL_API_VERSION,
+			id                 : CAMERA_HARDWARE_MODULE_ID,
+			name               : "SPRD Camera HAL",
+			author             : "Spreadtrum Corporation",
+			methods            : &camera_module_methods,
+			dso                : NULL,
+			reserved : { 0 }
 		},
 		get_number_of_cameras : HAL_getNumberOfCameras,
-		get_camera_info : HAL_getCameraInfo,
-		set_callbacks : NULL,
-		get_vendor_tag_ops : NULL,
-		reserved : {0,0,0,0,0,0,0,0}
+		get_camera_info       : HAL_getCameraInfo,
+		set_callbacks         : NULL,
+		get_vendor_tag_ops    : NULL,
+		open_legacy           : NULL,
+		set_torch_mode        : NULL,
+		init                  : NULL,
+		reserved              : { NULL, NULL, NULL, NULL, NULL }
 	};
 }
 

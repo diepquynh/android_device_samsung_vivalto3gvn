@@ -28,7 +28,7 @@ int androidSceneModeToDrvMode(camera_metadata_enum_android_control_scene_mode_t 
 
 	ALOGD("%s sceneMode=%d",__FUNCTION__,androidScreneMode);
 	switch (androidScreneMode) {
-	case ANDROID_CONTROL_SCENE_MODE_UNSUPPORTED:
+	case ANDROID_CONTROL_SCENE_MODE_DISABLED:
 		*convertDrvMode = CAMERA_SCENE_MODE_AUTO;
 		break;
 

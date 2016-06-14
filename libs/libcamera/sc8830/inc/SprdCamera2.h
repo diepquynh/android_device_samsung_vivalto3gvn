@@ -108,7 +108,7 @@ const uint8_t availableAeModesSensorBack[] = {
 };
 
 const uint32_t kAvailableFormats[5] = {//for preview
-        HAL_PIXEL_FORMAT_RAW_SENSOR,
+        HAL_PIXEL_FORMAT_RAW16,
         HAL_PIXEL_FORMAT_BLOB,
         HAL_PIXEL_FORMAT_RGBA_8888,
         HAL_PIXEL_FORMAT_YV12,

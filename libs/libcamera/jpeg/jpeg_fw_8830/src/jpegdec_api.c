@@ -190,7 +190,7 @@ LOCAL JPEG_RET_E JPEGDEC_start_decode(JPEGDEC_PARAMS_T *jpegdec_params)
 	ret_value = JPEG_FWParseHead(&jpeg_dec_fw_info);
 	if(JPEG_SUCCESS != ret_value)
 	{
-		JPEG_PRINT(("[JPEG_StartDecode] JPEG_HWParseHead failed = %d", ret_value));
+		JPEG_PRINT("[JPEG_StartDecode] JPEG_HWParseHead failed = %d", ret_value);
 		return ret_value;
 	}
 
