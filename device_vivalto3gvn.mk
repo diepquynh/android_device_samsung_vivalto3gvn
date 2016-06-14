@@ -135,6 +135,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	FMRadio
 
+# Charger
+PRODUCT_PACKAGES += \
+	charger \
+	charger_res_images
+
 # Permissions
 PERMISSION_XML_FILES := \
 	$(LOCAL_PATH)/permissions/platform.xml \
