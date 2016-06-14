@@ -1,7 +1,16 @@
 diff --git a/domain.te b/domain.te
-index b6eeb2e..b1eda94 100644
+index b6eeb2e..67a0076 100644
 --- a/domain.te
 +++ b/domain.te
+@@ -277,7 +277,7 @@ neverallow { domain -kernel -init -recovery -vold -uncrypt } block_device:blk_fi
+ # Rather force a relabel to a more specific type.
+ # init is exempt from this as there are character devices that only it uses.
+ # ueventd is exempt from this, as it is managing these devices.
+-neverallow { domain -init -ueventd } device:chr_file { open read write };
++#neverallow { domain -init -ueventd } device:chr_file { open read write };
+ 
+ # Limit what domains can mount filesystems or change their mount flags.
+ # sdcard_type / vfat is exempt as a larger set of domains need
 @@ -288,15 +288,15 @@ neverallow { domain -kernel -init -recovery -vold -zygote } { fs_type -sdcard_ty
  # Assert that, to the extent possible, we're not loading executable content from
  # outside the rootfs or /system partition except for a few whitelisted domains.
@@ -38,6 +47,23 @@ index b6eeb2e..b1eda94 100644
  neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
  
  # Don't allow mounting on top of /system files or directories
+@@ -438,11 +438,11 @@ neverallow ~domain domain:process { transition dyntransition };
+ # Example type transition:
+ #  mydomain.te:file_type_auto_trans(mydomain, system_data_file, new_file_type)
+ #
+-ifelse(shipping_build, `true',
+-  `neverallow { domain -system_server -system_app -init -installd } system_data_file:file no_w_file_perms;'
+-,
+-  `neverallow { domain -system_server -system_app -init -installd -recovery } system_data_file:file no_w_file_perms;'
+-)
++#ifelse(shipping_build, `true',
++#  `neverallow { domain -system_server -system_app -init -installd } system_data_file:file no_w_file_perms;'
++#,
++#  `neverallow { domain -system_server -system_app -init -installd -recovery } system_data_file:file no_w_file_perms;'
++#)
+ 
+ # do not grant anything greater than r_file_perms and relabelfrom unlink
+ # to installd
 diff --git a/init.te b/init.te
 index a9c567e..6112f8f 100644
 --- a/init.te
