@@ -97,6 +97,9 @@ COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 # healthd
 BOARD_HAL_STATIC_LIBRARIES := libhealthd-vivalto3gvn.scx15
 
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
