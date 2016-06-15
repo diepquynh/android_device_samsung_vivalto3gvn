@@ -16,14 +16,16 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_CFLAGS := -D_POSIX_SOURCE -Wno-multichar -g
+LOCAL_CFLAGS := \
+	-D_POSIX_SOURCE \
+	-Wno-multichar \
+	-g
 
 LOCAL_C_INCLUDES += \
-	$(LOCAL_PATH)/../../engmode \
+	external/tinyalsa/include \
 	$(LOCAL_PATH)/../ \
 	$(LOCAL_PATH)/../nv_exchange \
-	$(LOCAL_PATH)/../../kernel-headers/arch-arm \
-	external/tinyalsa/include
+	$(LOCAL_PATH)/../../kernel-headers/arch-arm
 
 BOARD_EQ_DIR := v1
 

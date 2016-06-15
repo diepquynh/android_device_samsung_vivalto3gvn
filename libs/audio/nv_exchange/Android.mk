@@ -16,17 +16,28 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_CFLAGS := -D_POSIX_SOURCE -Wno-multichar -g
+LOCAL_CFLAGS := \
+	-D_POSIX_SOURCE \
+	-Wno-multichar \
+	-g
 
 LOCAL_C_INCLUDES += \
-	$(LOCAL_PATH)/../../engmode \
-	$(LOCAL_PATH)/../ \
-	external/expat/lib
+	external/expat/lib \
+	$(LOCAL_PATH)/../
 
-LOCAL_SRC_FILES := string_exchange_bin.c
+LOCAL_SRC_FILES := \
+	string_exchange_bin.c
 
-LOCAL_SHARED_LIBRARIES := liblog libc libcutils liblog libtinyalsa libaudioutils \
-	libexpat libdl libhardware_legacy
+LOCAL_SHARED_LIBRARIES := \
+	liblog \
+	libc \
+	libcutils \
+	liblog \
+	libtinyalsa \
+	libaudioutils \
+	libexpat \
+	libdl \
+	libhardware_legacy
 
 LOCAL_MODULE := libnvexchange
 
