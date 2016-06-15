@@ -67,6 +67,11 @@ on fs
     chown system system /sys/class/sec/tsp/cmd
 
     chmod 0664 /sys/class/sec/tsp/cmd
+
+on charger
+    mount ext4 /dev/block/mmcblk0p18 /system ro,barrier=1 wait
+    exec sfsck /dev/block/mmcblk0p20 ext4
+    mount ext4 /dev/block/mmcblk0p20 /data noatime,nosuid,nodev,nomblk_io_submit wait,encryptable=footer,check
     
 on post-fs
     chown system system /productinfo
