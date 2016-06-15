@@ -16,7 +16,7 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := healthd-vivalto3gvn.scx15.cpp
-LOCAL_MODULE := libhealthd-vivalto3gvn.scx15
+LOCAL_SRC_FILES := healthd_board_scx15.cpp
+LOCAL_MODULE := libhealthd.scx15
 LOCAL_C_INCLUDES := system/core/healthd
 include $(BUILD_STATIC_LIBRARY)

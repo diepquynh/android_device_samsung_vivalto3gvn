@@ -21,7 +21,6 @@
 void
 healthd_board_init(struct healthd_config *config)
 {
-    // battery needs to be used instead of bcm59056_charger
     config->batteryStatusPath      = "/sys/class/power_supply/battery/status";
     config->batteryHealthPath      = "/sys/class/power_supply/battery/health";
     config->batteryPresentPath     = "/sys/class/power_supply/battery/present";
@@ -34,6 +33,29 @@ healthd_board_init(struct healthd_config *config)
 int
 healthd_board_battery_update(struct android::BatteryProperties *props)
 {
-    // don't log to kernel
+    // Return non-zero to prevent logging battery status heartbeat message to the kernel log
     return 1;
+}
+
+void
+healthd_board_mode_charger_draw_battery(struct android::BatteryProperties* batProps)
+{
+
+}
+
+void
+healthd_board_mode_charger_battery_update(struct android::BatteryProperties* batProps)
+{
+
+}
+
+void
+healthd_board_mode_charger_set_backlight(bool on)
+{
+
+}
+
+void healthd_board_mode_charger_init()
+{
+
 }
