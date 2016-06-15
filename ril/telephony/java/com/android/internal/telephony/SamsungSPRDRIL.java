@@ -41,13 +41,13 @@ import java.util.Collections;
  */
 public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
-    public SamsungSPRDRIL(Context context, int networkMode, int cdmaSubscription) {
-        this(context, networkMode, cdmaSubscription, null);
+    public SamsungSPRDRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
+        this(context, preferredNetworkType, cdmaSubscription, null);
     }
 
-    public SamsungSPRDRIL(Context context, int networkMode,
+    public SamsungSPRDRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
-        super(context, networkMode, cdmaSubscription, instanceId);
+        super(context, preferredNetworkType, cdmaSubscription, instanceId);
     }
 
     @Override
