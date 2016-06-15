@@ -94,11 +94,14 @@ COMMON_GLOBAL_CFLAGS += -DBOARD_CANT_REALLOCATE_OMX_BUFFERS
 BOARD_USE_SAMSUNG_COLORFORMAT := true
 COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 
-# healthd
+# Healthd
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.scx15
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
+BACKLIGHT_PATH := /sys/class/backlight/panel/brightness
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
