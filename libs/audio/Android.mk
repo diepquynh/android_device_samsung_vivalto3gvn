@@ -49,7 +49,6 @@ LOCAL_C_INCLUDES += \
 	external/expat/lib \
 	system/media/audio_utils/include \
 	system/media/audio_effects/include \
-	$(LOCAL_PATH)/../engmode \
 	$(LOCAL_PATH)/../audio/vb_pga \
 	$(LOCAL_PATH)/../audio/record_process \
 	$(LOCAL_PATH)/../audio/nv_exchange \
