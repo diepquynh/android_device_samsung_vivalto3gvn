@@ -97,6 +97,14 @@ COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 # healthd
 BOARD_HAL_STATIC_LIBRARIES := libhealthd-vivalto3gvn.scx15
 
+# Charger
+BOARD_BATTERY_DEVICE_NAME := "battery"
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
+BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
+
 # Camera
 TARGET_BOARD_CAMERA_HAL_VERSION := HAL1.0
 #android zsl capture
@@ -137,7 +145,7 @@ TARGET_KERNEL_CONFIG := cyanogen_vivalto3gvn_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 
 # Init
-TARGET_NR_SVC_SUPP_GIDS := 24
+TARGET_NR_SVC_SUPP_GIDS := 36
 TARGET_PROVIDES_INIT_RC := true
 
 # Recovery
