@@ -59,11 +59,6 @@ PRODUCT_PACKAGES += \
 	sprd_gsp.scx15 \
 	libion
 
-# Camera
-PRODUCT_PACKAGES += \
-	camera.scx15 \
-	camera2.scx15
-
 # Codecs
 PRODUCT_PACKAGES += \
 	libstagefrighthw \
