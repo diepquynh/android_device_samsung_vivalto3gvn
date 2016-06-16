@@ -126,10 +126,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	FMRadio
 
-# Gello
-PRODUCT_PACKAGES += \
-	Gello
-
 # Charger
 PRODUCT_PACKAGES += \
 	charger \
