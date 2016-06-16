@@ -76,7 +76,7 @@ endif
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../audio/vb_effect/$(BOARD_EQ_DIR)
 
-LOCAL_SRC_FILES := audio_hw.c tinyalsa_util.c audio_pga.c \
+LOCAL_SRC_FILES := audio_hw.c audio_pga.c \
 			record_process/aud_proc_config.c.arm \
 			record_process/aud_filter_calc.c.arm
 
@@ -86,7 +86,7 @@ LOCAL_CFLAGS += -DAUDIO_MUX_PCM
 endif
 
 LOCAL_SHARED_LIBRARIES := \
-	liblog libcutils libtinyalsa libaudioutils \
+	liblog libcutils libtinyalsa libtinyalsautils libaudioutils \
 	libexpat libdl \
 	libvbeffect libvbpga libnvexchange libdumpdata
 

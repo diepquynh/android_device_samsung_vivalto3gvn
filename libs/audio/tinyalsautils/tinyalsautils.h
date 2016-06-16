@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,9 @@
  * limitations under the License.
  */
 
-#ifndef AUDIO_PGA_H
-#define AUDIO_PGA_H
+#ifndef TINYALSAUTILS_H
+#define TINYALSAUTILS_H
 
-struct audio_pga;
-struct mixer;
+int get_snd_card_number(const char *card_name);
 
-/* Initialises and frees the audio PGA */
-struct audio_pga *audio_pga_init(struct mixer *mixer);
-void audio_pga_free(struct audio_pga *pga);
-
-/* Applies an audio pga by name */
-int audio_pga_apply(struct audio_pga *pga, int val, const char *name);
-
-/*
- * for PGA tuning by audiotester
- */
-#include "eng_audio.h"
-int SetAudio_pga_parameter_eng(AUDIO_TOTAL_T *aud_params_ptr, unsigned int params_size, uint32_t vol_level);
-
-#endif
+#endif /* TINYALSAUTILS_H */

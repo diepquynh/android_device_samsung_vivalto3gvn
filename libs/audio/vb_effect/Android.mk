@@ -42,10 +42,9 @@ LOCAL_SRC_FILES := \
 	$(BOARD_EQ_DIR)/vbc_codec_eq.c \
 	$(BOARD_EQ_DIR)/filter_calc.c \
 	$(BOARD_EQ_DIR)/vb_hal_if.c \
-	$(BOARD_EQ_DIR)/vb_hal_adp.c \
-	$(BOARD_EQ_DIR)/tinyalsa_util.c
+	$(BOARD_EQ_DIR)/vb_hal_adp.c
 
-LOCAL_SHARED_LIBRARIES := liblog libc libcutils libtinyalsa libnvexchange
+LOCAL_SHARED_LIBRARIES := liblog libc libcutils libtinyalsa libtinyalsautils libnvexchange
 
 LOCAL_MODULE := libvbeffect
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2012 The Android Open Source Project
+# Copyright (C) 2016 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,34 +16,22 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_CFLAGS := \
-	-D_POSIX_SOURCE \
-	-Wno-multichar \
-	-g
-
-LOCAL_C_INCLUDES += \
-	external/tinyalsa/include \
-	external/expat/lib \
-	$(LOCAL_PATH)/../
+LOCAL_MODULE := libtinyalsautils
 
 LOCAL_SRC_FILES := \
-	audio_pga.c \
-	vb_pga.c
+	tinyalsautils.c
+
+LOCAL_CFLAGS := \
+	-std=c11
+
+LOCAL_EXPORT_C_INCLUDE_DIRS := \
+	$(LOCAL_PATH)
 
 LOCAL_SHARED_LIBRARIES := \
-	liblog \
-	libc \
-	libcutils \
-	liblog \
-	libtinyalsa \
-	libtinyalsautils \
-	libaudioutils \
-	libexpat \
-	libdl \
-	libhardware_legacy
-
-LOCAL_MODULE := libvbpga
+	liblog
 
 LOCAL_MODULE_TAGS := optional
+
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 
 include $(BUILD_SHARED_LIBRARY)
