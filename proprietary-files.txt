@@ -58,6 +58,13 @@ lib/librilutils.so
 lib/libsecril-client.so
 lib/libsecnativefeature.so
 
+# Camera
+lib/libisp.so
+lib/libmorpho_facesolid.so
+lib/libmorpho_easy_hdr.so
+lib/hw/camera.scx15.so
+lib/hw/camera2.scx15.so
+
 # Sensors
 lib/hw/sensors.scx15.so
 
