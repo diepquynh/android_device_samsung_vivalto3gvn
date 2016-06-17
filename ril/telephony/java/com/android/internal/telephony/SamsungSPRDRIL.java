@@ -79,6 +79,12 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     public void setUiccSubscription(int appIndex, boolean activate, Message result) {
         riljLog("setUiccSubscription " + appIndex + " " + activate);
 
+        // Check if we should ignore this request
+        if (shouldIgnoreRequest("setuiccsub")) {
+            unsupportedRequest("setUiccSubscription", result);
+            return;
+        }
+
         // Fake response (note: should be sent before mSubscriptionStatusRegistrants or
         // SubscriptionManager might not set the readiness correctly)
         AsyncResult.forMessage(result, 0, null);
@@ -92,6 +98,11 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
 
     @Override
     public void setDataAllowed(boolean allowed, Message result) {
+        if (shouldIgnoreRequest("setdataallowed")) {
+            unsupportedRequest("setDataAllowed", result);
+            return;
+        }
+
         int simId = mInstanceId == null ? 0 : mInstanceId;
         if (allowed) {
             riljLog("Setting data subscription to sim [" + simId + "]");
@@ -128,24 +139,188 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
         return state;
     }
 
+    @Override
+    public void getOperator(Message response) {
+        if (shouldIgnoreRequest("getop"))
+            unsupportedRequest("getOperator", response);
+        else
+            super.getOperator(response);
+    }
+
+    @Override
+    public void getDataRegistrationState(Message response) {
+        if (shouldIgnoreRequest("getdatregstate"))
+            unsupportedRequest("getDataRegistrationState", response);
+        else
+            super.getDataRegistrationState(response);
+    }
+
+    @Override
+    public void getVoiceRegistrationState(Message response) {
+        if (shouldIgnoreRequest("getvregstate"))
+            unsupportedRequest("getVoiceRegistrationState", response);
+        else
+            super.getVoiceRegistrationState(response);
+    }
+
+    @Override
+    public void getNetworkSelectionMode(Message response) {
+        if (shouldIgnoreRequest("getnwselmode"))
+            unsupportedRequest("getNetworkSelectionMode", response);
+        else
+            super.getNetworkSelectionMode(response);
+    }
+
+    @Override
+    public void getBasebandVersion(Message response) {
+        if (shouldIgnoreRequest("getbaseband"))
+            unsupportedRequest("getBasebandVersion", response);
+        else
+            super.getBasebandVersion(response);
+    }
+
+    @Override
+    public void getIMEI(Message response) {
+        if (shouldIgnoreRequest("getimei"))
+            unsupportedRequest("getIMEI", response);
+        else
+            super.getIMEI(response);
+    }
+
+    @Override
+    public void getIMEISV(Message response) {
+        if (shouldIgnoreRequest("getimeisv"))
+            unsupportedRequest("getIMEISV", response);
+        else
+            super.getIMEISV(response);
+    }
+
+    @Override
+    public void getIccCardStatus(Message response) {
+        if (shouldIgnoreRequest("geticccardstatu"))
+            unsupportedRequest("getIccCardStatus", response);
+        else
+            super.getIccCardStatus(response);
+    }
+
+    @Override
+    public void getVoiceRadioTechnology(Message response) {
+        if (shouldIgnoreRequest("getvradiotech"))
+            unsupportedRequest("getVoiceRadioTechnology", response);
+        else
+            super.getVoiceRadioTechnology(response);
+    }
+
      @Override
     public void getHardwareConfig(Message response) {
-        unsupportedRequest("getHardwareConfig", response);
+        if (shouldIgnoreRequest("gethwcfg"))
+            unsupportedRequest("getHardwareConfig", response);
+        else
+            super.getHardwareConfig(response);
     }
 
     @Override
     public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
-        unsupportedRequest("startLceService", response);
+        if (shouldIgnoreRequest("startlcesrv"))
+            unsupportedRequest("startLceService", response);
+        else
+            super.startLceService(reportIntervalMs, pullMode, response);
     }
 
     @Override
     public void stopLceService(Message response) {
-        unsupportedRequest("stopLceService", response);
+        if (shouldIgnoreRequest("stoplcdsrv"))
+            unsupportedRequest("stopLceService", response);
+        else
+            super.stopLceService(response);
     }
 
     @Override
     public void pullLceData(Message response) {
-        unsupportedRequest("pullLceData", response);
+        if (shouldIgnoreRequest("pulllcedat"))
+            unsupportedRequest("pullLceData", response);
+        else
+            super.pullLceData(response);
+    }
+
+    @Override
+    public void setPreferredNetworkType(int networkType , Message response) {
+        if (shouldIgnoreRequest("setprefnetwork"))
+            unsupportedRequest("setPreferredNetworkType", response);
+        else
+            super.setPreferredNetworkType(networkType, response);
+    }
+
+    @Override
+    public void setCdmaSubscriptionSource(int cdmaSubscription , Message response) {
+        if (shouldIgnoreRequest("setcdmasubsrc"))
+            unsupportedRequest("setCdmaSubscriptionSource", response);
+        else
+            super.setCdmaSubscriptionSource(cdmaSubscription, response);
+    }
+
+    @Override
+    public void setCellInfoListRate(int rateInMillis, Message response) {
+        if (shouldIgnoreRequest("setcellinfolrate"))
+            unsupportedRequest("setCellInfoListRate", response);
+        else
+            super.setCellInfoListRate(rateInMillis, response);
+    }
+
+    @Override
+    protected void sendScreenState(boolean on) {
+        if (shouldIgnoreRequest("sendscreenstate"))
+            unsupportedRequest("sendScreenState", null);
+        else
+            super.sendScreenState(on);
+    }
+
+    @Override
+    public void invokeOemRilRequestRaw(byte[] data, Message response) {
+        if (shouldIgnoreRequest("invkeomrilreqraw"))
+            unsupportedRequest("invokeOemRilRequestRaw", response);
+        else
+            super.invokeOemRilRequestRaw(data, response);
+    }
+
+    @Override
+    public void getCurrentCalls(Message response) {
+        if (shouldIgnoreRequest("getcurrentcalls"))
+            unsupportedRequest("getCurrentCalls", response);
+        else
+            super.getCurrentCalls(response);
+    }
+
+    @Override
+    public void getImsRegistrationState(Message response) {
+        if (shouldIgnoreRequest("getimsregstate"))
+            unsupportedRequest("getImsRegistrationState", response);
+        else
+            super.getImsRegistrationState(response);
+    }
+
+    @Override
+    public void getModemActivityInfo(Message response) {
+        if (shouldIgnoreRequest("getmodemactinfo"))
+            unsupportedRequest("getModemActivityInfo", response);
+        else
+            super.getModemActivityInfo(response);
+    }
+
+    @Override
+    public void setMaxTransmitPower(int state, Message response) {
+        if (shouldIgnoreRequest("setmaxtranspower"))
+            unsupportedRequest("setMaxTransmitPower", response);
+        else
+            super.setMaxTransmitPower(state, response);
+    }
+
+    @Override
+    public void iccOpenLogicalChannel(String AID, byte p2, Message response) {
+        if (shouldIgnoreRequest("iccopenlogchan"))
+            unsupportedRequest("iccOpenLogicalChannel", response);
+        else
+            super.iccOpenLogicalChannel(AID, p2, response);
     }
 
     @Override
@@ -525,12 +700,19 @@ public class SamsungSPRDRIL extends RIL implements CommandsInterface {
     }
 
     private void unsupportedRequest(String methodName, Message response) {
-        riljLog("[" + getClass().getSimpleName() + "] Ignore call to: " + methodName);
+        riljLog(getClass().getSimpleName() + ".unsupportedRequest: [" + methodName + "]");
         if (response != null) {
             AsyncResult.forMessage(response, null, new CommandException(
                     CommandException.Error.REQUEST_NOT_SUPPORTED));
             response.sendToTarget();
         }
+    }
+
+    private boolean shouldIgnoreRequest(String request) {
+        String propName = "ro.tel.ril.ign_" + request;
+        String propVal = SystemProperties.get(propName, "0");
+        riljLog("shouldIgnoreRequest: propName=" + propName + " propVal=" + propVal);
+        return propVal.equals("1");
     }
 
     private void invokeOemRilRequestSprd(byte key, byte value, Message response) {
