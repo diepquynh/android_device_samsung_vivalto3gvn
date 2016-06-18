@@ -117,6 +117,10 @@ PRODUCT_PACKAGES += \
 	libstlport \
 	libmemoryheapion_sprd
 
+# Samsung service mode
+PRODUCT_PACKAGES += \
+	SamsungServiceMode
+
 # Shim libraries
 PRODUCT_PACKAGES += \
 	libril_shim \
