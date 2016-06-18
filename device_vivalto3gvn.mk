@@ -162,13 +162,6 @@ PERMISSION_XML_FILES := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(PERMISSION_XML_FILES),$(f):system/etc/permissions/$(notdir $(f)))
 
-# Scripts
-SCRIPTS_FILES := \
-	$(LOCAL_PATH)/scripts/set_freq.sh
-
-PRODUCT_COPY_FILES += \
-	$(foreach f,$(SCRIPTS_FILES),$(f):system/bin/$(notdir $(f)))
-
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
