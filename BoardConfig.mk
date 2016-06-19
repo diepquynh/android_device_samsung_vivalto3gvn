@@ -43,6 +43,7 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 
 # RIL
 BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
