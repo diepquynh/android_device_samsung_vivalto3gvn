@@ -177,6 +177,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.image-dex2oat-Xmx=48m \
 	dalvik.vm.image-dex2oat-filter=everything
 
+# Misc
+ADDITIONAL_DEFAULT_PROPERTIES += \
+	ro.enable_boot_charger_mode=1
+
 # Set those variables here to overwrite the inherited values.
 PRODUCT_NAME := full_vivalto3gvn
 PRODUCT_DEVICE := vivalto3gvn

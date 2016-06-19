@@ -94,8 +94,6 @@ ro.sys.fw.bg_apps_limit=16
 ro.config.zram.disksize=256M
 ro.config.swappiness=100
 
-# PLEASE REMOVE ME
-# qemu.hw.mainkeys=0
-
 # Misc
 ro.enable_boot_charger_mode=1
+
