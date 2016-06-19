@@ -55,4 +55,17 @@ the 2nd for to revert the patches which applied earlier
 		patch -p1 < audio.patch
 		patch -R -p1 <audio.patch
 
-Patch for OpenGAPPS: https://github.com/TeamExodus/frameworks_base/commit/9c36be651e83fb039a262682839bd920b033007a
+# Patches for vivalto3gvn
+
+NOTE: To download these patches as plain text, add *.patch* suffix to the link.
+
+* [external/sepolicy](https://github.com/ngoquang2708/android_external_sepolicy/compare/ngoquang2708:f00429df5685a46aa4f4694dab8f68d6d5645cd0...cm-13.0)
+* [external/tinyalsa](https://github.com/ngoquang2708/android_external_tinyalsa/compare/ngoquang2708:2bfd5e839b369c09c549cb92030a3bc56e40afb1...cm-13.0)
+* [frameworks/av](https://github.com/ngoquang2708/android_frameworks_av/compare/ngoquang2708:fbef511c958b5f1b3e015d032dcac4ed7cc84876...cm-13.0)
+* [frameworks/base](https://github.com/ngoquang2708/android_frameworks_base/compare/ngoquang2708:80b060dcd0e7fea444a4745932e09cd1b35d306b...cm-13.0)
+* [frameworks/native](https://github.com/ngoquang2708/android_frameworks_native/compare/ngoquang2708:508eb7749a4ce988d4d1a97377254add24b9bc40...cm-13.0)
+* [frameworks/opt/telephony](https://github.com/ngoquang2708/android_frameworks_opt_telephony/compare/ngoquang2708:a94ae667a6cefaef2f4c87787dafabdd5458f047...cm-13.0)
+* [hardware/libhardware](https://github.com/ngoquang2708/android_hardware_libhardware/compare/ngoquang2708:397277cc4ee0764184d3a5eaeea9f3dd26c996ab...cm-13.0)
+* [system/core](https://github.com/ngoquang2708/android_system_core/compare/ngoquang2708:64caba3c021a9b86f093476b343df9bd3d3a4dbb...cm-13.0)
+* [system/media](https://github.com/ngoquang2708/android_system_media/compare/ngoquang2708:92d65f3fd2fdf37b3593ba60a50cd5f551e7f238...cm-13.0)
+* [Patch for OpenGAPPS (included in frameworks/base)](https://github.com/TeamExodus/frameworks_base/commit/9c36be651e83fb039a262682839bd920b033007a)
