@@ -136,7 +136,6 @@ on boot
     chown system system /sys/module/mali/parameters/gpufreq_table
     chown system system /sys/class/backlight/sprd_backlight/brightness
 
-    wait /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_freq
     chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_enable
     chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_upthreshold
     chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_downdifferential
@@ -324,4 +323,9 @@ service inputfreq /system/bin/inputfreq.sh
 service recoveryfreq /system/bin/recoveryfreq.sh
     user root
     disabled
+    oneshot
+
+service set_freq /system/bin/set_freq.sh
+    user root
+    class main
     oneshot
