@@ -100,12 +100,11 @@ COMMON_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.scx15
 
 # Charger
-BOARD_BATTERY_DEVICE_NAME := "battery"
 BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGER_SHOW_PERCENTAGE := true
+BOARD_NO_CHARGER_LED := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
-BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
+CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
+BACKLIGHT_PATH := /sys/class/backlight/panel/brightness
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
