@@ -129,7 +129,8 @@ PRODUCT_COPY_FILES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-	FMRadio
+	FMRadio \
+	radio.fm.default \
 
 # Charger
 PRODUCT_PACKAGES += \
