@@ -23,7 +23,6 @@ lib/egl/libGLESv2_mali.so
 # Audio
 etc/audio_hw.xml
 etc/audio_para
-etc/audio_policy.conf
 etc/codec_pga.xml
 etc/tiny_hw.xml
 lib/libfactoryutil.so
