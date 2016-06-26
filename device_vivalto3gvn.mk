@@ -98,6 +98,12 @@ PRODUCT_PACKAGES += \
 	libatchannel_wrapper \
 	libtinyalsa
 
+AUDIO_CONFIGS := \
+	$(LOCAL_PATH)/configs/audio/audio_policy.conf \
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(AUDIO_CONFIGS),$(f):system/etc/$(notdir $(f))) \
+
 # Common libraries
 PRODUCT_PACKAGES += \
 	libstlport \
