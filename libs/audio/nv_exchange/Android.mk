@@ -1,4 +1,6 @@
-# Copyright (C) 2012 The Android Open Source Project
+#
+# Copyright (C) 2016 The Android Open Source Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,10 +25,14 @@ LOCAL_CFLAGS := \
 
 LOCAL_C_INCLUDES += \
 	external/expat/lib \
-	$(LOCAL_PATH)/../
+	$(LOCAL_PATH)/../ \
+
+LOCAL_EXPORT_C_INCLUDE_DIRS := \
+	$(LOCAL_PATH) \
+	$(LOCAL_C_INCLUDES) \
 
 LOCAL_SRC_FILES := \
-	string_exchange_bin.c
+	string_exchange_bin.c \
 
 LOCAL_SHARED_LIBRARIES := \
 	liblog \
