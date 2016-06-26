@@ -66,12 +66,3 @@ lib/hw/camera2.scx15.so
 
 # Sensors
 lib/hw/sensors.scx15.so
-
-# DRM
-lib/libwvm.so
-lib/libomafldrm.so
-#lib/drm/libdrmwvmplugin.so
-lib/drm/libomaplugin.so
-vendor/lib/libwvdrm_L3.so
-vendor/lib/libWVStreamControlAPI_L3.so
-#vendor/lib/mediadrm/libwvdrmengine.so
