@@ -20,15 +20,6 @@ lib/egl/libEGL_mali.so
 lib/egl/libGLESv1_CM_mali.so
 lib/egl/libGLESv2_mali.so
 
-# Audio
-etc/audio_hw.xml
-etc/audio_para
-etc/codec_pga.xml
-etc/tiny_hw.xml
-lib/libfactoryutil.so
-lib/libomission_avoidance.so
-lib/libatchannel.so
-
 # WiFi
 etc/wifi/bcmdhd_apsta.bin
 etc/wifi/bcmdhd_sta.bin
@@ -56,6 +47,9 @@ lib/libreference-ril_sp.so
 lib/librilutils.so
 lib/libsecril-client.so
 lib/libsecnativefeature.so
+lib/libfactoryutil.so
+lib/libomission_avoidance.so
+lib/libatchannel.so
 
 # Camera
 lib/libisp.so
