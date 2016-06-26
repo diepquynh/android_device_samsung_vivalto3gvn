@@ -1,4 +1,6 @@
-# Copyright (C) 2012 The Android Open Source Project
+#
+# Copyright (C) 2016 The Android Open Source Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,17 +21,20 @@ include $(CLEAR_VARS)
 LOCAL_CFLAGS := \
 	-D_POSIX_SOURCE \
 	-Wno-multichar \
-	-g
+	-g \
 
 LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	external/expat/lib \
-	$(LOCAL_PATH)/../
+	$(LOCAL_PATH)/../ \
+
+LOCAL_EXPORT_C_INCLUDE_DIRS := \
+	$(LOCAL_PATH) \
+	$(LOCAL_C_INCLUDES) \
 
 LOCAL_SRC_FILES := \
 	audio_pga.c \
 	vb_pga.c \
-	tinyalsa_util.c
 
 LOCAL_SHARED_LIBRARIES := \
 	liblog \
@@ -37,10 +42,11 @@ LOCAL_SHARED_LIBRARIES := \
 	libcutils \
 	liblog \
 	libtinyalsa \
+	libtinyalsautils \
 	libaudioutils \
 	libexpat \
 	libdl \
-	libhardware_legacy
+	libhardware_legacy \
 
 LOCAL_MODULE := libvbpga
 
