@@ -1,4 +1,7 @@
+#
 # Copyright (C) 2008 The Android Open Source Project
+#
+# Copyright (C) 2008 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,43 +14,38 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
+#
 
 LOCAL_PATH:= $(call my-dir)
-# HAL module implemenation stored in
-# hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.board.platform>.so
 
-ifeq ($(strip $(TARGET_BOARD_PLATFORM)),sc8830)
-DEVICE_WITH_GSP := true
-endif
-ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
+ifneq (,$(filter sc8830 scx15,$(TARGET_BOARD_PLATFORM)))
 DEVICE_WITH_GSP := true
 endif
 
-ifeq ($(strip $(DEVICE_WITH_GSP)),true)
+ifeq ($(DEVICE_WITH_GSP),true)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := sprd_gsp.$(TARGET_BOARD_PLATFORM)
-LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_SHARED_LIBRARIES := liblog
-LOCAL_SRC_FILES := gsp_hal.cpp
 
-#/home/apuser/work/shark_android2/device/sprd/common/libs/mali/src/ump/include/ump/ump.h
-MALI_DDK_PATH := device/sprd/common/libs
-LOCAL_C_INCLUDES := $(MALI_DDK_PATH)/mali/src/ump/include
+LOCAL_MODULE_RELATIVE_PATH := hw
+
+LOCAL_SHARED_LIBRARIES := liblog
+
+LOCAL_SRC_FILES := \
+	gsp_hal.cpp \
+
 LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../../gralloc \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/video/ \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/ \
-	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/ \
 
 LOCAL_ADDITIONAL_DEPENDENCIES += \
-	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr \
 
 LOCAL_MODULE_TAGS := optional
-include $(BUILD_SHARED_LIBRARY)	
 
-endif
+include $(BUILD_SHARED_LIBRARY)
 
-
+endif # DEVICE_WITH_GSP
