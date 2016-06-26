@@ -21,7 +21,7 @@ ifeq ($(strip $(USE_SPRD_HWCOMPOSER)),true)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SHARED_LIBRARIES := libion liblog libEGL libutils libcutils libGLESv1_CM libhardware libui libsync libmemoryheapion_sprd
 LOCAL_SRC_FILES := SprdHWComposer.cpp \
 		   SprdPrimaryDisplayDevice/SprdFrameBufferHAL.cpp \
