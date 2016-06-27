@@ -98,7 +98,6 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio_vbc_eq \
 	libaudio-resampler \
-	libatchannel \
 	libatchannel_wrapper \
 	libtinyalsa
 
