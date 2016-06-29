@@ -141,6 +141,10 @@ PRODUCT_PACKAGES += \
 	FMRadio \
 	radio.fm.default \
 
+# Memtrack
+PRODUCT_PACKAGES += \
+	memtrack.scx15 \
+
 # Charger
 PRODUCT_PACKAGES += \
 	charger \
