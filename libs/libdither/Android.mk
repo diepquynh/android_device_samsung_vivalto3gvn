@@ -36,6 +36,10 @@ LOCAL_CFLAGS = \
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH) \
 
+LOCAL_EXPORT_C_INCLUDE_DIRS := \
+	$(LOCAL_PATH) \
+	$(LOCAL_C_INCLUDES) \
+
 LOCAL_SRC_FILES := \
 	image_dither.cpp \
 
