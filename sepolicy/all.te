@@ -1,0 +1,61 @@
+#============= bootanim ==============
+allow bootanim device:chr_file { read write getattr open ioctl };
+
+#============= fsck ==============
+allow fsck efs_block_device:blk_file { read getattr open };
+allow fsck self:capability dac_override;
+
+#============= init ==============
+allow init block_device:blk_file { write setattr };
+allow init devpts:chr_file { ioctl setattr };
+allow init kmem_device:chr_file setattr;
+allow init prod_file:file lock;
+allow init property_socket:sock_file write;
+allow init radio_device:chr_file write;
+allow init rtc_device:chr_file { write ioctl };
+allow init self:netlink_kobject_uevent_socket { read bind create setopt };
+allow init serial_device:chr_file { write ioctl };
+allow init shell_exec:file execute_no_trans;
+allow init sysfs:lnk_file setattr;
+allow init system_data_file:fifo_file write;
+allow init system_data_file:file lock;
+allow init system_file:file { write rename };
+allow init tmpfs:lnk_file create;
+
+#============= macloader ==============
+allow macloader efs_file:dir { read write };
+allow macloader efs_file:file { read open };
+allow macloader kmsg_device:chr_file { write open };
+allow macloader self:capability dac_override;
+allow macloader shell_exec:file { read execute open execute_no_trans };
+
+#============= mediaserver ==============
+allow mediaserver default_prop:property_service set;
+allow mediaserver device:chr_file { read write ioctl open };
+allow mediaserver proc:file write;
+allow mediaserver sysfs_wake_lock:file { read write open };
+allow mediaserver system_data_file:file { write open };
+allow mediaserver system_file:file execmod;
+
+#============= platform_app ==============
+allow platform_app device:chr_file { read write getattr open ioctl };
+
+#============= system_server ==============
+allow system_server device:chr_file { read write getattr open ioctl };
+allow system_server efs_file:file { read open };
+allow system_server shell_prop:property_service set;
+
+#============= toolbox ==============
+allow toolbox block_device:blk_file setattr;
+allow toolbox block_device:dir { write add_name };
+allow toolbox block_device:lnk_file create;
+allow toolbox device:dir { write add_name };
+allow toolbox device:lnk_file create;
+allow toolbox init:fifo_file { write getattr };
+allow toolbox prod_file:file { getattr setattr };
+allow toolbox self:capability { fowner chown fsetid };
+allow toolbox sysfs:file setattr;
+
+#============= untrusted_app ==============
+allow untrusted_app device:chr_file { read write getattr open ioctl };
+allow untrusted_app storage_stub_file:dir getattr;
