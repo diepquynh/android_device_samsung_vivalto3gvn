@@ -43,7 +43,7 @@
 #include "gralloc_helper.h"
 
 #ifdef SPRD_DITHER_ENABLE
-#include "image_dither.h"
+#include <image_dither.h>
 #endif
 
 // numbers of buffers for page flipping

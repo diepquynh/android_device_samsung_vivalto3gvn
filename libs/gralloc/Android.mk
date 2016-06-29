@@ -65,6 +65,11 @@ ifneq ($(strip $(TARGET_BUILD_VARIANT)),user)
 LOCAL_CFLAGS += -DDUMP_FB
 endif
 
+ifeq ($(USE_SPRD_DITHER),true)
+LOCAL_CFLAGS += -DSPRD_DITHER_ENABLE
+LOCAL_SHARED_LIBRARIES += libdither
+endif
+
 LOCAL_SRC_FILES := \
 	gralloc_module.cpp \
 	alloc_device.cpp \
