@@ -39,7 +39,6 @@ LOCAL_SRC_FILES := \
 LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	$(LOCAL_PATH)/../ \
-	$(LOCAL_PATH)/../../kernel-headers/arch-arm \
 
 LOCAL_EXPORT_C_INCLUDE_DIRS := \
 	$(LOCAL_PATH) \
