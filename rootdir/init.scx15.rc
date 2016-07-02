@@ -134,6 +134,8 @@ on boot
     chown system system /sys/module/mali/parameters/gpufreq_max_limit
     chown system system /sys/module/mali/parameters/gpufreq_min_limit
     chown system system /sys/module/mali/parameters/gpufreq_table
+    chown system system /sys/kernel/debug/mali0/memory_usage
+
     chown system system /sys/class/backlight/sprd_backlight/brightness
 
     chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_enable
