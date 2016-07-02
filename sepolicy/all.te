@@ -56,6 +56,9 @@ allow toolbox prod_file:file { getattr setattr };
 allow toolbox self:capability { fowner chown fsetid };
 allow toolbox sysfs:file setattr;
 
+#============= ueventd ==============
+allow ueventd system_data_file:file open;
+
 #============= untrusted_app ==============
 allow untrusted_app device:chr_file { read write getattr open ioctl };
 allow untrusted_app storage_stub_file:dir getattr;
