@@ -83,7 +83,7 @@
 //#define AUDIO_DUMP
 #define AUDIO_DUMP_EX
 
-#define AUDIO_OUT_FILE_PATH  "data/audio_out.pcm"
+#define AUDIO_OUT_FILE_PATH  "/data/local/media/audio_out.pcm"
 
 //make sure this device is not used by android
 #define SPRD_AUDIO_IN_DUALMIC_VOICE  0x81000000 //in:0x80000000
