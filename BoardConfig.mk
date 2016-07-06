@@ -71,6 +71,7 @@ BOARD_HAVE_SAMSUNG_WIFI := true
 BOARD_EGL_CFG := device/samsung/vivalto3gvn/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 HWUI_COMPILE_FOR_PERF := true
+TARGET_REQUIRES_SYNCHRONOUS_SETSURFACE := true
 
 # HWComposer
 USE_SPRD_HWCOMPOSER := true
