@@ -67,12 +67,14 @@ WIFI_DRIVER_NVRAM_PATH := "/system/etc/wifi/nvram_net.txt"
 WIFI_BAND := 802_11_ABG
 BOARD_HAVE_SAMSUNG_WIFI := true
 
-# Hardware rendering
+# Graphics
 BOARD_EGL_CFG := device/samsung/vivalto3gvn/configs/egl.cfg
+USE_OPENGL_RENDERER := true
 HWUI_COMPILE_FOR_PERF := true
+
+# HWComposer
 USE_SPRD_HWCOMPOSER := true
 USE_SPRD_DITHER := true
-USE_OPENGL_RENDERER := true
 USE_OVERLAY_COMPOSER_GPU := true
 COMMON_GLOBAL_CFLAGS += -DSCX15_HWC
 
