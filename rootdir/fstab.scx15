@@ -14,3 +14,10 @@
 
 # USB OTG
 #/devices/platform/dwc_otg.0* auto auto defaults voldmanaged=usbdisk:auto
+
+# Recovery
+/dev/block/platform/sprd-sdhci.3/by-name/HIDDEN /preload ext4 defaults recoveryonly
+/dev/block/platform/sprd-sdhci.3/by-name/KERNEL /boot emmc defaults recoveryonly
+/dev/block/platform/sprd-sdhci.3/by-name/RECOVERY /recovery emmc defaults recoveryonly
+/dev/block/platform/sprd-sdhci.3/by-name/modem /modem emmc defaults recoveryonly
+/dev/block/platform/sprd-sdhci.3/by-name/DSP /modem2 emmc defaults recoveryonly

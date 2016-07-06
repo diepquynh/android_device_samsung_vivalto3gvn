@@ -51,9 +51,6 @@ ROOTDIR_FILES := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(ROOTDIR_FILES),$(f):root/$(notdir $(f)))
 
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/rootdir/etc/extra.fstab:recovery/root/etc/extra.fstab
-
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.heapgrowthlimit=48m

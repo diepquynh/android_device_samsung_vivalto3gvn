@@ -116,9 +116,9 @@ TARGET_NR_SVC_SUPP_GIDS := 24
 TARGET_PROVIDES_INIT_RC := true
 
 # Recovery
-BOARD_HAS_NO_REAL_SDCARD := true
-BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/rootdir/fstab.scx15
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,vivalto3gvndx,vivalto3gub,vivalto3g,SM-G313HZ,SM-G313H,SM-G313ML
@@ -135,23 +135,3 @@ WITH_DEXPREOPT_PIC := true
 
 # CMHW
 BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
-
-# TWRP
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-SP1_NAME := "internal_sd"
-SP1_BACKUP_METHOD := files
-SP1_MOUNTABLE := 1
-TW_INTERNAL_STORAGE_PATH := "/data/media/0"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_EXTERNAL_STORAGE_PATH := "/external_sd"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
-TW_DEFAULT_EXTERNAL_STORAGE := true
-TW_FLASH_FROM_STORAGE := true
-TW_NO_REBOOT_BOOTLOADER := true
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/platform/sec-thermistor/temperature"
-TWHAVE_SELINUX := true
-TARGET_RECOVERY_INITRC := device/samsung/vivalto3gvn/etc/init.rc
-TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/rootdir/recovery.fstab
-TW_HAS_DOWNLOAD_MODE := true
-DEVICE_RESOLUTION := 480x800
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
