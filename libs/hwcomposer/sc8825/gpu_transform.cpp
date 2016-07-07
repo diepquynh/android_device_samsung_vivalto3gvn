@@ -265,8 +265,6 @@ void get_size_stride(uint32_t width, uint32_t height, uint32_t format, uint32_t 
                 bpp = 3;
                 break;
             case HAL_PIXEL_FORMAT_RGB_565:
-            case HAL_PIXEL_FORMAT_RGBA_5551:
-            case HAL_PIXEL_FORMAT_RGBA_4444:
                 bpp = 2;
                 break;
             default:
