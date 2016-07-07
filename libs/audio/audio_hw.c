@@ -388,6 +388,13 @@ typedef struct{
 }T_AT_CMD;
 */
 
+//this struct describe  timer for real call end;
+typedef struct
+{
+    timer_t timer_id;
+    bool created;
+} voip_timer_t;
+
 typedef struct{
    char  at_cmd[MAX_AT_CMD_TYPE][MAX_AT_CMD_LENGTH];
    uint32_t   at_cmd_priority[MAX_AT_CMD_TYPE];
@@ -423,6 +430,7 @@ struct tiny_audio_device {
     bool bluetooth_nrec;
     int  bluetooth_type;
     bool low_power;
+    bool realCall; //for forbid voip
 
     struct tiny_dev_cfg *dev_cfgs;
     unsigned int num_dev_cfgs;
@@ -450,6 +458,8 @@ struct tiny_audio_device {
     int requested_channel_cnt;
     int  input_source;
     T_AT_CMD  *at_cmd_vectors;
+    voip_timer_t voip_timer; //for forbid voip
+    pthread_mutex_t               device_lock;
 };
 
 struct tiny_stream_out {
@@ -3384,6 +3394,20 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
             adev->bluetooth_type = VX_NB_SAMPLING_RATE;
         else if (strcmp(value, AUDIO_PARAMETER_VALUE_ON) == 0)
             adev->bluetooth_type = VX_WB_SAMPLING_RATE;
+    }
+
+    //this para for Phone to set realcall state,because mode state may be not accurate
+    ret = str_parms_get_str(parms, "realcall", value, sizeof(value));
+    if(ret >= 0){
+        pthread_mutex_lock(&adev->lock);
+        if(strcmp(value, "true") == 0){
+            ALOGV("%s set realCall true",__func__);
+            voip_forbid(adev,true);
+        }else{
+            ALOGV("%s set realCall false",__func__);
+            voip_forbid(adev,false);
+        }
+        pthread_mutex_unlock(&adev->lock);
     }
 
     ret = str_parms_get_str(parms, AUDIO_PARAMETER_KEY_SCREEN_STATE, value, sizeof(value));
