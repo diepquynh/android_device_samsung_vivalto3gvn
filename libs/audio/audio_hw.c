@@ -392,6 +392,7 @@ typedef struct{
    char  at_cmd[MAX_AT_CMD_TYPE][MAX_AT_CMD_LENGTH];
    uint32_t   at_cmd_priority[MAX_AT_CMD_TYPE];
    uint32_t   at_cmd_dirty;
+   int    routeDev;
 }T_AT_CMD;
 
 struct tiny_audio_device {
@@ -404,6 +405,7 @@ struct tiny_audio_device {
     int in_devices;
     int prev_out_devices;
     int prev_in_devices;
+    int routeDev;
     volatile int cur_vbpipe_fd;  /*current vb pipe id, if all pipes is closed this is -1.*/
     cp_type_t  cp_type;
     struct pcm *pcm_modem_dl;
