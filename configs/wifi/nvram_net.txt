@@ -1,0 +1,67 @@
+# NVRAM file for Vivalto_3G 226_46
+# 2.4 GHz, 20 MHz BW mode
+
+# The following parameter values are just placeholders, need to be updated.
+manfid=0x2d0
+prodid=0x0726
+vendid=0x14e4
+devid=0x43e2
+boardtype=0x0726
+boardrev=0x1101
+boardnum=22
+macaddr=00:90:4c:c5:12:38
+sromrev=11
+boardflags=0x00404201
+xtalfreq=26000
+nocrc=1
+ag0=0
+aa2g=1
+ccode=GB
+
+pa0itssit=0x20
+extpagain2g=0
+
+
+# TSSI_Cal_22dBm to 7dBm
+pa2ga0=0xFF2B,0x160E,0xFD54
+AvVmid_c0=0x0,0xc8
+cckpwroffset0=0
+#pa0b0=0x1602
+#pa0b1=0xFD51
+#pa0b2=0xFF2A
+
+# PPR params
+maxp2ga0=74
+txpwrbckof=6
+#cckbw202gpo=0
+legofdmbw202gpo=0x66666666
+mcsbw202gpo=0x88888888
+
+# OFDM IIR :
+ofdmdigfilttype=18
+# PAPD mode:
+papdmode=1
+il0macaddr=00:90:4c:c5:12:38
+wl0id=0x431b
+#papdvalidtest=3
+ofdmdigfilttypebe=18
+
+#OOB parameters
+#hostwake=0x40
+#hostrdy=0x41
+#usbrdy=0x03
+#usbrdydelay=100
+#deadman_to=0xffffffff
+# muxenab: 0x1 for UART enable, 0x2 for GPIOs, 0x8 for JTAG
+muxenab=0x10
+# CLDO PWM voltage settings - 0x4 - 1.1 volt
+#cldo_pwm=0x4
+
+edonthd20l=-65
+edoffthd20ul=-71
+
+#BT mouse & Keyboard lagging
+btc_params95=8
+
+#txpwroffset2g=0,0,0,0,0,0,0,0,0,0,0,0,0
+#rssicorrnorm=0

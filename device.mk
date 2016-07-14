@@ -64,6 +64,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
+# WiFi BCMDHD
+$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4343/device-bcm.mk)
+
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.secure=0 \
