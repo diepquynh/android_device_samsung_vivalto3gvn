@@ -71,7 +71,6 @@ WIFI_BAND := 802_11_ABG
 BOARD_HAVE_SAMSUNG_WIFI := true
 
 # Graphics
-BOARD_EGL_CFG := device/samsung/vivalto3gvn/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 HWUI_COMPILE_FOR_PERF := true
 TARGET_REQUIRES_SYNCHRONOUS_SETSURFACE := true
