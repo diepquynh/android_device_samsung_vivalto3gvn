@@ -133,6 +133,14 @@ GPS_CONFIGS := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(GPS_CONFIGS),$(f):system/etc/$(notdir $(f)))
 
+# Nvitem
+NVITEM_CONFIGS := \
+	$(LOCAL_PATH)/configs/nvitem/nvitem_td.cfg \
+	$(LOCAL_PATH)/configs/nvitem/nvitem_w.cfg
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(NVITEM_CONFIGS),$(f):system/etc/$(notdir $(f)))
+
 # Wifi
 PRODUCT_PACKAGES += \
 	libnetcmdiface \

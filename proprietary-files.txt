@@ -25,8 +25,6 @@ bin/macloader
 vendor/firmware/BCM4343A0_001.001.034.0038.0090_ORC_Vivalto-3G_3MC.hcd
 
 # RIL
-etc/nvitem_td.cfg
-etc/nvitem_w.cfg
 bin/rild
 bin/modemd
 bin/nvitemd
