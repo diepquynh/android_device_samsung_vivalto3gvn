@@ -72,15 +72,6 @@ PRODUCT_PACKAGES += \
 	libstagefright_sprd_vpxdec \
 	libstagefright_sprd_aacdec \
 	libstagefright_sprd_mp3dec \
-	libomx_aacdec_sprd.so \
-	libomx_avcdec_hw_sprd.so \
-	libomx_avcdec_sw_sprd.so \
-	libomx_avcenc_hw_sprd.so \
-	libomx_m4vh263dec_hw_sprd.so \
-	libomx_m4vh263dec_sw_sprd.so \
-	libomx_m4vh263enc_hw_sprd.so \
-	libomx_mp3dec_sprd.so \
-	libomx_vpxdec_hw_sprd.so
 
 # Lights
 PRODUCT_PACKAGES += \
