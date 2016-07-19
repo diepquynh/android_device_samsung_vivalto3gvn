@@ -126,6 +126,13 @@ PRODUCT_PACKAGES += \
 	libril_shim \
 	libgps_shim \
 
+# GPS
+GPS_CONFIGS := \
+	$(LOCAL_PATH)/configs/gps/gps.xml \
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(GPS_CONFIGS),$(f):system/etc/$(notdir $(f)))
+
 # Wifi
 PRODUCT_PACKAGES += \
 	libnetcmdiface \
