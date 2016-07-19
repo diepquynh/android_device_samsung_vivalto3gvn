@@ -18,6 +18,7 @@
 # In particular, you can add lunch options with the add_lunch_combo
 # function: add_lunch_combo generic-eng
 
-for i in eng user userdebug; do
-add_lunch_combo cm_vivalto3gvn-${i};
+for targetBuildVariant in eng user userdebug
+do
+  add_lunch_combo cm_vivalto3gvn-${targetBuildVariant}
 done
