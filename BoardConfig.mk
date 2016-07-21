@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Inherit from SPRD common configs
+-include device/samsung/sprd-common/BoardConfigCommon.mk
+
 # Inherit from the proprietary version
 -include vendor/samsung/vivalto3gvn/BoardConfigVendor.mk
 
@@ -42,12 +45,10 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/vivalto3gvn/ril
+BOARD_RIL_CLASS += ../../../device/samsung/vivalto3gvn/ril
 COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 
 # Bluetooth
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/vivalto3gvn/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/vivalto3gvn/bluetooth/libbt_vndcfg.txt
 
@@ -72,7 +73,6 @@ WIFI_BAND := 802_11_ABG
 BOARD_HAVE_SAMSUNG_WIFI := true
 
 # Graphics
-USE_OPENGL_RENDERER := true
 HWUI_COMPILE_FOR_PERF := true
 TARGET_REQUIRES_SYNCHRONOUS_SETSURFACE := true
 
@@ -86,9 +86,7 @@ TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
 # Audio
-BOARD_USES_TINYALSA_AUDIO := true
 BOARD_USE_LIBATCHANNEL_WRAPPER := true
-TARGET_TINY_ALSA_IGNORE_SILENCE_SIZE := true
 USE_LEGACY_AUDIO_POLICY := 1
 
 # Media
@@ -136,6 +134,3 @@ MALLOC_IMPL := dlmalloc
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
 WITH_DEXPREOPT_PIC := true
-
-# CMHW
-BOARD_HARDWARE_CLASS := device/samsung/vivalto3gvn/cmhw/
