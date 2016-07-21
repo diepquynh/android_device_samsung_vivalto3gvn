@@ -116,6 +116,7 @@ TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 # Init
 TARGET_NR_SVC_SUPP_GIDS := 24
 TARGET_PROVIDES_INIT_RC := true
+TARGET_NEEDS_PROP_INIT_HACK := true
 
 # Recovery
 BOARD_HAS_DOWNLOAD_MODE := true
