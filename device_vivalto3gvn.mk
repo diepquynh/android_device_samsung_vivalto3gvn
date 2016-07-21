@@ -12,22 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := device/samsung/vivalto3gvn
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(LOCAL_PATH)/device.mk)
+$(call inherit-product, device/samsung/vivalto3gvn/device.mk)
 
 # Keylayouts
 KEYLAYOUT_FILES := \
-	$(LOCAL_PATH)/keylayouts/ist30xx_ts_input.kl \
-	$(LOCAL_PATH)/keylayouts/sci-keypad.kl
+	device/samsung/vivalto3gvn/keylayouts/ist30xx_ts_input.kl \
+	device/samsung/vivalto3gvn/keylayouts/sci-keypad.kl
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(KEYLAYOUT_FILES),$(f):system/usr/keylayout/$(notdir $(f)))
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-	setup_fs \
 	e2fsck \
 	f2fstat \
 	fsck.f2fs \
@@ -36,15 +33,15 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth config
 BLUETOOTH_CONFIGS := \
-	$(LOCAL_PATH)/configs/bluetooth/bt_vendor.conf
+	device/samsung/vivalto3gvn/configs/bluetooth/bt_vendor.conf
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(BLUETOOTH_CONFIGS),$(f):system/etc/bluetooth/$(notdir $(f)))
 
 # Media config
 MEDIA_CONFIGS := \
-	$(LOCAL_PATH)/media/media_codecs.xml \
-	$(LOCAL_PATH)/media/media_profiles.xml \
+	device/samsung/vivalto3gvn/media/media_codecs.xml \
+	device/samsung/vivalto3gvn/media/media_profiles.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml
@@ -80,37 +77,28 @@ PRODUCT_PACKAGES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	bluetooth.default \
-	audio.a2dp.default
 
 # Audio
 PRODUCT_PACKAGES += \
 	audio.primary.scx15 \
 	audio_policy.scx15 \
-	audio.r_submix.default \
-	audio.usb.default \
 	audio_vbc_eq \
 	libaudio-resampler \
 	libatchannel_wrapper \
-	libtinyalsa
 
 AUDIO_CONFIGS := \
-	$(LOCAL_PATH)/configs/audio/audio_policy.conf \
-	$(LOCAL_PATH)/configs/audio/audio_hw.xml \
-	$(LOCAL_PATH)/configs/audio/audio_para \
-	$(LOCAL_PATH)/configs/audio/codec_pga.xml \
-	$(LOCAL_PATH)/configs/audio/tiny_hw.xml \
+	device/samsung/vivalto3gvn/configs/audio/audio_policy.conf \
+	device/samsung/vivalto3gvn/configs/audio/audio_hw.xml \
+	device/samsung/vivalto3gvn/configs/audio/audio_para \
+	device/samsung/vivalto3gvn/configs/audio/codec_pga.xml \
+	device/samsung/vivalto3gvn/configs/audio/tiny_hw.xml \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(AUDIO_CONFIGS),$(f):system/etc/$(notdir $(f))) \
 
 # Common libraries
 PRODUCT_PACKAGES += \
-	libstlport \
 	libmemoryheapion_sprd
-
-# Samsung service mode
-PRODUCT_PACKAGES += \
-	SamsungServiceMode
 
 # Shim libraries
 PRODUCT_PACKAGES += \
@@ -119,29 +107,23 @@ PRODUCT_PACKAGES += \
 
 # GPS
 GPS_CONFIGS := \
-	$(LOCAL_PATH)/configs/gps/gps.xml \
+	device/samsung/vivalto3gvn/configs/gps/gps.xml \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(GPS_CONFIGS),$(f):system/etc/$(notdir $(f)))
 
 # Nvitem
 NVITEM_CONFIGS := \
-	$(LOCAL_PATH)/configs/nvitem/nvitem_td.cfg \
-	$(LOCAL_PATH)/configs/nvitem/nvitem_w.cfg
+	device/samsung/vivalto3gvn/configs/nvitem/nvitem_td.cfg \
+	device/samsung/vivalto3gvn/configs/nvitem/nvitem_w.cfg
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(NVITEM_CONFIGS),$(f):system/etc/$(notdir $(f)))
 
 # Wifi
-PRODUCT_PACKAGES += \
-	libnetcmdiface \
-	dhcpcd.conf \
-	wpa_supplicant \
-	hostapd
-
 WIFI_CONFIGS := \
-	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf \
-	$(LOCAL_PATH)/configs/wifi/nvram_net.txt \
+	device/samsung/vivalto3gvn/configs/wifi/wpa_supplicant.conf \
+	device/samsung/vivalto3gvn/configs/wifi/nvram_net.txt \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(WIFI_CONFIGS),$(f):system/etc/wifi/$(notdir $(f)))
@@ -155,48 +137,24 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	memtrack.scx15 \
 
-# Charger
-PRODUCT_PACKAGES += \
-	charger \
-	charger_res_images
-
 # Permissions
 PERMISSION_XML_FILES := \
-	$(LOCAL_PATH)/permissions/platform.xml \
-	frameworks/native/data/etc/handheld_core_hardware.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth_le.xml \
+	device/samsung/vivalto3gvn/permissions/platform.xml \
 	frameworks/native/data/etc/android.hardware.camera.front.xml \
 	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml \
-	frameworks/native/data/etc/android.hardware.telephony.gsm.xml \
-	frameworks/native/data/etc/android.hardware.location.xml \
-	frameworks/native/data/etc/android.hardware.location.gps.xml \
-	frameworks/native/data/etc/android.hardware.wifi.xml \
-	frameworks/native/data/etc/android.hardware.wifi.direct.xml \
-	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.xml \
-	frameworks/native/data/etc/android.software.sip.xml \
-	frameworks/native/data/etc/android.software.sip.voip.xml \
-	frameworks/native/data/etc/android.hardware.usb.accessory.xml \
-	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(PERMISSION_XML_FILES),$(f):system/etc/permissions/$(notdir $(f)))
 
 # Scripts
 SCRIPTS_FILES := \
-	$(LOCAL_PATH)/scripts/set_freq.sh
+	device/samsung/vivalto3gvn/scripts/set_freq.sh
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(SCRIPTS_FILES),$(f):system/bin/$(notdir $(f)))
 
-# Set default USB interface
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mtp
-
 # Device props
 PRODUCT_PROPERTY_OVERRIDES += \
-	keyguard.no_require_sim=true \
 	ro.kernel.android.checkjni=0 \
 	dalvik.vm.checkjni=false
 
