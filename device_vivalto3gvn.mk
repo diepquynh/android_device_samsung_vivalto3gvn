@@ -82,7 +82,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	audio.primary.scx15 \
 	audio_policy.scx15 \
-	audio_vbc_eq \
 	libaudio-resampler \
 	libatchannel_wrapper \
 
