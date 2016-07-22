@@ -117,9 +117,9 @@
                    width="640"
                    height="480"
                    frameRate="30" />
-            <Audio codec="aac"
-                   bitRate="64000"
-                   sampleRate="44100"
+            <Audio codec="amrwb"
+                   bitRate="23050"
+                   sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
 
@@ -129,9 +129,9 @@
                    width="640"
                    height="480"
                    frameRate="30" />
-            <Audio codec="aac"
-                   bitRate="64000"
-                   sampleRate="44100"
+            <Audio codec="amrwb"
+                   bitRate="23050"
+                   sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
 
@@ -192,9 +192,9 @@
                    width="640"
                    height="480"
                    frameRate="30" />
-            <Audio codec="aac"
-                   bitRate="64000"
-                   sampleRate="44100"
+            <Audio codec="amrwb"
+                   bitRate="23050"
+                   sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
 
@@ -205,9 +205,9 @@
                    height="480"
                    frameRate="30" />
             <!-- audio setting is ignored -->
-            <Audio codec="aac"
-                   bitRate="64000"
-                   sampleRate="44100"
+            <Audio codec="amrwb"
+                   bitRate="23050"
+                   sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
 
@@ -276,9 +276,9 @@
                    width="720"
                    height="480"
                    frameRate="25" />
-            <Audio codec="aac"
-                   bitRate="64000"
-                   sampleRate="44100"
+            <Audio codec="amrwb"
+                   bitRate="23050"
+                   sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
 
@@ -289,9 +289,9 @@
                    height="480"
                    frameRate="25" />
             <!-- audio setting is ignored -->
-            <Audio codec="aac"
-                   bitRate="64000"
-                   sampleRate="44100"
+            <Audio codec="amrwb"
+                   bitRate="23050"
+                   sampleRate="16000"
                    channels="1" />
         </EncoderProfile>
 
