@@ -143,6 +143,7 @@ TW_INTERNAL_STORAGE_PATH := "/data/media/0"
 TW_EXTERNAL_STORAGE_PATH := "/sdcard"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/platform/sec-thermistor/temperature"
 TW_NO_REBOOT_BOOTLOADER := true
+TW_NO_USB_STORAGE := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_USE_TOOLBOX := true
 TW_EXCLUDE_SUPERSU := true
