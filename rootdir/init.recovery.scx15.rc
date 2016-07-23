@@ -1,14 +1,4 @@
 on init
-    # USB
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 18d1
-    write /sys/class/android_usb/android0/idProduct d002
-    write /sys/class/android_usb/android0/functions mtp,mass_storage,adb
-    write /sys/class/android_usb/android0/bDeviceClass ef
-    write /sys/class/android_usb/android0/bDeviceSubClass 02
-    write /sys/class/android_usb/android0/bDeviceProtocol 01
-    write /sys/class/android_usb/android0/enable 1
-
     # FS
     mkdir /efs
     mkdir /modem
