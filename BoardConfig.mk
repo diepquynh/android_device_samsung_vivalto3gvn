@@ -150,6 +150,7 @@ TW_EXCLUDE_SUPERSU := true
 TW_EXCLUDE_ENCRYPTED_BACKUPS := true
 TW_THEME := portrait_mdpi
 TWHAVE_SELINUX := true
+RECOVERY_SDCARD_ON_DATA := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
 # UMS
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
