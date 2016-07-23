@@ -132,12 +132,13 @@ WITH_DEXPREOPT := true
 WITH_DEXPREOPT_PIC := true
 
 # Recovery
+BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/rootdir/fstab.scx15
 TARGET_RECOVERY_TWRP := true
 
 ifeq ($(TARGET_RECOVERY_TWRP),true)
 RECOVERY_VARIANT := twrp
-TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/rootdir/twrp.fstab
 # TWRP
 TW_INTERNAL_STORAGE_PATH := "/data/media/0"
 TW_EXTERNAL_STORAGE_PATH := "/sdcard"
@@ -155,8 +156,4 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
 # UMS
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
-else
-# Default recovery
-BOARD_HAS_DOWNLOAD_MODE := true
-TARGET_RECOVERY_FSTAB := device/samsung/vivalto3gvn/rootdir/fstab.scx15
 endif

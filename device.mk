@@ -62,7 +62,8 @@ PRODUCT_COPY_FILES += \
 
 # Recovery
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/rootdir/init.recovery.scx15.rc:recovery/root/init.recovery.scx15.rc
+	$(LOCAL_PATH)/rootdir/init.recovery.scx15.rc:recovery/root/init.recovery.scx15.rc \
+	$(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/twrp.fstab \
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 PRODUCT_PROPERTY_OVERRIDES += \
