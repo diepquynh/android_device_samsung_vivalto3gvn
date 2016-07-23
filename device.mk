@@ -52,7 +52,6 @@ ROOTDIR_FILES := \
 	$(LOCAL_PATH)/rootdir/init.vivalto3gvn_base.rc \
 	$(LOCAL_PATH)/rootdir/init.wifi.rc \
 	$(LOCAL_PATH)/rootdir/init.swap.rc \
-	$(LOCAL_PATH)/rootdir/init.recovery.scx15.rc \
 	$(LOCAL_PATH)/rootdir/ueventd.scx15.rc \
 	$(LOCAL_PATH)/rootdir/fstab.scx15 \
 	$(LOCAL_PATH)/rootdir/fstab.swap \
@@ -60,6 +59,10 @@ ROOTDIR_FILES := \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(ROOTDIR_FILES),$(f):root/$(notdir $(f)))
+
+# Recovery
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/rootdir/init.recovery.scx15.rc:recovery/root/init.recovery.scx15.rc
 
 # Override phone-hdpi-512-dalvik-heap to match value on stock
 PRODUCT_PROPERTY_OVERRIDES += \
