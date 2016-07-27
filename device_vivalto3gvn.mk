@@ -138,7 +138,6 @@ PRODUCT_PACKAGES += \
 
 # Permissions
 PERMISSION_XML_FILES := \
-	device/samsung/vivalto3gvn/permissions/platform.xml \
 	frameworks/native/data/etc/android.hardware.camera.front.xml \
 	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml \
 
