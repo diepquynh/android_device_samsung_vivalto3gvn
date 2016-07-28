@@ -661,12 +661,6 @@ service debuggerd64 /system/bin/debuggerd64
     class main
     writepid /dev/cpuset/system-background/tasks
 
-service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
-    class main
-    user root
-    group root
-    oneshot
-
 service surfaceflinger /system/bin/surfaceflinger
     class core
     user system
