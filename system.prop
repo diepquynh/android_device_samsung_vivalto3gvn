@@ -1,22 +1,24 @@
 #
 # system.prop for vivalto3gvn
 #
+
+# HW
+ro.product.hardware=CORSICA_VE_V1.0.0
+
+# Graphics
 ro.sf.lcd_density=240
 ro.sf.lcd_width=52
 ro.sf.lcd_height=87
 ro.opengles.version=131072
-ro.product.hardware=CORSICA_VE_V1.0.0
-
 debug.hwui.render_dirty_regions=false
 
-persist.ttydev=ttyVUART0
-persist.storage.type=1
+# DRM
+drm.service.enabled=1
 
-# delay for ConnectivityChange broadcast (ms)
-conn.connectivity_change_delay = 0
+# Strict Mode
+persist.sys.strictmode.disable=1
 
-ro.product.partitionpath=/dev/block/platform/sprd-sdhci.3/by-name/
-
+# RIL
 persist.modem.w.enable=1
 ro.modem.w.dev=/dev/cpw
 ro.modem.w.tty=/dev/stty_w
@@ -28,51 +30,11 @@ ro.modem.w.nv=/dev/spipe_w1
 ro.modem.w.assert=/dev/spipe_w2
 ro.modem.w.vbc=/dev/spipe_w6
 ro.modem.w.id=0
-
-# MultiTouch support
-ro.product.multi_touch_enabled=true
-ro.product.max_num_touch=2
-
-#Awesome player lateness in ms
-awesome.lateness=200
-gralloc.use_sync_mode=true
-#Streaming player EOS timeout
-nuplayer.eos.timeout=3
-
-drm.service.enabled=1
-
-#Simulate sdcard on /data/media
-#
-persist.fuse_sdcard=true
-
-#Use vendor/platform codecs in Metadata retriever (for Hawaii H.264)
-sf.metadata_use_plat_sw_codecs=1
-
-#Use vendor/hw codecs in Metadata retriever
-sf.metadata_retrv_hw_codecs=1
-
-#turn off TREQ
-persist.audio.pcmout1.sweq=OFF
-persist.audio.pcmout2.sweq=OFF
-
-# System property for Font Clarity
-persist.sys.font_clarity=0
-
-# System property for Strict Mode
-persist.sys.strictmode.disable=1
-
-# Smart-DHA
-ro.config.dha_margin_min_extra=10
-
-# Control EONS (true = EONS enabled, false = EONS disabled)
-persist.eons.enabled=true
-
-# RIL
+ro.modem.w.count=2
 ro.com.android.dataroaming=false
 ro.msms.phone_count=2
 persist.msms.phone_count=2
 persist.msmslt=0
-ro.modem.w.count=2
 persist.sys.modem.diag=,gser
 sys.usb.gser.count=2
 ro.ril.hsxpa=1
@@ -81,13 +43,11 @@ persist.radio.multisim.config=dsds
 ro.telephony.ril_class=Vivalto3gvnRIL
 ro.telephony.ril.config=setPrefNwTypeOnUnsolConnected
 ro.ril.telephony.mqanelements=6
-persist.sys.sprd.modemreset=0
 
 # Low memory device
 ro.config.low_ram=true
 persist.sys.force_highendgfx=true
 config.disable_atlas=true
-dalvik.vm.jit.codecachesize=0
 ro.config.max_starting_bg=8
 ro.sys.fw.bg_apps_limit=16
 
