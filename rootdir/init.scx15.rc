@@ -246,19 +246,6 @@ service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FAL
     disabled
     oneshot
 
-service refnotify /system/bin/refnotify -t 0
-    class main
-    user system
-    group system radio shell
-    disabled
-
-service refnotify_w /system/bin/refnotify -t 1
-    class main
-    user system
-    group system radio shell
-    disabled
-
-
 on property:persist.modem.w.enable=1
     symlink /dev/spipe_w1 /dev/vbpipe1
     symlink /dev/spipe_w2 /dev/vbpipe2
@@ -313,16 +300,6 @@ service chown_service /system/bin/ext_chown.sh  -c
 
 #set mac addr
 service set_mac /system/bin/ext_chown.sh  -e
-    user root
-    disabled
-    oneshot
-
-service inputfreq /system/bin/inputfreq.sh
-    user root
-    disabled
-    oneshot
-
-service recoveryfreq /system/bin/recoveryfreq.sh
     user root
     disabled
     oneshot
