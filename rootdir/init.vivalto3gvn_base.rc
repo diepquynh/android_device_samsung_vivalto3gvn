@@ -307,23 +307,12 @@ service ril-daemon3 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w 
     user root
     group radio cache inet misc audio sdcard_rw log shell sdcard_r
 
-service napa_ts /system/bin/sh /system/etc/init_touch
-    class main
-    user root
-    group root
-    oneshot
-
 # GPS
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     class main
     user gps
     group system inet net_raw
     ioprio be 0
-
-service at_distributor /system/bin/at_distributor
-    class late_start
-    user root
-    group radio misc log
 
 # When the default SIM for data connections is updated,
 # also update the DUN AT channel with the default SIM.
