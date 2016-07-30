@@ -27,3 +27,6 @@
 
 # GPS
 /data/system/gps(/\.*.*)?    u:object_r:gps_data_file:s0
+
+# GFX
+/dev/mali[\d]*    u:object_r:gpu_device:s0
