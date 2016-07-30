@@ -4,6 +4,3 @@ type prod_file ,file_type;
 #Type for rild, ril socket
 type radio_data, file_type;
 type sock_file, file_type;
-
-#EFS
-type efs_device_file, file_type;
