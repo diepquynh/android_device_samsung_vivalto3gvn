@@ -313,6 +313,7 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
+    seclabel u:r:gpsd:s0
 
 # When the default SIM for data connections is updated,
 # also update the DUN AT channel with the default SIM.
