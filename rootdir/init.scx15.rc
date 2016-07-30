@@ -216,6 +216,7 @@ service modemd /system/bin/modemd
     user system
     group system radio shell
     oneshot
+    seclabel u:r:rild:s0
 
 service phoneserver_t /system/bin/phoneserver -m t
     class core
@@ -223,6 +224,7 @@ service phoneserver_t /system/bin/phoneserver -m t
     group radio system shell
     disabled
     oneshot
+    seclabel u:r:rild:s0
 
 service phoneserver_w /system/bin/phoneserver -m w
     class core
@@ -230,6 +232,7 @@ service phoneserver_w /system/bin/phoneserver -m w
     group radio system shell
     disabled
     oneshot
+    seclabel u:r:rild:s0
 
 #nvitemd
 service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg FALSE
@@ -238,6 +241,7 @@ service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg 
     group system radio shell
     disabled
     oneshot
+    seclabel u:r:rild:s0
 
 service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FALSE
     class core
@@ -245,6 +249,7 @@ service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FAL
     group system radio shell
     disabled
     oneshot
+    seclabel u:r:rild:s0
 
 on property:persist.modem.w.enable=1
     symlink /dev/spipe_w1 /dev/vbpipe1
