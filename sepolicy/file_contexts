@@ -6,7 +6,9 @@
 /dev/stty_(w|td)[0-9]+       u:object_r:radio_device:s0
 /dev/slog_(w|td)             u:object_r:radio_device:s0
 /dev/spipe_w[0-9]+           u:object_r:radio_device:s0
-/dev/CHNPTY(W|TD)?[0-9]+     u:object_r:radio_device:s0
+/dev/CHNPTY[0-9]+            u:object_r:radio_device:s0
+/dev/CHNPTYW[0-9]+           u:object_r:radio_device:s0
+/dev/CHNPTYTD[0-9]+          u:object_r:radio_device:s0
 /dev/ts0710mux               u:object_r:radio_device:s0
 
 /system/bin/modemd           u:object_r:rild_exec:s0
