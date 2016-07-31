@@ -328,6 +328,7 @@ service set_freq /system/bin/set_freq.sh
     user root
     class main
     oneshot
+    seclabel u:r:set_freq:s0
 
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
     class main
