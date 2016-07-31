@@ -11,6 +11,7 @@
 /dev/CHNPTYTD[0-9]+          u:object_r:radio_device:s0
 /dev/ts0710mux               u:object_r:radio_device:s0
 /dev/rpipe(/.*)?             u:object_r:radio_device:s0
+/dev/socket/rild[1-3]?       u:object_r:rild_socket:s0
 
 /system/bin/modemd           u:object_r:rild_exec:s0
 /system/bin/nvitemd          u:object_r:rild_exec:s0
