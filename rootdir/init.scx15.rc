@@ -80,6 +80,9 @@ on post-fs
     # We restorecon /system in case the system partition has been reset.
     restorecon_recursive /system
 
+    # We restorecon /productinfo in case the productinfo partition has been reset.
+    restorecon_recursive /productinfo
+
     chown system system /productinfo
     chmod 0771 /productinfo
     insmod /system/lib/modules/mali.ko
