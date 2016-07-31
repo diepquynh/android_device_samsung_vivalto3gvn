@@ -9,3 +9,4 @@ allow init sysfs:lnk_file setattr;
 #allow init system_file:file { read write create link unlink getattr setattr execute_no_trans };
 allow init tmpfs:lnk_file create;
 allow init wpa_socket:unix_dgram_socket { bind create };
+allow init media_device:fifo_file create;

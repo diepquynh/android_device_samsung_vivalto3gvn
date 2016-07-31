@@ -1,0 +1,1 @@
+genfscon proc /pin_switch u:object_r:proc_pin_switch:s0

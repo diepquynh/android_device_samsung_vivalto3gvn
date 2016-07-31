@@ -48,3 +48,15 @@
 
 # GFX
 /dev/mali[0-9]*              u:object_r:gpu_device:s0
+
+# Media
+/dev/pipe(/.*)?              u:object_r:media_device:s0
+
+/dev/sprd_dma_copy           u:object_r:audio_device:s0
+/dev/sprd_jpg                u:object_r:audio_device:s0
+/dev/sprd_rotation           u:object_r:audio_device:s0
+/dev/sprd_scale              u:object_r:audio_device:s0
+/dev/sprd_sensor             u:object_r:audio_device:s0
+/dev/sprd_vsp                u:object_r:audio_device:s0
+
+/data/local/media(/.*)?      u:object_r:media_data_file:s0
