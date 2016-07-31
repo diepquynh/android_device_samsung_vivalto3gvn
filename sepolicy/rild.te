@@ -8,4 +8,4 @@ allow rild device:lnk_file create;
 allow rild devpts:chr_file { read write ioctl open setattr };
 allow rild device:dir { write add_name };
 allow rild ptmx_device:chr_file { read write };
-#allow rild system_file:file entrypoint;
+allow rild rild_exec:file entrypoint;
