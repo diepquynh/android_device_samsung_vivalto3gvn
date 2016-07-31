@@ -16,7 +16,6 @@ on early-init
 
 on init
     mkdir /productinfo 0771 system system
-    export LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so:/system/lib/hw/camera.scx15.so|libmemoryheapion_sprd.so:/system/lib/hw/camera2.scx15.so|libmemoryheapion_sprd.so:/system/bin/gpsd|libgps_shim.so
 
 on fs
     mount_all /fstab.scx15
