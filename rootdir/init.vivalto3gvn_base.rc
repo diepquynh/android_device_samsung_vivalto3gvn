@@ -282,6 +282,38 @@ on boot
 on post-fs-data
     setprop vold.post_fs_data_done 1
 
+# When the default SIM for data connections is updated,
+# also update the DUN AT channel with the default SIM.
+on property:persist.sys.dataprefer.simid=0
+    write /data/atx/setsim.txt at*msetsim=1
+    start set_simid
+
+#DUN on
+on property:brcm.dun.state=1
+    write /data/brcm/utils/aa.txt  brcm.dun.state=1
+    start config_dun_up
+
+#DUN off
+on property:brcm.dun.state=0
+    start config_dun_down
+
+# When the default SIM for data connections is updated,
+# also update the DUN AT channel with the default SIM.
+on property:persist.sys.dataprefer.simid=1
+    write /data/atx/setsim.txt at*msetsim=2
+    start set_simid
+
+#Indicate boot complete to PM to complete PM initialization
+on property:dev.bootcomplete=1
+    write /dev/console [AUTOTEST]BOOT_COMPLETE
+    write /sys/module/pwr_mgr/parameters/pm_late_init 1
+    write /sys/class/input/input1/enable 1
+    start copy_cp_imgs
+    write /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/governor "ondemand"    
+
+on charger
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+
 #wcdma rild service
 service ril-daemon /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 0
     class core
@@ -322,35 +354,3 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     ioprio be 0
     seclabel u:r:gpsd:s0
     setenv LD_SHIM_LIBS /system/bin/gpsd|libgps_shim.so
-
-# When the default SIM for data connections is updated,
-# also update the DUN AT channel with the default SIM.
-on property:persist.sys.dataprefer.simid=0
-    write /data/atx/setsim.txt at*msetsim=1
-    start set_simid
-
-#DUN on
-on property:brcm.dun.state=1
-    write /data/brcm/utils/aa.txt  brcm.dun.state=1
-    start config_dun_up
-
-#DUN off
-on property:brcm.dun.state=0
-    start config_dun_down
-
-# When the default SIM for data connections is updated,
-# also update the DUN AT channel with the default SIM.
-on property:persist.sys.dataprefer.simid=1
-    write /data/atx/setsim.txt at*msetsim=2
-    start set_simid
-
-#Indicate boot complete to PM to complete PM initialization
-on property:dev.bootcomplete=1
-    write /dev/console [AUTOTEST]BOOT_COMPLETE
-    write /sys/module/pwr_mgr/parameters/pm_late_init 1
-    write /sys/class/input/input1/enable 1
-    start copy_cp_imgs
-    write /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/governor "ondemand"    
-
-on charger
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
