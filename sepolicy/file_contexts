@@ -47,6 +47,11 @@
 /data/.cid.info              u:object_r:wifi_data_file:s0
 /efs/wifi/.mac.info          u:object_r:wifi_data_file:s0
 
+# Bluetooth
+/dev/ttyS0                   u:object_r:bluetooth_serial_device:s0
+
+/efs/bluetooth(/.*)?         u:object_r:bluetooth_data_file:s0
+
 # GPS
 /data/system/gps(/\.*.*)?    u:object_r:gps_data_file:s0
 
