@@ -77,6 +77,9 @@ on post-fs
     # We restorecon /efs in case the efs partition has been reset.
     restorecon_recursive /efs
 
+    # We restorecon /system in case the system partition has been reset.
+    restorecon_recursive /system
+
     chown system system /productinfo
     chmod 0771 /productinfo
     insmod /system/lib/modules/mali.ko
