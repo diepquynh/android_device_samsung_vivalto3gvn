@@ -55,7 +55,6 @@ ROOTDIR_FILES := \
 	$(LOCAL_PATH)/rootdir/ueventd.scx15.rc \
 	$(LOCAL_PATH)/rootdir/fstab.scx15 \
 	$(LOCAL_PATH)/rootdir/fstab.swap \
-	$(LOCAL_PATH)/rootdir/property_contexts
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(ROOTDIR_FILES),$(f):root/$(notdir $(f)))

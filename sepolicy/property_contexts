@@ -1,0 +1,6 @@
+# RIL properties
+ctl.phoneserver_w                   u:object_r:ctl_rildaemon_prop:s0
+ctl.phoneserver_td                  u:object_r:ctl_rildaemon_prop:s0
+ril.sim1.absent                     u:object_r:radio_prop:s0
+ril.MSIMM                           u:object_r:radio_prop:s0
+ril.sim2.present                    u:object_r:radio_prop:s0
