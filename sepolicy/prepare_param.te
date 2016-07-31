@@ -1,4 +1,9 @@
-allow toolbox block_device:dir { write add_name };
-allow toolbox block_device:lnk_file create;
-allow toolbox param_block_device:blk_file setattr;
-allow toolbox self:capability { fowner chown fsetid };
+type prepare_param, domain;
+type prepare_param_exec, exec_type, file_type;
+init_daemon_domain(prepare_param);
+
+allow prepare_param shell_exec:file read;
+allow prepare_param block_device:dir { write add_name };
+allow prepare_param block_device:lnk_file create;
+allow prepare_param param_block_device:blk_file { getattr setattr };
+allow prepare_param self:capability { fowner chown fsetid };
