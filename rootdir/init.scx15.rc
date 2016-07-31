@@ -74,6 +74,9 @@ on charger
     mount ext4 /dev/block/mmcblk0p20 /data noatime,nosuid,nodev,nomblk_io_submit wait,encryptable=footer,check
     
 on post-fs
+    # We restorecon /efs in case the efs partition has been reset.
+    restorecon_recursive /efs
+
     chown system system /productinfo
     chmod 0771 /productinfo
     insmod /system/lib/modules/mali.ko
