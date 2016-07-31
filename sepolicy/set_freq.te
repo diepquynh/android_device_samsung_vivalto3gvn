@@ -1,0 +1,5 @@
+type set_freq, domain;
+type set_freq_exec, exec_type, file_type;
+init_daemon_domain(set_freq);
+
+allow toolbox sysfs:file setattr;
