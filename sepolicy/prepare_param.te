@@ -1,0 +1,4 @@
+allow toolbox block_device:dir { write add_name };
+allow toolbox block_device:lnk_file create;
+allow toolbox param_block_device:blk_file setattr;
+allow toolbox self:capability { fowner chown fsetid };
