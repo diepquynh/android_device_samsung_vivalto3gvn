@@ -21,3 +21,8 @@ allow init runas_exec:file getattr;
 allow init sdcardd_exec:file getattr;
 allow init sgdisk_exec:file getattr;
 allow init userinit_exec:file getattr;
+
+# LD_SHIM_LIBS
+allow init gpsd:process noatsecure;
+allow init mediaserver:process noatsecure;
+allow init rild:process noatsecure;
