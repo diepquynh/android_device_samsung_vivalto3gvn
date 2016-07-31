@@ -45,7 +45,7 @@
 /system/bin/macloader        u:object_r:macloader_exec:s0
 
 /data/.cid.info              u:object_r:wifi_data_file:s0
-/efs/wifi/.mac.info          u:object_r:wifi_data_file:s0
+/efs/wifi(/.*)?              u:object_r:wifi_data_file:s0
 
 # Bluetooth
 /dev/ttyS0                   u:object_r:bluetooth_serial_device:s0
