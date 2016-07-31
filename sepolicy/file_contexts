@@ -16,6 +16,9 @@
 /system/bin/modemd           u:object_r:rild_exec:s0
 /system/bin/nvitemd          u:object_r:rild_exec:s0
 /system/bin/phoneserver      u:object_r:rild_exec:s0
+/system/bin/ext_data.sh      u:object_r:rild_exec:s0
+/system/bin/ext_kill.sh      u:object_r:rild_exec:s0
+/system/bin/ext_symlink.sh   u:object_r:rild_exec:s0
 
 /data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
 
