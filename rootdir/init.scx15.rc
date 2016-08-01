@@ -237,7 +237,6 @@ service modemd /system/bin/modemd
     user system
     group system radio shell
     oneshot
-    seclabel u:r:rild:s0
 
 service phoneserver_t /system/bin/phoneserver -m t
     class core
@@ -245,7 +244,6 @@ service phoneserver_t /system/bin/phoneserver -m t
     group radio system shell
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 service phoneserver_w /system/bin/phoneserver -m w
     class core
@@ -253,7 +251,6 @@ service phoneserver_w /system/bin/phoneserver -m w
     group radio system shell
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #nvitemd
 service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg FALSE
@@ -262,7 +259,6 @@ service nvitemd_td /system/bin/nvitemd /dev/spipe_td1 /system/etc/nvitem_td.cfg 
     group system radio shell
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FALSE
     class core
@@ -270,60 +266,51 @@ service nvitemd_w /system/bin/nvitemd /dev/spipe_w1 /system/etc/nvitem_w.cfg FAL
     group system radio shell
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #create symlink
 service smd_symlink /system/bin/ext_symlink.sh -u
     user root
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #data on
 service data_on /system/bin/ext_data.sh  -u
     user root
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #data off
 service data_off /system/bin/ext_data.sh  -d
     user root
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #kill td app
 service kill_td_phone /system/bin/ext_kill.sh  -t
     user root
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #kill w app
 service kill_w_phone /system/bin/ext_kill.sh  -w
     user root
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 #change owner
 service chown_service /system/bin/ext_chown.sh  -c
     class main
     user root
     oneshot
-    seclabel u:r:rild:s0
 
 #set mac addr
 service set_mac /system/bin/ext_chown.sh  -e
     user root
     disabled
     oneshot
-    seclabel u:r:rild:s0
 
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
     class main
     user root
     group root
     oneshot
-    seclabel u:r:prepare_param:s0

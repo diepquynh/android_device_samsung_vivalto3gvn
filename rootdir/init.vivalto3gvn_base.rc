@@ -330,7 +330,6 @@ service ril-daemon /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -
     user root
     group radio cache inet misc audio sdcard_rw log shell sdcard_r
     setenv LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so
-    seclabel u:r:rild:s0
 
 
 service ril-daemon2 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 1
@@ -341,7 +340,6 @@ service ril-daemon2 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w 
     user root
     group radio cache inet misc audio sdcard_rw log shell sdcard_r
     setenv LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so
-    seclabel u:r:rild:s0
 
 service ril-daemon3 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w -n 2
     class core
@@ -351,7 +349,6 @@ service ril-daemon3 /system/bin/rild -l /system/lib/libreference-ril_sp.so -m w 
     user root
     group radio cache inet misc audio sdcard_rw log shell sdcard_r
     setenv LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so
-    seclabel u:r:rild:s0
 
 # GPS
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml
@@ -359,5 +356,4 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
-    seclabel u:r:gpsd:s0
     setenv LD_SHIM_LIBS /system/bin/gpsd|libgps_shim.so
