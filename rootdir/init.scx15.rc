@@ -146,14 +146,8 @@ on boot
 
     chown system system /sys/class/backlight/sprd_backlight/brightness
 
-    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_enable
-    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_upthreshold
-    chown system system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_downdifferential
-    chown media system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_freq
-    chown media system /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_request
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0660 /sys/devices/platform/scxx30-dmcfreq.0/devfreq/scxx30-dmcfreq.0/ondemand/set_freq
 
     chmod 0660 /sys/devices/virtual/camera/rear/Cam_antibanding
     chmod media system /sys/devices/virtual/camera/rear/Cam_antibanding
@@ -326,12 +320,6 @@ service set_mac /system/bin/ext_chown.sh  -e
     disabled
     oneshot
     seclabel u:r:rild:s0
-
-service set_freq /system/bin/set_freq.sh
-    user root
-    class main
-    oneshot
-    seclabel u:r:set_freq:s0
 
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
     class main

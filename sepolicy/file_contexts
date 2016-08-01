@@ -74,5 +74,4 @@
 /data/local/media(/.*)?      u:object_r:media_data_file:s0
 
 # Scripts
-/system/bin/set_freq.sh      u:object_r:set_freq_exec:s0
 /system/bin/prepare_param.sh    u:object_r:prepare_param_exec:s0
