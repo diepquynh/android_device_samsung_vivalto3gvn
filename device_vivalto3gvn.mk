@@ -81,7 +81,6 @@ PRODUCT_PACKAGES += \
 # Audio
 PRODUCT_PACKAGES += \
 	audio.primary.scx15 \
-	audio_policy.scx15 \
 	libaudio-resampler \
 	libatchannel_wrapper \
 
