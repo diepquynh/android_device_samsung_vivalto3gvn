@@ -1,7 +1,10 @@
 allow init unlabeled:filesystem getattr;
 allow init socket_device:sock_file { write create unlink setattr };
 allow init rild:unix_stream_socket { connectto };
-allow init block_device:blk_file setattr;
+allow init block_device:blk_file { setattr getattr };
+allow init block_device:dir { write add_name };
+allow init block_device:lnk_file { create setattr getattr };
+allow init self:capability { fowner chown fsetid };
 allow init kmem_device:chr_file setattr;
 allow init self:netlink_route_socket { setopt nlmsg_write read bind create nlmsg_read write getattr };
 allow init sysfs:lnk_file setattr;

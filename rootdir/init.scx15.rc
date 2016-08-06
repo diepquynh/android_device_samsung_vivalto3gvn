@@ -91,6 +91,11 @@ on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
+    # Make param block device link
+    chown system system /dev/block/platform/sprd-sdhci.3/by-name/PARAM
+    chmod 0660 /dev/block/platform/sprd-sdhci.3/by-name/PARAM
+    symlink /dev/block/platform/sprd-sdhci.3/by-name/PARAM /dev/block/param
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -307,10 +312,4 @@ service chown_service /system/bin/ext_chown.sh  -c
 service set_mac /system/bin/ext_chown.sh  -e
     user root
     disabled
-    oneshot
-
-service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
-    class main
-    user root
-    group root
     oneshot

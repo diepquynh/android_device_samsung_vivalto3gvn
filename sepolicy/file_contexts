@@ -72,6 +72,3 @@
 /dev/sprd_vsp                u:object_r:audio_device:s0
 
 /data/local/media(/.*)?      u:object_r:media_data_file:s0
-
-# Scripts
-/system/bin/prepare_param.sh    u:object_r:prepare_param_exec:s0
