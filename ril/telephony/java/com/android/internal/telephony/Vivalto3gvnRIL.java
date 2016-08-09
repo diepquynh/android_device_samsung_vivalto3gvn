@@ -51,6 +51,16 @@ public class Vivalto3gvnRIL extends SamsungSPRDRIL implements CommandsInterface 
     }
 
     @Override
+    public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
+        riljLog("Link Capacity Estimate (LCE) service is not supported!");
+        if (response != null) {
+            AsyncResult.forMessage(response, null, new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED));
+            response.sendToTarget();
+        }
+    }
+
+    @Override
     protected Object
     responseCallList(Parcel p) {
         int num;
