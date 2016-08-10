@@ -15,6 +15,7 @@
 
 /sys/power/restart_cpc       u:object_r:sysfs_restart_cpc:s0
 
+/system/bin/at_distributor   u:object_r:rild_exec:s0
 /system/bin/modemd           u:object_r:rild_exec:s0
 /system/bin/nvitemd          u:object_r:rild_exec:s0
 /system/bin/phoneserver      u:object_r:rild_exec:s0
