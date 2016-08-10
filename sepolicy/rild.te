@@ -23,5 +23,7 @@ allow rild proc_cpt:file { read write open ioctl };
 allow rild storage_file:dir { search open };
 allow rild storage_file:file { open read write setattr getattr};
 
+allow rild engpc:unix_stream_socket connectto;
+
 allow rild rild_exec:file entrypoint;
 allow rild self:capability { fsetid fowner chown };

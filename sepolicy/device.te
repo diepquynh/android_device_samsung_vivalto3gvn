@@ -5,3 +5,4 @@ type param_block_device, dev_type;
 type rfkill_device, dev_type;
 type media_device, dev_type;
 type bluetooth_serial_device, dev_type;
+type gadget_serial_device, dev_type;

@@ -77,5 +77,11 @@
 
 /data/local/media(/.*)?      u:object_r:media_data_file:s0
 
+# ENGPC
+/system/bin/engpc            u:object_r:engpc_exec:s0
+
+# Gadget Serial
+/dev/ttyGS[0-9]+             u:object_r:gadget_serial_device:s0
+
 # Sysfs
 /sys/devices/platform/sprd_fb.0/graphics/fb0/dynamic_pclk    u:object_r:sysfs_dynamic_pclk:s0
