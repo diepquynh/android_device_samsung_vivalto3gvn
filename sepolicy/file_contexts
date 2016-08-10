@@ -76,3 +76,6 @@
 /dev/sprd_vsp                u:object_r:audio_device:s0
 
 /data/local/media(/.*)?      u:object_r:media_data_file:s0
+
+# Sysfs
+/sys/devices/platform/sprd_fb.0/graphics/fb0/dynamic_pclk    u:object_r:sysfs_dynamic_pclk:s0
