@@ -1,4 +1,5 @@
 set_prop(rild, ctl_rildaemon_prop);
+set_prop(rild, ctl_engpc_prop);
 set_prop(rild, system_prop);
 
 allow rild radio_block_device:blk_file { read write open };
