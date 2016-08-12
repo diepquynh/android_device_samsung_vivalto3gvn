@@ -51,6 +51,22 @@ public class Vivalto3gvnRIL extends SamsungSPRDRIL implements CommandsInterface 
     }
 
     @Override
+    public void setUiccSubscription(int appIndex, boolean activate, Message result) {
+        //Note: This RIL request is also valid for SIM and RUIM (ICC card)
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_SET_UICC_SUBSCRIPTION, result);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+                + " appIndex: " + appIndex + " activate: " + activate);
+
+        rr.mParcel.writeInt(mInstanceId);
+        rr.mParcel.writeInt(appIndex);
+        rr.mParcel.writeInt(mInstanceId);
+        rr.mParcel.writeInt(activate ? 1 : 0);
+
+        send(rr);
+    }
+
+    @Override
     public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
         riljLog("Link Capacity Estimate (LCE) service is not supported!");
         if (response != null) {
