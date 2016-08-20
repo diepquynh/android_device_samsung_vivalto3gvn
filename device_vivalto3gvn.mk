@@ -1,4 +1,6 @@
-# Copyright (C) 2014 The CyanogenMod Project
+#
+# Copyright (C) 2016 The Android Open Source Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,9 +13,60 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
+# Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, device/samsung/vivalto3gvn/device.mk)
+
+# The gps config appropriate for this device
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
+
+# Inherit from sprd-common device configuration
+$(call inherit-product, device/samsung/sprd-common/common.mk)
+
+# Inherit from vendor
+$(call inherit-product, vendor/samsung/vivalto3gvn/vivalto3gvn-vendor.mk)
+
+# Dalvik heap config
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
+
+# WiFi BCMDHD
+$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4343/device-bcm.mk)
+
+# Overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/vivalto3gvn/overlay
+
+# AAPT configuration
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_AAPT_PREBUILT_DPI := hdpi mdpi ldpi
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 800
+TARGET_SCREEN_WIDTH := 480
+
+# Rootdir files
+ROOTDIR_FILES := \
+	$(LOCAL_PATH)/rootdir/init.rc \
+	$(LOCAL_PATH)/rootdir/init.board.rc \
+	$(LOCAL_PATH)/rootdir/init.scx15.rc \
+	$(LOCAL_PATH)/rootdir/init.scx15.usb.rc \
+	$(LOCAL_PATH)/rootdir/init.scx15_ss.rc \
+	$(LOCAL_PATH)/rootdir/init.vivalto3gvn.rc \
+	$(LOCAL_PATH)/rootdir/init.vivalto3gvn_base.rc \
+	$(LOCAL_PATH)/rootdir/init.wifi.rc \
+	$(LOCAL_PATH)/rootdir/init.swap.rc \
+	$(LOCAL_PATH)/rootdir/ueventd.scx15.rc \
+	$(LOCAL_PATH)/rootdir/fstab.scx15 \
+	$(LOCAL_PATH)/rootdir/fstab.swap \
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(ROOTDIR_FILES),$(f):root/$(notdir $(f)))
+
+# Recovery
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/rootdir/init.recovery.scx15.rc:root/init.recovery.scx15.rc \
+	$(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
 
 # Keylayouts
 KEYLAYOUT_FILES := \
@@ -143,13 +196,24 @@ PERMISSION_XML_FILES := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(PERMISSION_XML_FILES),$(f):system/etc/permissions/$(notdir $(f)))
 
-# Device props
+# Languages
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0 \
-	dalvik.vm.checkjni=false
+	ro.product.locale.language=en \
+	ro.product.locale.region=GB
+
+# Override phone-hdpi-512-dalvik-heap to match value on stock
+PRODUCT_PROPERTY_OVERRIDES += \
+	dalvik.vm.heapgrowthlimit=48m
+
+# Enable Google-specific location features, like NetworkLocationProvider and LocationCollector
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.com.google.locationfeatures=1 \
+	ro.com.google.networklocation=1
 
 # ART device props
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.kernel.android.checkjni=0 \
+	dalvik.vm.checkjni=false \
 	dalvik.vm.dex2oat-Xms=8m \
 	dalvik.vm.dex2oat-Xmx=96m \
 	dalvik.vm.dex2oat-flags=--no-watch-dog \
@@ -157,10 +221,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.image-dex2oat-Xms=48m \
 	dalvik.vm.image-dex2oat-Xmx=48m \
 	dalvik.vm.image-dex2oat-filter=everything
-
-# Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := full_vivalto3gvn
-PRODUCT_DEVICE := vivalto3gvn
-PRODUCT_BRAND := samsung
-PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := SM-G313HZ
