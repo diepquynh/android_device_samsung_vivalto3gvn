@@ -68,8 +68,7 @@ on fs
     chmod 0664 /sys/class/sec/tsp/cmd
 
 on charger
-    exec sfsck /dev/block/mmcblk0p18 ext4
-    mount ext4 /dev/block/mmcblk0p18 /system noatime,noauto_da_alloc,discard,journal_async_commit,errors=panic wait,check
+    mount ext4 /dev/block/mmcblk0p18 /system ro,barrier=1 wait
     exec sfsck /dev/block/mmcblk0p20 ext4
     mount ext4 /dev/block/mmcblk0p20 /data noatime,nosuid,nodev,nomblk_io_submit wait,encryptable=footer,check
     
