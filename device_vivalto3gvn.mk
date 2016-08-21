@@ -47,26 +47,26 @@ TARGET_SCREEN_WIDTH := 480
 
 # Rootdir files
 ROOTDIR_FILES := \
-	$(LOCAL_PATH)/rootdir/init.rc \
-	$(LOCAL_PATH)/rootdir/init.board.rc \
-	$(LOCAL_PATH)/rootdir/init.scx15.rc \
-	$(LOCAL_PATH)/rootdir/init.scx15.usb.rc \
-	$(LOCAL_PATH)/rootdir/init.scx15_ss.rc \
-	$(LOCAL_PATH)/rootdir/init.vivalto3gvn.rc \
-	$(LOCAL_PATH)/rootdir/init.vivalto3gvn_base.rc \
-	$(LOCAL_PATH)/rootdir/init.wifi.rc \
-	$(LOCAL_PATH)/rootdir/init.swap.rc \
-	$(LOCAL_PATH)/rootdir/ueventd.scx15.rc \
-	$(LOCAL_PATH)/rootdir/fstab.scx15 \
-	$(LOCAL_PATH)/rootdir/fstab.swap \
+	device/samsung/vivalto3gvn/rootdir/init.rc \
+	device/samsung/vivalto3gvn/rootdir/init.board.rc \
+	device/samsung/vivalto3gvn/rootdir/init.scx15.rc \
+	device/samsung/vivalto3gvn/rootdir/init.scx15.usb.rc \
+	device/samsung/vivalto3gvn/rootdir/init.scx15_ss.rc \
+	device/samsung/vivalto3gvn/rootdir/init.vivalto3gvn.rc \
+	device/samsung/vivalto3gvn/rootdir/init.vivalto3gvn_base.rc \
+	device/samsung/vivalto3gvn/rootdir/init.wifi.rc \
+	device/samsung/vivalto3gvn/rootdir/init.swap.rc \
+	device/samsung/vivalto3gvn/rootdir/ueventd.scx15.rc \
+	device/samsung/vivalto3gvn/rootdir/fstab.scx15 \
+	device/samsung/vivalto3gvn/rootdir/fstab.swap \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(ROOTDIR_FILES),$(f):root/$(notdir $(f)))
 
 # Recovery
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/rootdir/init.recovery.scx15.rc:root/init.recovery.scx15.rc \
-	$(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
+	device/samsung/vivalto3gvn/rootdir/init.recovery.scx15.rc:root/init.recovery.scx15.rc \
+	device/samsung/vivalto3gvn/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
 
 # Keylayouts
 KEYLAYOUT_FILES := \

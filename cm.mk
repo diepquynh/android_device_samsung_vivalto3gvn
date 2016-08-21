@@ -21,7 +21,7 @@ $(call inherit-product, vendor/cm/config/telephony.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, $(LOCAL_PATH)/device_vivalto3gvn.mk)
+$(call inherit-product, device/samsung/vivalto3gvn/device_vivalto3gvn.mk)
 
 # Override build date
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
