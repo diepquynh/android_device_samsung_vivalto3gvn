@@ -53,5 +53,5 @@ ro.sys.fw.bg_apps_limit=16
 
 # zRAM
 ro.config.zram.compressor=lz4
-ro.config.zram.disksize=192M
+ro.config.zram.disksize=128M
 ro.config.swappiness=100
