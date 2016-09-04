@@ -55,7 +55,6 @@ ROOTDIR_FILES := \
 	device/samsung/vivalto3gvn/rootdir/init.vivalto3gvn.rc \
 	device/samsung/vivalto3gvn/rootdir/init.vivalto3gvn_base.rc \
 	device/samsung/vivalto3gvn/rootdir/init.wifi.rc \
-	device/samsung/vivalto3gvn/rootdir/init.swap.rc \
 	device/samsung/vivalto3gvn/rootdir/ueventd.scx15.rc \
 	device/samsung/vivalto3gvn/rootdir/fstab.scx15 \
 	device/samsung/vivalto3gvn/rootdir/fstab.swap \
@@ -82,6 +81,7 @@ SYSTEM_INIT_RC_FILES := \
 	device/samsung/vivalto3gvn/system/etc/init/rild.rc \
 	device/samsung/vivalto3gvn/system/etc/init/set_mac.rc \
 	device/samsung/vivalto3gvn/system/etc/init/smd_symlink.rc \
+	device/samsung/vivalto3gvn/system/etc/init/swap.rc \
 	device/samsung/vivalto3gvn/system/etc/init/wpa_supplicant.rc \
 
 PRODUCT_COPY_FILES += \
