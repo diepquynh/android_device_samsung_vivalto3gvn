@@ -28,8 +28,9 @@ DEVICE_PACKAGE_OVERLAYS += \
 # Override build date
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
-# Default laucher
-PRODUCT_PACKAGES += Launcher3
+PRODUCT_PACKAGES += \
+	Gallery2 \
+	Launcher3 \
 
 # Device identifier
 PRODUCT_DEVICE := vivalto3gvn
