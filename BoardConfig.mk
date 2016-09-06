@@ -122,8 +122,9 @@ BOARD_SEPOLICY_DIRS += device/samsung/vivalto3gvn/sepolicy
 # Build system
 USE_NINJA := false
 
-# Configure jemalloc for low-memory
+# Memory
 MALLOC_SVELTE := true
+BOARD_USES_LEGACY_MMAP := true
 
 # Enable dex-preoptimization to speed up the first boot sequence
 WITH_DEXPREOPT := true
