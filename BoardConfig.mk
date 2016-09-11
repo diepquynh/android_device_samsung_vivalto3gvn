@@ -110,9 +110,6 @@ BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_CONFIG := cyanogen_vivalto3gvn_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/vivalto3gvn
 
-# Init
-TARGET_NR_SVC_SUPP_GIDS := 24
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := vivalto3gvn,vivalto3gvndx,vivalto3gub,vivalto3g,SM-G313HZ,SM-G313H,SM-G313ML
 
