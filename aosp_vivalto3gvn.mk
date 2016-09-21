@@ -31,6 +31,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_PACKAGES += \
 	Gallery2 \
 	Launcher3 \
+	Stk \
 
 PRODUCT_COPY_FILES += \
 	device/samsung/vivalto3gvn/apns-conf.xml:system/etc/apns-conf.xml \
