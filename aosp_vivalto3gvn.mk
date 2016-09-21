@@ -32,6 +32,9 @@ PRODUCT_PACKAGES += \
 	Gallery2 \
 	Launcher3 \
 
+PRODUCT_COPY_FILES += \
+	device/samsung/vivalto3gvn/apns-conf.xml:system/etc/apns-conf.xml \
+
 # Device identifier
 PRODUCT_DEVICE := vivalto3gvn
 PRODUCT_NAME := aosp_vivalto3gvn
